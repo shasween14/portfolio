@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Shaswin Kumar — Full-Stack & Laravel Developer</title>
+<meta name="description" content="Shaswin Kumar — Full-Stack Developer specializing in Laravel, PHP, React & TypeScript. Builder of commerce platforms, POS systems and real-time apps." />
+<style>
+  :root{
+    --bg:#0b1020;
+    --bg-2:#0f152b;
+    --card:#141c33;
+    --card-2:#18213d;
+    --border:#243156;
+    --text:#e7ecf5;
+    --muted:#9aa6c4;
+    --brand:#ff2d20;      /* Laravel red */
+    --brand-2:#f9603a;
+    --accent:#5b8cff;     /* blue accent */
+    --accent-2:#22d3ee;
+    --ok:#34d399;
+    --radius:16px;
+    --shadow:0 10px 30px rgba(0,0,0,.35);
+    --maxw:1100px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(1200px 600px at 80% -10%,rgba(91,140,255,.15),transparent 60%),
+               radial-gradient(900px 500px at -10% 10%,rgba(255,45,32,.12),transparent 55%),
+               var(--bg);
+    color:var(--text);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+  .accent{color:var(--brand-2)}
+  .muted{color:var(--muted)}
+
+  /* NAV */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:blur(12px);
+    background:rgba(11,16,32,.72);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-weight:800;letter-spacing:.5px;font-size:1.05rem}
+  .logo .dot{color:var(--brand)}
+  nav.links{display:flex;gap:26px}
+  nav.links a{color:var(--muted);font-size:.95rem;font-weight:500;transition:color .2s}
+  nav.links a:hover{color:var(--text)}
+  .btn{
+    display:inline-block;padding:10px 18px;border-radius:999px;font-weight:600;font-size:.92rem;
+    background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;
+    box-shadow:0 6px 18px rgba(255,45,32,.35);transition:transform .15s,box-shadow .2s;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(255,45,32,.45)}
+  .btn.ghost{background:transparent;border:1px solid var(--border);color:var(--text);box-shadow:none}
+  .btn.ghost:hover{border-color:var(--accent);color:#fff}
+  @media(max-width:720px){nav.links{display:none}}
+
+  /* HERO */
+  .hero{padding:90px 0 70px}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;color:var(--accent-2);
+    background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.25);padding:6px 14px;border-radius:999px;margin-bottom:22px}
+  .eyebrow .ping{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(52,211,153,.6);animation:ping 1.8s infinite}
+  @keyframes ping{0%{box-shadow:0 0 0 0 rgba(52,211,153,.5)}70%{box-shadow:0 0 0 10px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
+  h1{font-size:clamp(2.2rem,6vw,4rem);line-height:1.05;font-weight:800;letter-spacing:-1px}
+  h1 .grad{background:linear-gradient(120deg,var(--brand),var(--brand-2) 45%,var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p.lead{margin-top:22px;font-size:1.15rem;color:var(--muted);max-width:680px}
+  .hero-cta{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap}
+  .stats{margin-top:54px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .stat{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center}
+  .stat .n{font-size:1.8rem;font-weight:800;color:#fff}
+  .stat .l{font-size:.82rem;color:var(--muted);margin-top:4px}
+  @media(max-width:720px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+  /* SECTIONS */
+  section{padding:70px 0}
+  .sec-head{margin-bottom:40px}
+  .sec-head .kicker{color:var(--brand-2);font-weight:700;font-size:.85rem;letter-spacing:2px;text-transform:uppercase}
+  .sec-head h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-top:8px;letter-spacing:-.5px}
+  .sec-head p{color:var(--muted);max-width:620px;margin-top:10px}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:30px;align-items:start}
+  @media(max-width:820px){.about-grid{grid-template-columns:1fr}}
+  .about-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:28px}
+  .about-card p{color:var(--muted);margin-bottom:14px}
+  .about-card p:last-child{margin-bottom:0}
+  .about-card strong{color:var(--text)}
+  .facts{display:flex;flex-direction:column;gap:14px}
+  .fact{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;display:flex;gap:14px;align-items:center}
+  .fact .ico{font-size:1.4rem}
+  .fact .t{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+  .fact .v{font-weight:600}
+
+  /* SKILLS */
+  .skill-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media(max-width:820px){.skill-grid{grid-template-columns:1fr}}
+  .skill{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;transition:transform .2s,border-color .2s}
+  .skill:hover{transform:translateY(-4px);border-color:var(--accent)}
+  .skill h3{font-size:1.05rem;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+  .skill h3 .badge{font-size:.65rem;background:rgba(255,45,32,.15);color:var(--brand-2);padding:3px 8px;border-radius:999px;font-weight:700;letter-spacing:.5px}
+  .tags{display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-size:.82rem;background:var(--card-2);border:1px solid var(--border);color:var(--muted);padding:6px 11px;border-radius:8px}
+  .tag.hot{border-color:rgba(255,45,32,.45);color:#ffb3aa;background:rgba(255,45,32,.08)}
+
+  /* PROJECTS */
+  .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+  @media(max-width:820px){.proj-grid{grid-template-columns:1fr}}
+  .proj{position:relative;background:linear-gradient(180deg,var(--card),var(--bg-2));border:1px solid var(--border);border-radius:var(--radius);padding:26px;overflow:hidden;transition:transform .2s,border-color .2s}
+  .proj:hover{transform:translateY(-5px);border-color:var(--brand)}
+  .proj.feature{grid-column:1 / -1;background:linear-gradient(135deg,rgba(255,45,32,.10),var(--card) 40%)}
+  .proj .top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:8px}
+  .proj h3{font-size:1.25rem;font-weight:700}
+  .proj .role{font-size:.72rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:5px 11px;border-radius:999px;white-space:nowrap}
+  .role.lead{background:rgba(52,211,153,.14);color:var(--ok);border:1px solid rgba(52,211,153,.3)}
+  .role.solo{background:rgba(91,140,255,.14);color:var(--accent);border:1px solid rgba(91,140,255,.3)}
+  .role.team{background:rgba(154,166,196,.12);color:var(--muted);border:1px solid var(--border)}
+  .proj .kind{font-size:.82rem;color:var(--brand-2);font-weight:600;margin-bottom:12px}
+  .proj p.desc{color:var(--muted);font-size:.95rem;margin-bottom:16px}
+  .proj ul{list-style:none;margin-bottom:18px}
+  .proj ul li{font-size:.9rem;color:var(--muted);padding-left:20px;position:relative;margin-bottom:6px}
+  .proj ul li::before{content:"▹";position:absolute;left:0;color:var(--brand-2)}
+  .proj .stack{display:flex;flex-wrap:wrap;gap:7px}
+  .proj .stack .tag{font-size:.76rem;padding:4px 9px}
+
+  /* TIMELINE */
+  .tl{border-left:2px solid var(--border);margin-left:8px;padding-left:28px;display:flex;flex-direction:column;gap:30px}
+  .tl .item{position:relative}
+  .tl .item::before{content:"";position:absolute;left:-37px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--brand);box-shadow:0 0 0 4px var(--bg)}
+  .tl .when{font-size:.8rem;color:var(--accent-2);font-weight:600;letter-spacing:1px;text-transform:uppercase}
+  .tl h3{font-size:1.15rem;margin:4px 0}
+  .tl .co{color:var(--brand-2);font-weight:600;margin-bottom:8px}
+  .tl p{color:var(--muted);font-size:.95rem}
+
+  /* CONTACT */
+  .contact{text-align:center;background:linear-gradient(135deg,rgba(255,45,32,.12),rgba(91,140,255,.10));border:1px solid var(--border);border-radius:24px;padding:56px 26px}
+  .contact h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800}
+  .contact p{color:var(--muted);max-width:520px;margin:14px auto 28px}
+  .contact .row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+  footer{text-align:center;padding:40px 0;color:var(--muted);font-size:.85rem;border-top:1px solid var(--border)}
+
+  /* reveal animation */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <div class="logo">Shaswin<span class="dot">.</span>dev</div>
+    <nav class="links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#integrations">Integrations</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn" href="#contact">Get in touch</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow reveal"><span class="ping"></span> Available for new opportunities</span>
+    <h1 class="reveal">Full-Stack Developer<br>building with <span class="grad">Laravel &amp; React</span></h1>
+    <p class="lead reveal">I'm <strong>Shaswin Kumar</strong> — a backend-focused full-stack engineer who designs and ships
+      production commerce platforms, point-of-sale systems and real-time applications. My core strength is
+      <strong>Laravel &amp; PHP</strong> on the backend, paired with modern React/TypeScript front-ends and Dockerised infrastructure.</p>
+    <div class="hero-cta reveal">
+      <a class="btn" href="#projects">View my work</a>
+      <a class="btn ghost" href="mailto:Shas@craveasia.com">Email me</a>
+    </div>
+    <div class="stats">
+      <div class="stat reveal"><div class="n">5+ yrs</div><div class="l">Web development</div></div>
+      <div class="stat reveal"><div class="n">2,300+</div><div class="l">Commits on flagship apps</div></div>
+      <div class="stat reveal"><div class="n">8+</div><div class="l">Production projects</div></div>
+      <div class="stat reveal"><div class="n">Laravel</div><div class="l">Primary specialty</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">About me</div>
+      <h2>Backend depth, full-stack range</h2>
+      <p>I turn complex business requirements into reliable, maintainable software — from database design to native hardware integration.</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-card reveal">
+        <p>I'm a full-stack developer at <strong>Crave Asia</strong>, where I've led the engineering of multi-tenant
+          commerce and point-of-sale platforms used in real retail and F&amp;B environments.</p>
+        <p>My primary specialty is <strong>Laravel &amp; PHP</strong> — I build RESTful APIs, authentication and
+          role-based access control, queued background jobs, real-time broadcasting, PDF/Excel reporting and
+          payment integrations. I'm just as comfortable on the front-end with <strong>React, TypeScript and Ionic</strong>,
+          and I deploy everything on <strong>Docker</strong> with PostgreSQL, Redis and S3-compatible storage.</p>
+        <p>I particularly enjoy the hard, real-world problems: offline-first POS apps, ESC/POS thermal printing,
+          cash-drawer control, QR/barcode scanning and even on-device face recognition.</p>
+      </div>
+      <div class="facts">
+        <div class="fact reveal"><span class="ico">📍</span><div><div class="t">Based in</div><div class="v">Malaysia</div></div></div>
+        <div class="fact reveal"><span class="ico">💼</span><div><div class="t">Currently</div><div class="v">Full-Stack Dev @ Crave Asia</div></div></div>
+        <div class="fact reveal"><span class="ico">🎯</span><div><div class="t">Focus</div><div class="v">Laravel · APIs · Commerce / POS</div></div></div>
+        <div class="fact reveal"><span class="ico">🤝</span><div><div class="t">Open to</div><div class="v">Backend / Full-Stack roles</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Toolbox</div>
+      <h2>Skills &amp; technologies</h2>
+      <p>The stack I've shipped real products with — backend-first, but full-stack capable end to end.</p>
+    </div>
+    <div class="skill-grid">
+      <div class="skill reveal">
+        <h3>⚙️ Backend <span class="badge">PRIMARY</span></h3>
+        <div class="tags">
+          <span class="tag hot">Laravel 8–11</span>
+          <span class="tag hot">PHP 8.x</span>
+          <span class="tag">REST APIs</span>
+          <span class="tag">Sanctum Auth</span>
+          <span class="tag">Spatie Permissions</span>
+          <span class="tag">Queues &amp; Jobs</span>
+          <span class="tag">Octane / Swoole</span>
+          <span class="tag">Reverb / Pusher</span>
+          <span class="tag">Eloquent ORM</span>
+        </div>
+      </div>
+      <div class="skill reveal">
+        <h3>🖥️ Frontend</h3>
+        <div class="tags">
+          <span class="tag">React 18 / 19</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">Vite</span>
+          <span class="tag">Tailwind CSS</span>
+          <span class="tag">Ionic</span>
+          <span class="tag">Framer Motion</span>
+          <span class="tag">GSAP</span>
+          <span class="tag">Blade</span>
+        </div>
+      </div>
+      <div class="skill reveal">
+        <h3>🗄️ Data &amp; Infra</h3>
+        <div class="tags">
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">Redis</span>
+          <span class="tag">Docker / Compose</span>
+          <span class="tag">Nginx</span>
+          <span class="tag">DigitalOcean Spaces</span>
+          <span class="tag">MinIO / S3</span>
+          <span class="tag">Dexie (IndexedDB)</span>
+        </div>
+      </div>
+      <div class="skill reveal">
+        <h3>📱 Mobile &amp; Native</h3>
+        <div class="tags">
+          <span class="tag">Capacitor</span>
+          <span class="tag">Android builds</span>
+          <span class="tag">POS / Kiosk / Tablet</span>
+          <span class="tag">Sunmi devices</span>
+          <span class="tag">Offline-first</span>
+        </div>
+      </div>
+      <div class="skill reveal">
+        <h3>🔌 Integrations</h3>
+        <div class="tags">
+          <span class="tag">Stripe Payments</span>
+          <span class="tag">ESC/POS Printing</span>
+          <span class="tag">Cash Drawer (TSPL)</span>
+          <span class="tag">QR / Barcode</span>
+          <span class="tag">MediaPipe Face Rec</span>
+          <span class="tag">PDF / Excel export</span>
+        </div>
+      </div>
+      <div class="skill reveal">
+        <h3>🧪 Quality &amp; Tooling</h3>
+        <div class="tags">
+          <span class="tag">PHPUnit</span>
+          <span class="tag">Playwright</span>
+          <span class="tag">Vitest</span>
+          <span class="tag">Cypress</span>
+          <span class="tag">Git</span>
+          <span class="tag">CI / GitHub Actions</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTEGRATIONS -->
+<section id="integrations">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">APIs &amp; services</div>
+      <h2>Third-party integrations</h2>
+      <p>Real production integrations I've built into the platforms above — payments, accounting, e-commerce, messaging and on-device hardware.</p>
+    </div>
+    <div class="skill-grid">
+
+      <div class="skill reveal">
+        <h3>💳 Payments <span class="badge">LIVE</span></h3>
+        <p class="muted" style="font-size:.9rem;margin-bottom:14px">Card checkout and payment flows in the commerce &amp; POS apps.</p>
+        <div class="tags">
+          <span class="tag hot">Stripe (PHP SDK)</span>
+          <span class="tag hot">Stripe.js / React</span>
+          <span class="tag hot">GKASH (Malaysia)</span>
+          <span class="tag">Checkout &amp; webhooks</span>
+        </div>
+      </div>
+
+      <div class="skill reveal">
+        <h3>📊 Accounting</h3>
+        <p class="muted" style="font-size:.9rem;margin-bottom:14px">Two-way sync of invoices and ledgers from the QBotu API.</p>
+        <div class="tags">
+          <span class="tag hot">QuickBooks (v3 SDK)</span>
+          <span class="tag hot">Xero (OAuth2)</span>
+          <span class="tag">OAuth token refresh</span>
+        </div>
+      </div>
+
+      <div class="skill reveal">
+        <h3>🧾 E-Invoicing &amp; Tax <span class="badge">MALAYSIA</span></h3>
+        <p class="muted" style="font-size:.9rem;margin-bottom:14px">Malaysian government e-invoicing compliance built into the commerce platform.</p>
+        <div class="tags">
+          <span class="tag hot">LHDN MyInvois</span>
+          <span class="tag">E-invoice submission</span>
+          <span class="tag">MSIC tax codes</span>
+        </div>
+      </div>
+
+      <div class="skill reveal">
+        <h3>🛒 E-commerce &amp; Marketplace</h3>
+        <p class="muted" style="font-size:.9rem;margin-bottom:14px">Storefront and marketplace order/product sync.</p>
+        <div class="tags">
+          <span class="tag hot">Shopify</span>
+          <span class="tag hot">Lazada (PHP SDK)</span>
+        </div>
+      </div>
+
+      <div class="skill reveal">
+        <h3>📡 Real-time &amp; Messaging</h3>
+        <p class="muted" style="font-size:.9rem;margin-bottom:14px">Live broadcasting and transactional email delivery.</p>
+        <div class="tags">
+          <span class="tag hot">Pusher</span>
+          <span class="tag">Laravel Reverb</span>
+          <span class="tag">MailerSend</span>
+          <span class="tag">Mailgun</span>
+        </div>
+      </div>
+
+      <div class="skill reveal">
+        <h3>🔐 Auth &amp; Security</h3>
+        <p class="muted" style="font-size:.9rem;margin-bottom:14px">Token auth and account protection across services.</p>
+        <div class="tags">
+          <span class="tag">Sanctum</span>
+          <span class="tag">Firebase JWT</span>
+          <span class="tag">Google 2FA</span>
+        </div>
+      </div>
+
+      <div class="skill reveal">
+        <h3>☁️ Storage &amp; Files</h3>
+        <p class="muted" style="font-size:.9rem;margin-bottom:14px">Object storage for uploads, exports and media — production media served from DigitalOcean Spaces.</p>
+        <div class="tags">
+          <span class="tag hot">DigitalOcean Spaces</span>
+          <span class="tag">AWS S3 (Flysystem)</span>
+          <span class="tag">MinIO</span>
+          <span class="tag">PDF / Excel export</span>
+        </div>
+      </div>
+
+      <div class="skill reveal">
+        <h3>🧠 AI &amp; Vision</h3>
+        <p class="muted" style="font-size:.9rem;margin-bottom:14px">On-device computer vision in the kiosk/POS apps.</p>
+        <div class="tags">
+          <span class="tag hot">MediaPipe Face Rec</span>
+          <span class="tag">html5-qrcode scanning</span>
+        </div>
+      </div>
+
+      <div class="skill reveal">
+        <h3>🖨️ Hardware &amp; Devices</h3>
+        <p class="muted" style="font-size:.9rem;margin-bottom:14px">Direct integration with retail hardware on the counter.</p>
+        <div class="tags">
+          <span class="tag hot">ESC/POS printers</span>
+          <span class="tag">Sunmi printer SDK</span>
+          <span class="tag">Cash drawer (TSPL)</span>
+          <span class="tag">QR / Barcode</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Selected work</div>
+      <h2>Projects I've built</h2>
+      <p>A mix of large platforms I led and focused tools I built solo. Most are private/commercial, so details are summarised.</p>
+    </div>
+    <div class="proj-grid">
+
+      <!-- FEATURE -->
+      <article class="proj feature reveal">
+        <div class="top">
+          <div>
+            <h3>QBotu — Multi-App Commerce Platform</h3>
+            <div class="kind">Full-stack commerce & POS platform · Lead developer</div>
+          </div>
+          <span class="role lead">Lead · 1,312 commits</span>
+        </div>
+        <p class="desc">A complete, Docker-powered commerce platform with multiple front-end applications (POS, Kiosk, Tablet, Web)
+          backed by a Laravel API and a production-like 9-service infrastructure stack — all orchestrated to run with a single command.</p>
+        <ul>
+          <li>Architected a Laravel REST API with PostgreSQL, Redis, queues and Reverb websockets for real-time updates</li>
+          <li>Built React + TypeScript front-ends compiled into native Android apps (POS / Kiosk / Tablet) via Capacitor</li>
+          <li>Integrated Stripe &amp; GKASH payments, ESC/POS thermal receipt printing and a dedicated print-agent service</li>
+          <li>Built Malaysian LHDN e-invoicing (MyInvois) with MSIC tax codes, plus QuickBooks / Xero accounting sync</li>
+          <li>Added on-device face recognition (MediaPipe) and offline-first data sync with IndexedDB</li>
+          <li>Containerised the entire stack with Docker Compose (Caddy, PostgreSQL, Redis, MinIO, workers, scheduler)</li>
+        </ul>
+        <div class="stack">
+          <span class="tag hot">Laravel 13</span><span class="tag">React</span><span class="tag">TypeScript</span>
+          <span class="tag">PostgreSQL</span><span class="tag">Docker</span><span class="tag">Redis</span>
+          <span class="tag">Reverb</span><span class="tag">Capacitor</span><span class="tag">Stripe</span>
+          <span class="tag">GKASH</span><span class="tag">LHDN e-Invoice</span><span class="tag">MediaPipe</span>
+          <span class="tag">MinIO</span><span class="tag">Playwright</span>
+        </div>
+      </article>
+
+      <!-- QBOT -->
+      <article class="proj reveal">
+        <div class="top">
+          <div><h3>QBot</h3><div class="kind">Laravel management web app</div></div>
+          <span class="role lead">Lead · 1,057 commits</span>
+        </div>
+        <p class="desc">A multi-tenant Laravel 11 management &amp; ordering platform with separate back-office and POS/Kiosk APIs, built and maintained as the lead developer.</p>
+        <ul>
+          <li>Token-based API auth (Sanctum), granular permissions (Spatie) and a modular multi-tenant API layout</li>
+          <li>GKASH payment gateway plus QuickBooks &amp; Xero accounting integration</li>
+          <li>Real-time events via Pusher, transactional email (Mailgun) and PDF / Excel reporting</li>
+        </ul>
+        <div class="stack"><span class="tag hot">Laravel 11</span><span class="tag">PHP 8</span><span class="tag">Sanctum</span><span class="tag">Spatie</span><span class="tag">GKASH</span><span class="tag">QuickBooks</span><span class="tag">Xero</span><span class="tag">Pusher</span><span class="tag">MySQL</span></div>
+      </article>
+
+      <!-- QBOT POS -->
+      <article class="proj reveal">
+        <div class="top">
+          <div><h3>QBot POS</h3><div class="kind">Ionic + React mobile POS app</div></div>
+          <span class="role solo">Solo build</span>
+        </div>
+        <p class="desc">A cross-platform point-of-sale mobile app with offline support and direct thermal-printer integration, packaged for Android.</p>
+        <ul>
+          <li>Ionic 8 + React 19 UI with offline-first data via Dexie (IndexedDB)</li>
+          <li>Bundled thermal print server and Capacitor-native Android build</li>
+          <li>End-to-end tested with Cypress</li>
+        </ul>
+        <div class="stack"><span class="tag">Ionic</span><span class="tag">React 19</span><span class="tag">TypeScript</span><span class="tag">Capacitor</span><span class="tag">Dexie</span><span class="tag">Tailwind</span></div>
+      </article>
+
+      <!-- FEBRUARY BLOOM -->
+      <article class="proj reveal">
+        <div class="top">
+          <div><h3>February Bloom</h3><div class="kind">Order & delivery management platform</div></div>
+          <span class="role team">Team contributor</span>
+        </div>
+        <p class="desc">A Laravel platform for managing order deliveries, with queued background processing for fast response times.</p>
+        <ul>
+          <li>Country/state helpers, phone validation and role-based permissions</li>
+          <li>Queue-driven jobs to offload heavy work and improve throughput</li>
+        </ul>
+        <div class="stack"><span class="tag hot">Laravel</span><span class="tag">PHP</span><span class="tag">Queues</span><span class="tag">Spatie</span><span class="tag">MySQL</span></div>
+      </article>
+
+      <!-- HARDWARE TOOLS -->
+      <article class="proj reveal">
+        <div class="top">
+          <div><h3>Printer &amp; Hardware Tooling</h3><div class="kind">Node.js device-integration utilities</div></div>
+          <span class="role solo">Solo build</span>
+        </div>
+        <p class="desc">A set of Node.js tools that bridge web apps to physical retail hardware — thermal printers, cash drawers and label printers.</p>
+        <ul>
+          <li>ESC/POS and TSPL command generation for receipt and label printing</li>
+          <li>Cash-drawer kick control and a websocket server for live device communication</li>
+        </ul>
+        <div class="stack"><span class="tag">Node.js</span><span class="tag">ESC/POS</span><span class="tag">TSPL</span><span class="tag">WebSocket</span></div>
+      </article>
+
+      <!-- QBOTU API -->
+      <article class="proj reveal">
+        <div class="top">
+          <div><h3>QBotu API</h3><div class="kind">Laravel API service</div></div>
+          <span class="role team">Co-author</span>
+        </div>
+        <p class="desc">A Laravel API service supporting the QBotu platform, developed collaboratively with the Crave Asia team.</p>
+        <ul>
+          <li>RESTful endpoints with Vite-built front-end assets</li>
+          <li>Shared data models powering the wider commerce ecosystem</li>
+        </ul>
+        <div class="stack"><span class="tag hot">Laravel</span><span class="tag">PHP 8</span><span class="tag">REST API</span><span class="tag">Vite</span></div>
+      </article>
+
+      <!-- APPOLOUS -->
+      <article class="proj reveal">
+        <div class="top">
+          <div><h3>Appolous BMS</h3><div class="kind">Laravel business-management &amp; POS system</div></div>
+          <span class="role team">Contributor</span>
+        </div>
+        <p class="desc">A cloud business-management and point-of-sale system for SMEs — sales, inventory, clients and visit tracking. I worked across the Laravel backend, focusing on performance and queue-driven workloads.</p>
+        <ul>
+          <li>Laravel Octane (Swoole / RoadRunner) with Redis caching for high-concurrency requests</li>
+          <li>Queue-based email &amp; SMS processing and a multi-database (operational + reporting) setup</li>
+          <li>Stripe payments, Lazada marketplace sync, ESC/POS printing and barcode scanning</li>
+        </ul>
+        <div class="stack"><span class="tag hot">Laravel 10</span><span class="tag">Octane / Swoole</span><span class="tag">Redis</span><span class="tag">Stripe</span><span class="tag">Lazada</span><span class="tag">MySQL</span></div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Journey</div>
+      <h2>Experience</h2>
+    </div>
+    <div class="tl">
+      <div class="item reveal">
+        <div class="when">Current</div>
+        <h3>Full-Stack Developer</h3>
+        <div class="co">Crave Asia</div>
+        <p>Lead developer on the QBotu and QBot commerce platforms. Own the Laravel backend architecture — APIs, auth,
+          queues, real-time broadcasting and reporting — and build the React/Ionic front-ends and Dockerised infrastructure
+          that ship them to web and native Android. Integrated payments, thermal printing and offline-first POS workflows.</p>
+      </div>
+      <div class="item reveal">
+        <div class="when">Earlier</div>
+        <h3>Web Application Developer</h3>
+        <div class="co">Laravel platforms · February Bloom &amp; others</div>
+        <p>Contributed to Laravel-based business platforms covering order/delivery management and inventory — building
+          features across the stack, from Eloquent data models and queued jobs to Blade and JavaScript front-ends.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact reveal">
+      <h2>Let's build something together</h2>
+      <p>I'm open to <strong>backend</strong> and <strong>full-stack</strong> roles — especially Laravel-focused teams.
+        Have a role in mind? I'd love to hear about it.</p>
+      <div class="row">
+        <a class="btn" href="mailto:Shas@craveasia.com">📧 Shas@craveasia.com</a>
+        <a class="btn ghost" href="https://github.com/devshas-14" target="_blank" rel="noopener">💻 github.com/devshas-14</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© <span id="yr"></span> Shaswin Kumar · Full-Stack &amp; Laravel Developer · Built as a single HTML file.</div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  // scroll reveal
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{ el.style.transitionDelay=(i%4*60)+'ms'; io.observe(el); });
+</script>
+</body>
+</html>
