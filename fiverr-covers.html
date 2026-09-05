@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fiverr Portfolio Covers — Shaswin Kumar</title>
+<style>
+  :root{
+    --bg:#0b1020; --card:#141c33; --border:#243156;
+    --text:#e7ecf5; --muted:#9aa6c4;
+    --brand:#ff2d20; --brand-2:#f9603a; --accent:#5b8cff; --accent-2:#22d3ee; --ok:#34d399;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;background:#070a16;color:var(--text);padding:30px}
+  .page-head{max-width:1024px;margin:0 auto 26px;text-align:center}
+  .page-head h1{font-size:1.5rem;font-weight:800}
+  .page-head p{color:var(--muted);margin-top:8px;font-size:.95rem;line-height:1.6}
+  .dl{display:inline-block;margin:10px auto 0;padding:9px 18px;border-radius:999px;font-weight:700;font-size:.9rem;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;border:0;cursor:pointer}
+  .dl.all{background:transparent;border:1px solid var(--border);color:var(--text)}
+
+  .cover-wrap{max-width:1024px;margin:0 auto 40px}
+  .cover-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+  .cover-bar .lbl{color:var(--muted);font-size:.85rem}
+
+  /* EXACT 1024x768 export target */
+  .cover{
+    width:1024px;height:768px;position:relative;overflow:hidden;
+    background:
+      radial-gradient(900px 460px at 82% -8%,rgba(91,140,255,.18),transparent 60%),
+      radial-gradient(760px 420px at -8% 8%,rgba(255,45,32,.16),transparent 55%),
+      var(--bg);
+    border:1px solid var(--border);border-radius:18px;
+    padding:64px 70px;display:flex;flex-direction:column;
+  }
+  /* scale the 1024px cover down to fit screen, export stays full-res */
+  .scaler{transform-origin:top left;}
+  .kicker{color:var(--brand-2);font-weight:800;font-size:1rem;letter-spacing:3px;text-transform:uppercase}
+  .cover h2{font-size:3.2rem;line-height:1.06;font-weight:800;letter-spacing:-1.5px;margin-top:18px;max-width:880px}
+  .cover h2 .grad{color:var(--brand-2)}
+  .sub{color:var(--muted);font-size:1.25rem;margin-top:22px;max-width:760px;line-height:1.5}
+  .feats{margin-top:30px;display:flex;flex-direction:column;gap:12px}
+  .feats div{font-size:1.12rem;color:#cfd6e8;padding-left:30px;position:relative}
+  .feats div::before{content:"▹";position:absolute;left:0;color:var(--brand-2);font-size:1.2rem}
+  .spacer{flex:1}
+  .stack{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px}
+  .tag{font-size:1rem;background:var(--card);border:1px solid var(--border);color:#cdd5ea;padding:8px 15px;border-radius:10px}
+  .tag.hot{border-color:rgba(255,45,32,.5);color:#ffb3aa;background:rgba(255,45,32,.10)}
+  .foot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:22px}
+  .foot .who{font-weight:800;font-size:1.25rem}
+  .foot .who .dot{color:var(--brand)}
+  .foot .role{color:var(--muted);font-size:1rem}
+</style>
+</head>
+<body>
+
+<div class="page-head">
+  <h1>Fiverr Portfolio Covers — 1024×768</h1>
+  <p>Each card is exactly 1024×768 (4:3). Click <strong>Download PNG</strong> under any cover to save it,
+  then upload it as that project's image on Fiverr. The first image you upload becomes the thumbnail.<br>
+  If a download ever looks blurry, just take a screenshot of the card at full size instead.</p>
+  <button class="dl all" onclick="downloadAll()">⬇ Download all 6</button>
+</div>
+
+<div id="covers"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+const COVERS = [
+  {
+    id:"commerce-pos",
+    kicker:"Commerce & POS Platform",
+    title:["Web, Tablet, Kiosk & POS —", "one ", "Laravel + React", " system"],
+    sub:"A full commerce platform with offline support, native Android apps and real hardware on the counter.",
+    feats:["Laravel API · PostgreSQL · Redis · realtime websockets","React + TypeScript → native apps via Capacitor","Stripe & GKASH pay · thermal printing · e-invoicing"],
+    stack:[["Laravel",1],["React",0],["TypeScript",0],["PostgreSQL",0],["Docker",0],["Stripe",1]],
+    role:"Lead Developer"
+  },
+  {
+    id:"multitenant",
+    kicker:"Multi-Tenant SaaS",
+    title:["Multi-tenant ", "ordering & admin", " platform"],
+    sub:"One back-office to run multiple outlets, with isolated tenant data and separate POS/kiosk APIs.",
+    feats:["Sanctum auth · granular role permissions","GKASH payments · QuickBooks & Xero sync","Realtime orders · PDF / Excel sales reporting"],
+    stack:[["Laravel 11",1],["PHP 8",0],["Sanctum",0],["Pusher",0],["MySQL",0]],
+    role:"Lead Developer"
+  },
+  {
+    id:"mobile-pos",
+    kicker:"Mobile POS App",
+    title:["Offline-first ", "point-of-sale", " mobile app"],
+    sub:"A checkout app that keeps working with no internet and prints receipts straight to a thermal printer.",
+    feats:["Ionic 8 + React · offline storage with IndexedDB","Bundled thermal print server","Native Android build · Cypress tested"],
+    stack:[["Ionic",0],["React",1],["TypeScript",0],["Capacitor",0],["Dexie",0]],
+    role:"Solo Build"
+  },
+  {
+    id:"hardware",
+    kicker:"Hardware Integration",
+    title:["Connect web apps to ", "retail hardware"],
+    sub:"Thermal printers, label printers and cash drawers — driven directly from the browser, live.",
+    feats:["ESC/POS & TSPL command generation","Cash-drawer kick control","WebSocket server for live device comms"],
+    stack:[["Node.js",1],["ESC/POS",0],["TSPL",0],["WebSocket",0]],
+    role:"Solo Build"
+  },
+  {
+    id:"delivery",
+    kicker:"Order & Delivery",
+    title:["Fast ", "order & delivery", " management"],
+    sub:"A Laravel platform built to stay responsive under heavy delivery volume at peak hours.",
+    feats:["Queued background jobs for heavy work","Role-based permissions","Country/state & phone validation"],
+    stack:[["Laravel",1],["PHP",0],["Queues",0],["MySQL",0]],
+    role:"Developer"
+  },
+  {
+    id:"octane",
+    kicker:"High-Concurrency BMS",
+    title:["High-performance ", "business + POS", " system"],
+    sub:"Cloud sales, inventory and client tracking — fast enough for many users at once.",
+    feats:["Laravel Octane (Swoole) + Redis caching","Split operational & reporting databases","Stripe · Lazada sync · barcode scanning"],
+    stack:[["Laravel 10",1],["Octane",0],["Redis",0],["Stripe",0],["Lazada",0]],
+    role:"Developer"
+  }
+];
+
+function titleHTML(parts){
+  // odd-index emphasis: parts[1], parts[3]... get .grad
+  return parts.map((p,i)=> i%2===1 ? `<span class="grad">${p}</span>` : p).join("");
+}
+
+const root = document.getElementById('covers');
+COVERS.forEach((c,idx)=>{
+  const wrap = document.createElement('div');
+  wrap.className = 'cover-wrap';
+  wrap.innerHTML = `
+    <div class="cover-bar">
+      <span class="lbl">Cover ${idx+1} · ${c.kicker} · 1024×768</span>
+      <button class="dl" onclick="dl('${c.id}','cover-${idx+1}-${c.id}')">⬇ Download PNG</button>
+    </div>
+    <div class="scaler" id="scaler-${c.id}">
+      <div class="cover" id="${c.id}">
+        <div class="kicker">${c.kicker}</div>
+        <h2>${titleHTML(c.title)}</h2>
+        <div class="sub">${c.sub}</div>
+        <div class="feats">${c.feats.map(f=>`<div>${f}</div>`).join("")}</div>
+        <div class="spacer"></div>
+        <div class="stack">${c.stack.map(t=>`<span class="tag ${t[1]?'hot':''}">${t[0]}</span>`).join("")}</div>
+        <div class="foot">
+          <div class="who">Shaswin<span class="dot">.</span>dev</div>
+          <div class="role">${c.role} · Laravel & Full-Stack</div>
+        </div>
+      </div>
+    </div>`;
+  root.appendChild(wrap);
+});
+
+// responsive scale-to-fit (export still renders the true 1024px node)
+function fit(){
+  const avail = Math.min(1024, document.body.clientWidth - 60);
+  const s = avail/1024;
+  document.querySelectorAll('.scaler').forEach(el=>{
+    el.style.transform = `scale(${s})`;
+    el.style.height = (768*s)+'px';
+  });
+}
+window.addEventListener('resize', fit); fit();
+
+async function dl(id, filename){
+  const node = document.getElementById(id);
+  const canvas = await html2canvas(node, {width:1024,height:768,scale:1,backgroundColor:null});
+  const a = document.createElement('a');
+  a.download = filename + '.png';
+  a.href = canvas.toDataURL('image/png');
+  a.click();
+}
+async function downloadAll(){
+  for(const c of COVERS){
+    const i = COVERS.indexOf(c)+1;
+    await dl(c.id, `cover-${i}-${c.id}`);
+    await new Promise(r=>setTimeout(r,400));
+  }
+}
+</script>
+</body>
+</html>
