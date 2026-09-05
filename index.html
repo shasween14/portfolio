@@ -183,8 +183,8 @@
     </div>
     <div class="stats">
       <div class="stat reveal"><div class="n">5+ yrs</div><div class="l">Web development</div></div>
-      <div class="stat reveal"><div class="n">2,300+</div><div class="l">Commits on flagship apps</div></div>
-      <div class="stat reveal"><div class="n">8+</div><div class="l">Production projects</div></div>
+      <div class="stat reveal"><div class="n">3,000+</div><div class="l">Commits on flagship apps</div></div>
+      <div class="stat reveal"><div class="n">9+</div><div class="l">Production projects</div></div>
       <div class="stat reveal"><div class="n">Laravel</div><div class="l">Primary specialty</div></div>
     </div>
   </div>
@@ -397,12 +397,14 @@
 
       <div class="skill reveal">
         <h3>🖨️ Hardware &amp; Devices</h3>
-        <p class="muted" style="font-size:.9rem;margin-bottom:14px">Direct integration with retail hardware on the counter.</p>
+        <p class="muted" style="font-size:.9rem;margin-bottom:14px">Direct integration with retail and site hardware — counter and gate.</p>
         <div class="tags">
           <span class="tag hot">ESC/POS printers</span>
           <span class="tag">Sunmi printer SDK</span>
           <span class="tag">Cash drawer (TSPL)</span>
           <span class="tag">QR / Barcode</span>
+          <span class="tag hot">LPR camera SDK</span>
+          <span class="tag">TCP barrier gate control</span>
         </div>
       </div>
 
@@ -427,7 +429,7 @@
             <h3>QBotu — Multi-App Commerce Platform</h3>
             <div class="kind">Full-stack commerce & POS platform · Lead developer</div>
           </div>
-          <span class="role lead">Lead · 1,312 commits</span>
+          <span class="role lead">Lead · 1,533 commits</span>
         </div>
         <p class="desc">A complete, Docker-powered commerce platform with multiple front-end applications (POS, Kiosk, Tablet, Web)
           backed by a Laravel API and a production-like 9-service infrastructure stack — all orchestrated to run with a single command.</p>
@@ -445,6 +447,33 @@
           <span class="tag">Reverb</span><span class="tag">Capacitor</span><span class="tag">Stripe</span>
           <span class="tag">GKASH</span><span class="tag">LHDN e-Invoice</span><span class="tag">MediaPipe</span>
           <span class="tag">MinIO</span><span class="tag">Playwright</span>
+        </div>
+      </article>
+
+      <!-- QPARKING -->
+      <article class="proj feature reveal">
+        <div class="top">
+          <div>
+            <h3>QParking Cloud 2.0 — Multi-Site Parking SaaS</h3>
+            <div class="kind">Multi-portal parking management platform · Core / lead developer</div>
+          </div>
+          <span class="role lead">Lead · 472 commits</span>
+        </div>
+        <p class="desc">A multi-site parking management SaaS with three role-based portals — HQ Admin, Site Operator and
+          Customer — covering live occupancy, automated LPR gate control, season passes, billing and GreenParking/ESG
+          rewards, deployed across local, staging and production Docker environments.</p>
+        <ul>
+          <li>Laravel 13 REST API (Sanctum auth, Spatie roles) backed by MySQL, with a React 18 + TypeScript + Vite front-end shared across three portals</li>
+          <li>Integrated a vendor LPR camera SDK and TCP-driven barrier/kiosk hardware for automated vehicle entry, exit and gate control</li>
+          <li>Designed a customer/vehicle/pass/bay domain model — passes cover a pool of plates but admission is capped by bays, not plate count — shared between the cloud platform and the on-prem gate controller so the two never drift</li>
+          <li>Modeled an 18-table schema spanning sites, vehicles, season passes, invoices, rate policies, promotions and wallets</li>
+          <li>Layered Docker Compose overlays (local dev server, staging, production) on one base file, with a scripted <code>deploy.sh</code> handling DB backups, pulls and rebuilds</li>
+        </ul>
+        <div class="stack">
+          <span class="tag hot">Laravel 13</span><span class="tag">React 18</span><span class="tag">TypeScript</span>
+          <span class="tag">Vite</span><span class="tag">MySQL</span><span class="tag">Docker</span>
+          <span class="tag">Sanctum</span><span class="tag">Spatie</span><span class="tag">LPR Camera SDK</span>
+          <span class="tag">React Router</span>
         </div>
       </article>
 
