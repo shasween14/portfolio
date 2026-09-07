@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Shaswin Kumar — Full-Stack & Laravel Developer</title>
-<meta name="description" content="Shaswin Kumar — Full-Stack Developer specializing in Laravel, PHP, React & TypeScript. Builder of commerce platforms, POS systems and real-time apps." />
+<meta name="description" content="Shaswin Kumar — Full-Stack Developer working in Laravel, PHP, React and TypeScript. I build commerce platforms, POS systems and real-time apps." />
 <style>
   :root{
     --bg:#0b1020;
@@ -72,7 +72,7 @@
   h1 .grad{background:linear-gradient(120deg,var(--brand),var(--brand-2) 45%,var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
   .hero p.lead{margin-top:22px;font-size:1.15rem;color:var(--muted);max-width:680px}
   .hero-cta{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap}
-  .stats{margin-top:54px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .stats{margin-top:54px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
   .stat{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center}
   .stat .n{font-size:1.8rem;font-weight:800;color:#fff}
   .stat .l{font-size:.82rem;color:var(--muted);margin-top:4px}
@@ -126,6 +126,7 @@
   .proj ul{list-style:none;margin-bottom:18px}
   .proj ul li{font-size:.9rem;color:var(--muted);padding-left:20px;position:relative;margin-bottom:6px}
   .proj ul li::before{content:"▹";position:absolute;left:0;color:var(--brand-2)}
+  .proj ul li code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.85em;background:var(--card-2);border:1px solid var(--border);border-radius:5px;padding:1px 5px;color:var(--text)}
   .proj .stack{display:flex;flex-wrap:wrap;gap:7px}
   .proj .stack .tag{font-size:.76rem;padding:4px 9px}
 
@@ -174,16 +175,15 @@
   <div class="wrap">
     <span class="eyebrow reveal"><span class="ping"></span> Available for new opportunities</span>
     <h1 class="reveal">Full-Stack Developer<br>building with <span class="grad">Laravel &amp; React</span></h1>
-    <p class="lead reveal">I'm <strong>Shaswin Kumar</strong> — a backend-focused full-stack engineer who designs and ships
-      production commerce platforms, point-of-sale systems and real-time applications. My core strength is
-      <strong>Laravel &amp; PHP</strong> on the backend, paired with modern React/TypeScript front-ends and Dockerised infrastructure.</p>
+    <p class="lead reveal">I'm <strong>Shaswin Kumar</strong>. I build commerce platforms, point-of-sale systems and
+      real-time apps that run in actual shops and restaurants. <strong>Laravel and PHP</strong> are where I'm strongest,
+      and I handle the React/TypeScript front-ends and Docker setup that go with them.</p>
     <div class="hero-cta reveal">
       <a class="btn" href="#projects">View my work</a>
       <a class="btn ghost" href="mailto:Shas@craveasia.com">Email me</a>
     </div>
     <div class="stats">
       <div class="stat reveal"><div class="n">5+ yrs</div><div class="l">Web development</div></div>
-      <div class="stat reveal"><div class="n">3,000+</div><div class="l">Commits on flagship apps</div></div>
       <div class="stat reveal"><div class="n">9+</div><div class="l">Production projects</div></div>
       <div class="stat reveal"><div class="n">Laravel</div><div class="l">Primary specialty</div></div>
     </div>
@@ -195,19 +195,21 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="kicker">About me</div>
-      <h2>Backend depth, full-stack range</h2>
-      <p>I turn complex business requirements into reliable, maintainable software — from database design to native hardware integration.</p>
+      <h2>Backend first, but I ship the whole thing</h2>
+      <p>Most of my work starts at the database and ends at a receipt printer or a card reader.</p>
     </div>
     <div class="about-grid">
       <div class="about-card reveal">
-        <p>I'm a full-stack developer at <strong>Crave Asia</strong>, where I've led the engineering of multi-tenant
-          commerce and point-of-sale platforms used in real retail and F&amp;B environments.</p>
-        <p>My primary specialty is <strong>Laravel &amp; PHP</strong> — I build RESTful APIs, authentication and
-          role-based access control, queued background jobs, real-time broadcasting, PDF/Excel reporting and
-          payment integrations. I'm just as comfortable on the front-end with <strong>React, TypeScript and Ionic</strong>,
-          and I deploy everything on <strong>Docker</strong> with PostgreSQL, Redis and S3-compatible storage.</p>
-        <p>I particularly enjoy the hard, real-world problems: offline-first POS apps, ESC/POS thermal printing,
-          cash-drawer control, QR/barcode scanning and even on-device face recognition.</p>
+        <p>I work at <strong>Crave Asia</strong> as a full-stack developer. I've led the build on a few multi-tenant
+          commerce and POS platforms there, and they're in use in real shops and F&amp;B outlets.</p>
+        <p><strong>Laravel and PHP</strong> are my main thing. Day to day that means REST APIs, auth and role-based
+          permissions, queued jobs, websocket broadcasting, PDF and Excel reports, and payment gateways.
+          The front-end side I'm fine with too. I've written plenty of plain <strong>HTML and CSS</strong>
+          (semantic markup, Flexbox and Grid, media queries) plus <strong>Blade, Bootstrap and jQuery</strong>,
+          and more recently <strong>React, TypeScript and Ionic</strong>. Deployment is usually
+          <strong>Docker</strong>, with PostgreSQL, Redis and S3-compatible storage.</p>
+        <p>The parts I enjoy most are the awkward ones. Offline-first POS apps, ESC/POS thermal printing,
+          kicking a cash drawer open, barcode scanning, face recognition running on the device itself.</p>
       </div>
       <div class="facts">
         <div class="fact reveal"><span class="ico">📍</span><div><div class="t">Based in</div><div class="v">Malaysia</div></div></div>
@@ -225,7 +227,7 @@
     <div class="sec-head reveal">
       <div class="kicker">Toolbox</div>
       <h2>Skills &amp; technologies</h2>
-      <p>The stack I've shipped real products with — backend-first, but full-stack capable end to end.</p>
+      <p>Everything here is something I've used on a project that shipped, not just tried out once.</p>
     </div>
     <div class="skill-grid">
       <div class="skill reveal">
@@ -245,6 +247,13 @@
       <div class="skill reveal">
         <h3>🖥️ Frontend</h3>
         <div class="tags">
+          <span class="tag hot">HTML5 / Semantic Markup</span>
+          <span class="tag hot">CSS3 · Flexbox &amp; Grid</span>
+          <span class="tag">Responsive Design</span>
+          <span class="tag">JavaScript ES6+</span>
+          <span class="tag">Bootstrap 4 / 5</span>
+          <span class="tag">jQuery</span>
+          <span class="tag">Blade Templating</span>
           <span class="tag">React 18 / 19</span>
           <span class="tag">TypeScript</span>
           <span class="tag">Vite</span>
@@ -252,7 +261,6 @@
           <span class="tag">Ionic</span>
           <span class="tag">Framer Motion</span>
           <span class="tag">GSAP</span>
-          <span class="tag">Blade</span>
         </div>
       </div>
       <div class="skill reveal">
@@ -310,7 +318,7 @@
     <div class="sec-head reveal">
       <div class="kicker">APIs &amp; services</div>
       <h2>Third-party integrations</h2>
-      <p>Real production integrations I've built into the platforms above — payments, accounting, e-commerce, messaging and on-device hardware.</p>
+      <p>These are all running live in the platforms above. None of them are demos or proof of concepts.</p>
     </div>
     <div class="skill-grid">
 
@@ -355,6 +363,16 @@
       </div>
 
       <div class="skill reveal">
+        <h3>📈 Analytics &amp; Tracking</h3>
+        <p class="muted" style="font-size:.9rem;margin-bottom:14px">Event tracking built into the storefront templates themselves.</p>
+        <div class="tags">
+          <span class="tag hot">GA4 / gtag events</span>
+          <span class="tag hot">Meta (Facebook) Pixel</span>
+          <span class="tag">Google Reviews badge</span>
+        </div>
+      </div>
+
+      <div class="skill reveal">
         <h3>📡 Real-time &amp; Messaging</h3>
         <p class="muted" style="font-size:.9rem;margin-bottom:14px">Live broadcasting and transactional email delivery.</p>
         <div class="tags">
@@ -377,7 +395,7 @@
 
       <div class="skill reveal">
         <h3>☁️ Storage &amp; Files</h3>
-        <p class="muted" style="font-size:.9rem;margin-bottom:14px">Object storage for uploads, exports and media — production media served from DigitalOcean Spaces.</p>
+        <p class="muted" style="font-size:.9rem;margin-bottom:14px">Object storage for uploads, exports and media. Production media is served from DigitalOcean Spaces.</p>
         <div class="tags">
           <span class="tag hot">DigitalOcean Spaces</span>
           <span class="tag">AWS S3 (Flysystem)</span>
@@ -397,7 +415,7 @@
 
       <div class="skill reveal">
         <h3>🖨️ Hardware &amp; Devices</h3>
-        <p class="muted" style="font-size:.9rem;margin-bottom:14px">Direct integration with retail and site hardware — counter and gate.</p>
+        <p class="muted" style="font-size:.9rem;margin-bottom:14px">Talking straight to retail and site hardware, at the counter and at the gate.</p>
         <div class="tags">
           <span class="tag hot">ESC/POS printers</span>
           <span class="tag">Sunmi printer SDK</span>
@@ -418,7 +436,7 @@
     <div class="sec-head reveal">
       <div class="kicker">Selected work</div>
       <h2>Projects I've built</h2>
-      <p>A mix of large platforms I led and focused tools I built solo. Most are private/commercial, so details are summarised.</p>
+      <p>Some of these I led, some I built alone, some I joined part-way through. Most are commercial and private, so I've kept the detail general.</p>
     </div>
     <div class="proj-grid">
 
@@ -429,17 +447,17 @@
             <h3>QBotu — Multi-App Commerce Platform</h3>
             <div class="kind">Full-stack commerce & POS platform · Lead developer</div>
           </div>
-          <span class="role lead">Lead · 1,533 commits</span>
+          <span class="role lead">Lead developer</span>
         </div>
-        <p class="desc">A complete, Docker-powered commerce platform with multiple front-end applications (POS, Kiosk, Tablet, Web)
-          backed by a Laravel API and a production-like 9-service infrastructure stack — all orchestrated to run with a single command.</p>
+        <p class="desc">Four front-end apps (POS, Kiosk, Tablet and Web) sitting on one Laravel API, with a 9-service
+          Docker stack behind it. The whole thing comes up with a single command.</p>
         <ul>
-          <li>Architected a Laravel REST API with PostgreSQL, Redis, queues and Reverb websockets for real-time updates</li>
-          <li>Built React + TypeScript front-ends compiled into native Android apps (POS / Kiosk / Tablet) via Capacitor</li>
-          <li>Integrated Stripe &amp; GKASH payments, ESC/POS thermal receipt printing and a dedicated print-agent service</li>
-          <li>Built Malaysian LHDN e-invoicing (MyInvois) with MSIC tax codes, plus QuickBooks / Xero accounting sync</li>
-          <li>Added on-device face recognition (MediaPipe) and offline-first data sync with IndexedDB</li>
-          <li>Containerised the entire stack with Docker Compose (Caddy, PostgreSQL, Redis, MinIO, workers, scheduler)</li>
+          <li>Laravel REST API on PostgreSQL, with Redis, queues and Reverb websockets driving the live order updates</li>
+          <li>The POS, Kiosk and Tablet front-ends are React + TypeScript, wrapped into native Android builds with Capacitor</li>
+          <li>Stripe and GKASH for payments, plus ESC/POS receipt printing through a separate print-agent service</li>
+          <li>Malaysian LHDN e-invoicing (MyInvois) with MSIC tax codes, and two-way sync to QuickBooks and Xero</li>
+          <li>Face recognition runs on-device with MediaPipe. Offline sync uses IndexedDB, so the POS keeps working when the wifi drops</li>
+          <li>Docker Compose runs the lot: Caddy, PostgreSQL, Redis, MinIO, queue workers and the scheduler</li>
         </ul>
         <div class="stack">
           <span class="tag hot">Laravel 13</span><span class="tag">React</span><span class="tag">TypeScript</span>
@@ -457,17 +475,17 @@
             <h3>QParking Cloud 2.0 — Multi-Site Parking SaaS</h3>
             <div class="kind">Multi-portal parking management platform · Core / lead developer</div>
           </div>
-          <span class="role lead">Lead · 472 commits</span>
+          <span class="role lead">Lead developer</span>
         </div>
-        <p class="desc">A multi-site parking management SaaS with three role-based portals — HQ Admin, Site Operator and
-          Customer — covering live occupancy, automated LPR gate control, season passes, billing and GreenParking/ESG
-          rewards, deployed across local, staging and production Docker environments.</p>
+        <p class="desc">Parking management SaaS for operators running several sites at once. Three portals (HQ Admin,
+          Site Operator, Customer) covering live occupancy, automated plate-recognition gates, season passes, billing
+          and GreenParking/ESG rewards. Runs on local, staging and production Docker environments.</p>
         <ul>
-          <li>Laravel 13 REST API (Sanctum auth, Spatie roles) backed by MySQL, with a React 18 + TypeScript + Vite front-end shared across three portals</li>
-          <li>Integrated a vendor LPR camera SDK and TCP-driven barrier/kiosk hardware for automated vehicle entry, exit and gate control</li>
-          <li>Designed a customer/vehicle/pass/bay domain model — passes cover a pool of plates but admission is capped by bays, not plate count — shared between the cloud platform and the on-prem gate controller so the two never drift</li>
-          <li>Modeled an 18-table schema spanning sites, vehicles, season passes, invoices, rate policies, promotions and wallets</li>
-          <li>Layered Docker Compose overlays (local dev server, staging, production) on one base file, with a scripted <code>deploy.sh</code> handling DB backups, pulls and rebuilds</li>
+          <li>Laravel 13 REST API with Sanctum auth and Spatie roles on MySQL. One React 18 + TypeScript + Vite front-end serves all three portals</li>
+          <li>Hooked up a vendor LPR camera SDK and TCP-controlled barriers and kiosks, so cars get in and out without staff</li>
+          <li>Worked out the customer/vehicle/pass/bay model. A pass covers a pool of plates, but how many can park at once is capped by bays rather than plate count. The on-prem gate controller shares the same model, so the two can't drift apart</li>
+          <li>18-table schema covering sites, vehicles, season passes, invoices, rate policies, promotions and wallets</li>
+          <li>Three Docker Compose overlays (local, staging, production) on top of one base file, with a <code>deploy.sh</code> that backs up the DB, pulls and rebuilds</li>
         </ul>
         <div class="stack">
           <span class="tag hot">Laravel 13</span><span class="tag">React 18</span><span class="tag">TypeScript</span>
@@ -481,15 +499,17 @@
       <article class="proj reveal">
         <div class="top">
           <div><h3>QBot</h3><div class="kind">Laravel management web app</div></div>
-          <span class="role lead">Lead · 1,057 commits</span>
+          <span class="role lead">Lead developer</span>
         </div>
-        <p class="desc">A multi-tenant Laravel 11 management &amp; ordering platform with separate back-office and POS/Kiosk APIs, built and maintained as the lead developer.</p>
+        <p class="desc">Multi-tenant Laravel 11 management and ordering platform, with separate APIs for the back-office and the POS/Kiosk clients. I've been lead on it since the start.</p>
         <ul>
-          <li>Token-based API auth (Sanctum), granular permissions (Spatie) and a modular multi-tenant API layout</li>
-          <li>GKASH payment gateway plus QuickBooks &amp; Xero accounting integration</li>
-          <li>Real-time events via Pusher, transactional email (Mailgun) and PDF / Excel reporting</li>
+          <li>Sanctum token auth, Spatie permissions, and a modular API layout that keeps tenants apart</li>
+          <li>GKASH for payments, QuickBooks and Xero for accounting</li>
+          <li>Pusher for real-time events, Mailgun for transactional email, plus PDF and Excel report exports</li>
+          <li>All 267 Blade templates are mine. The back-office is Bootstrap 5 and jQuery with DataTables, Select2 and ApexCharts. The webstore theme is white-label, so each store gets its own branding, and it handles RTL</li>
+          <li>Wrote the CSS for the signup page and the Kitchen Display screen myself, no template. Own reset, keyframe animations, and media queries for the tablet and phone breakpoints</li>
         </ul>
-        <div class="stack"><span class="tag hot">Laravel 11</span><span class="tag">PHP 8</span><span class="tag">Sanctum</span><span class="tag">Spatie</span><span class="tag">GKASH</span><span class="tag">QuickBooks</span><span class="tag">Xero</span><span class="tag">Pusher</span><span class="tag">MySQL</span></div>
+        <div class="stack"><span class="tag hot">Laravel 11</span><span class="tag">PHP 8</span><span class="tag">Blade</span><span class="tag">HTML5 / CSS3</span><span class="tag">Bootstrap 5</span><span class="tag">jQuery</span><span class="tag">DataTables</span><span class="tag">Sanctum</span><span class="tag">Spatie</span><span class="tag">GKASH</span><span class="tag">QuickBooks</span><span class="tag">Xero</span><span class="tag">Pusher</span><span class="tag">MySQL</span></div>
       </article>
 
       <!-- QBOT POS -->
@@ -498,11 +518,11 @@
           <div><h3>QBot POS</h3><div class="kind">Ionic + React mobile POS app</div></div>
           <span class="role solo">Solo build</span>
         </div>
-        <p class="desc">A cross-platform point-of-sale mobile app with offline support and direct thermal-printer integration, packaged for Android.</p>
+        <p class="desc">Cross-platform POS app that keeps working offline and talks straight to a thermal printer. Packaged for Android.</p>
         <ul>
-          <li>Ionic 8 + React UI with offline-first data via Dexie (IndexedDB)</li>
-          <li>Bundled thermal print server and Capacitor-native Android build</li>
-          <li>End-to-end tested with Cypress</li>
+          <li>Ionic 8 and React for the UI, with Dexie (IndexedDB) holding the data locally</li>
+          <li>Ships with its own thermal print server, built native for Android through Capacitor</li>
+          <li>Cypress covers the end-to-end flows</li>
         </ul>
         <div class="stack"><span class="tag">Ionic</span><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Capacitor</span><span class="tag">Dexie</span><span class="tag">Tailwind</span></div>
       </article>
@@ -513,12 +533,28 @@
           <div><h3>February Bloom</h3><div class="kind">Order & delivery management platform</div></div>
           <span class="role team">Team contributor</span>
         </div>
-        <p class="desc">A Laravel platform for managing order deliveries, with queued background processing for fast response times.</p>
+        <p class="desc">Laravel platform for managing order deliveries. The heavy work runs on queues to keep responses quick.</p>
         <ul>
-          <li>Country/state helpers, phone validation and role-based permissions</li>
-          <li>Queue-driven jobs to offload heavy work and improve throughput</li>
+          <li>Country and state helpers, phone number validation, role-based permissions</li>
+          <li>Moved the slow jobs onto queues</li>
+          <li>Worked in the Blade front-end too. 141 templates on a themeable Bootstrap 4 and jQuery setup, with reusable checkbox and switch partials, a CSS override layer over the base theme, and self-hosted <code>@font-face</code> typography</li>
         </ul>
-        <div class="stack"><span class="tag hot">Laravel</span><span class="tag">PHP</span><span class="tag">Queues</span><span class="tag">Spatie</span><span class="tag">MySQL</span></div>
+        <div class="stack"><span class="tag hot">Laravel</span><span class="tag">PHP</span><span class="tag">Blade</span><span class="tag">HTML5 / CSS3</span><span class="tag">Bootstrap 4</span><span class="tag">jQuery</span><span class="tag">Queues</span><span class="tag">Spatie</span><span class="tag">MySQL</span></div>
+      </article>
+
+      <!-- SALTYCUSTOMS -->
+      <article class="proj reveal">
+        <div class="top">
+          <div><h3>SaltyCustoms</h3><div class="kind">Custom-apparel e-commerce platform</div></div>
+          <span class="role team">Team contributor</span>
+        </div>
+        <p class="desc">Laravel 8 e-commerce platform for custom-printed apparel. Two storefronts share one back-office across 245 Blade templates, with pricing per print method, size breakdowns and corporate ordering.</p>
+        <ul>
+          <li>Added the QuickBooks Online integration: OAuth setup, the sync functions, and migrations to link customer accounts and orders to their QuickBooks records</li>
+          <li>Put GA4 and Meta Pixel tracking into the storefront. Blade loops build the <code>gtag</code> payloads for add-to-cart, remove-from-cart and purchase events out of the real cart data. Added the Google Reviews badge as well</li>
+          <li>Touched 15 Blade templates across the Bootstrap 4 and jQuery storefront and the back-office: cart, checkout, product, order detail and member admin</li>
+        </ul>
+        <div class="stack"><span class="tag hot">Laravel 8</span><span class="tag">PHP 7.4</span><span class="tag">Blade</span><span class="tag">HTML5 / CSS3</span><span class="tag">Bootstrap 4</span><span class="tag">jQuery</span><span class="tag">GA4 / gtag</span><span class="tag">Meta Pixel</span><span class="tag">QuickBooks</span><span class="tag">MySQL</span></div>
       </article>
 
       <!-- HARDWARE TOOLS -->
@@ -527,10 +563,10 @@
           <div><h3>Printer &amp; Hardware Tooling</h3><div class="kind">Node.js device-integration utilities</div></div>
           <span class="role solo">Solo build</span>
         </div>
-        <p class="desc">A set of Node.js tools that bridge web apps to physical retail hardware — thermal printers, cash drawers and label printers.</p>
+        <p class="desc">Node.js tools that let a web app drive real retail hardware: thermal printers, cash drawers, label printers.</p>
         <ul>
-          <li>ESC/POS and TSPL command generation for receipt and label printing</li>
-          <li>Cash-drawer kick control and a websocket server for live device communication</li>
+          <li>Generates the ESC/POS and TSPL command bytes for receipts and labels</li>
+          <li>Kicks the cash drawer open, and a websocket server keeps the browser talking to the device</li>
         </ul>
         <div class="stack"><span class="tag">Node.js</span><span class="tag">ESC/POS</span><span class="tag">TSPL</span><span class="tag">WebSocket</span></div>
       </article>
@@ -541,10 +577,10 @@
           <div><h3>QBotu API</h3><div class="kind">Laravel API service</div></div>
           <span class="role team">Co-author</span>
         </div>
-        <p class="desc">A Laravel API service supporting the QBotu platform, developed collaboratively with the Crave Asia team.</p>
+        <p class="desc">Laravel API service behind the QBotu platform, built together with the rest of the Crave Asia team.</p>
         <ul>
-          <li>RESTful endpoints with Vite-built front-end assets</li>
-          <li>Shared data models powering the wider commerce ecosystem</li>
+          <li>REST endpoints, with the front-end assets built by Vite</li>
+          <li>Shared data models that the other apps in the platform read from</li>
         </ul>
         <div class="stack"><span class="tag hot">Laravel</span><span class="tag">PHP 8</span><span class="tag">REST API</span><span class="tag">Vite</span></div>
       </article>
@@ -555,11 +591,11 @@
           <div><h3>Appolous BMS</h3><div class="kind">Laravel business-management &amp; POS system</div></div>
           <span class="role team">Contributor</span>
         </div>
-        <p class="desc">A cloud business-management and point-of-sale system for SMEs — sales, inventory, clients and visit tracking. I worked across the Laravel backend, focusing on performance and queue-driven workloads.</p>
+        <p class="desc">Cloud business-management and POS system for small businesses: sales, inventory, clients, visit tracking. I worked on the Laravel backend, mostly performance and queue work.</p>
         <ul>
-          <li>Laravel Octane (Swoole / RoadRunner) with Redis caching for high-concurrency requests</li>
-          <li>Queue-based email &amp; SMS processing and a multi-database (operational + reporting) setup</li>
-          <li>Stripe payments, Lazada marketplace sync, ESC/POS printing and barcode scanning</li>
+          <li>Laravel Octane on Swoole/RoadRunner with Redis caching, to hold up under concurrent load</li>
+          <li>Email and SMS go through queues. Split the databases so reporting queries stop slowing down the operational side</li>
+          <li>Stripe payments, Lazada marketplace sync, ESC/POS printing, barcode scanning</li>
         </ul>
         <div class="stack"><span class="tag hot">Laravel 10</span><span class="tag">Octane / Swoole</span><span class="tag">Redis</span><span class="tag">Stripe</span><span class="tag">Lazada</span><span class="tag">MySQL</span></div>
       </article>
@@ -572,7 +608,7 @@
 <section id="experience">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div class="kicker">Journey</div>
+      <div class="kicker">Where I've worked</div>
       <h2>Experience</h2>
     </div>
     <div class="tl">
@@ -580,16 +616,17 @@
         <div class="when">Current</div>
         <h3>Full-Stack Developer</h3>
         <div class="co">Crave Asia</div>
-        <p>Lead developer on the QBotu and QBot commerce platforms. Own the Laravel backend architecture — APIs, auth,
-          queues, real-time broadcasting and reporting — and build the React/Ionic front-ends and Dockerised infrastructure
-          that ship them to web and native Android. Integrated payments, thermal printing and offline-first POS workflows.</p>
+        <p>Lead developer on the QBotu and QBot commerce platforms. I own the Laravel backend: APIs, auth, queues,
+          broadcasting and reporting. I also build the React and Ionic front-ends, and the Docker setup that gets them
+          out to web and native Android. Along the way: payment gateways, thermal printing, and making the POS work
+          with no internet.</p>
       </div>
       <div class="item reveal">
         <div class="when">Earlier</div>
         <h3>Web Application Developer</h3>
         <div class="co">Laravel platforms · February Bloom &amp; others</div>
-        <p>Contributed to Laravel-based business platforms covering order/delivery management and inventory — building
-          features across the stack, from Eloquent data models and queued jobs to Blade and JavaScript front-ends.</p>
+        <p>Worked on Laravel business platforms for order and delivery management and inventory. Features across the
+          stack, from Eloquent models and queued jobs up to the Blade and JavaScript front-ends.</p>
       </div>
     </div>
   </div>
@@ -599,9 +636,9 @@
 <section id="contact">
   <div class="wrap">
     <div class="contact reveal">
-      <h2>Let's build something together</h2>
-      <p>I'm open to <strong>backend</strong> and <strong>full-stack</strong> roles — especially Laravel-focused teams.
-        Have a role in mind? I'd love to hear about it.</p>
+      <h2>Get in touch</h2>
+      <p>I'm looking at <strong>backend</strong> and <strong>full-stack</strong> roles, Laravel teams especially.
+        If you've got something that fits, send me a note.</p>
       <div class="row">
         <a class="btn" href="mailto:Shas@craveasia.com">📧 Shas@craveasia.com</a>
         <a class="btn ghost" href="https://github.com/devshas-14" target="_blank" rel="noopener">💻 github.com/devshas-14</a>
