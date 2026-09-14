@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Shaswin Kumar — Full-Stack &amp; Laravel Developer</title>
+<style>
+  @page { size: A4; margin: 0; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --blue:#3176e0;
+    --ink:#303030;
+    --body:#3d434e;
+    --muted:#6f7480;
+    --line:#d9dde4;
+  }
+  html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{
+    font-family:"Segoe UI","Helvetica Neue",Arial,sans-serif;
+    font-size:8.2pt; line-height:1.36; color:var(--body); background:#fff;
+  }
+
+  /* blue rail: fixed so it repeats on every printed page */
+  .bar{position:fixed;top:0;left:0;width:23%;height:100%;background:var(--blue)}
+
+  /* sidebar content: absolute, so it stays on page 1 only */
+  .side{position:absolute;top:0;left:0;width:23%;padding:11mm 6mm;color:#fff}
+  .side h2{
+    font-size:8.4pt;font-weight:700;
+    border-bottom:1px solid rgba(255,255,255,.55);
+    padding-bottom:3px;margin-bottom:6px;
+  }
+  .side .block{margin-bottom:10px}
+  .side .label{font-size:8pt;font-weight:700;margin-top:6px}
+  .side .val{font-size:7.8pt;color:rgba(255,255,255,.92);line-height:1.4;word-break:break-word}
+  .side .skill{margin-top:6px}
+  .side .skill b{display:block;font-size:7.9pt;font-weight:700;color:#fff}
+  .side .skill span{font-size:7.6pt;color:rgba(255,255,255,.88);line-height:1.38}
+  .lang{font-size:7.8pt;margin-top:5px}
+  .lang b{display:block;font-weight:700;color:#fff}
+  .lang span{color:rgba(255,255,255,.8)}
+
+  .main{margin-left:23%;padding:11mm 10mm 9mm 8mm}
+
+  .top{display:flex;justify-content:space-between;align-items:flex-start;gap:8mm}
+  .name{font-size:18pt;font-weight:700;color:var(--ink);line-height:1.1;letter-spacing:-.3px}
+  .role{font-size:9.2pt;font-weight:600;color:var(--blue);margin-top:2px}
+  .pitch{font-size:8.2pt;margin-top:5px}
+  .pitch b{color:var(--ink)}
+  .photo{width:24mm;height:auto;border-radius:2px;flex-shrink:0}
+
+  h3{
+    font-size:9.4pt;font-weight:700;color:var(--ink);
+    margin:9px 0 5px;padding-bottom:2px;border-bottom:1px solid var(--line);
+    break-after:avoid;page-break-after:avoid;
+  }
+
+  .proj{margin-bottom:5px;break-inside:avoid;page-break-inside:avoid}
+  .ptop{display:flex;justify-content:space-between;align-items:baseline;gap:6mm;break-after:avoid;page-break-after:avoid}
+  .pname{font-size:8.9pt;font-weight:700;color:var(--blue)}
+  .prole{font-size:7.4pt;font-weight:700;color:var(--muted);white-space:nowrap;text-transform:uppercase;letter-spacing:.4px}
+  .pdesc{font-size:8pt;color:var(--muted);margin:1px 0 2px;break-after:avoid;page-break-after:avoid}
+  ul{list-style:none}
+  li{font-size:8.1pt;padding-left:8px;position:relative;margin-bottom:1px}
+  li:before{content:"";position:absolute;left:0;top:.52em;width:3px;height:3px;background:var(--blue);border-radius:50%}
+  li b{color:var(--ink);font-weight:600}
+  .stack{margin-top:2px;font-size:7.5pt;color:var(--muted);font-style:italic}
+
+  .integ{display:grid;grid-template-columns:1fr 1fr;gap:1px 8mm}
+  .irow{font-size:7.8pt;line-height:1.38}
+  .irow b{color:var(--ink);font-weight:700}
+
+  .row{display:grid;grid-template-columns:26mm 1fr;gap:0 4mm;margin-bottom:5px;break-inside:avoid}
+  .meta{font-size:7.4pt;color:var(--muted);line-height:1.38;padding-top:1px}
+  .meta i{display:block;font-style:italic}
+  .rtitle{font-size:8.8pt;font-weight:700;color:var(--blue)}
+  .rorg{font-size:8.2pt;font-weight:700;color:var(--ink);margin-bottom:1px}
+  .rnote{font-size:8pt}
+
+  .foot{margin-top:8px;padding-top:5px;border-top:1px solid var(--line);font-size:7.6pt;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<div class="bar"></div>
+
+<aside class="side">
+  <div class="block">
+    <h2>Contact</h2>
+    <div class="label">Email</div>
+    <div class="val">shasween94@gmail.com</div>
+    <div class="label">Portfolio</div>
+    <div class="val">shasween14.github.io/portfolio</div>
+    <div class="label">GitHub</div>
+    <div class="val">github.com/shasween14</div>
+    <div class="label">Location</div>
+    <div class="val">Malaysia (GMT+8)<br>Remote &middot; available for contract work</div>
+  </div>
+
+  <div class="block">
+    <h2>Technical Skills</h2>
+    <div class="skill"><b>Backend</b><span>Laravel 8&ndash;13, PHP 8.x, REST APIs, Sanctum, Spatie Permissions, queues &amp; jobs, task scheduling, Octane / Swoole, Eloquent</span></div>
+    <div class="skill"><b>Frontend</b><span>React 18/19, TypeScript, Vite, Tailwind, Framer Motion, ES6+, Blade, Bootstrap 4/5, jQuery, HTML5, CSS3</span></div>
+    <div class="skill"><b>Data</b><span>PostgreSQL, MySQL, Redis, schema design, query optimisation, read/write splitting, Dexie / IndexedDB</span></div>
+    <div class="skill"><b>Infrastructure</b><span>Docker &amp; Compose, Nginx, Caddy, queue workers, DigitalOcean Spaces, MinIO / S3</span></div>
+    <div class="skill"><b>Mobile &amp; Devices</b><span>Ionic 8, Capacitor, Android builds, POS / kiosk / tablet, Sunmi devices, offline-first sync</span></div>
+    <div class="skill"><b>Real-time &amp; Testing</b><span>Laravel Reverb, Pusher, WebSockets, PHPUnit, Vitest, Playwright, Cypress, Git, GitHub Actions</span></div>
+  </div>
+
+  <div class="block">
+    <h2>Languages</h2>
+    <div class="lang"><b>English</b><span>Native</span></div>
+    <div class="lang"><b>Malay</b><span>Native</span></div>
+    <div class="lang"><b>Tamil</b><span>Advanced</span></div>
+  </div>
+</aside>
+
+<main class="main">
+
+  <div class="top">
+    <div>
+      <div class="name">Shaswin Kumar</div>
+      <div class="role">Full-Stack Developer &middot; Laravel / PHP &middot; React &amp; TypeScript</div>
+      <div class="pitch">
+        Backend-first full-stack developer, <b>5+ years</b> and <b>9 production systems</b> running in real shops,
+        restaurants and car parks &mdash; not demos. Strongest where projects usually stall:
+        <b>third-party API integrations</b> (accounting, payments, marketing), <b>multi-tenant data isolation</b>,
+        offline-first clients, and driving physical hardware directly. End to end, schema to deployed Docker stack.
+      </div>
+    </div>
+    <img class="photo" src="photo.png" alt="Shaswin Kumar" />
+  </div>
+
+  <h3>Selected Projects</h3>
+
+  <div class="proj">
+    <div class="ptop"><span class="pname">QBotu &mdash; Multi-App Commerce &amp; POS Platform</span><span class="prole">Lead Developer</span></div>
+    <div class="pdesc">Four client apps (POS, kiosk, tablet, web) on one Laravel API, with a 9-service Docker stack that boots with a single command.</div>
+    <ul>
+      <li>Laravel REST API on <b>PostgreSQL</b> with Redis, queued jobs and <b>Reverb WebSockets</b> driving live order updates across all four clients.</li>
+      <li>Built <b>561 React + TypeScript components</b>; POS, kiosk and tablet packaged as native Android via Capacitor.</li>
+      <li>Integrated <b>Stripe</b> and GKASH payments, plus ESC/POS receipt printing through a dedicated print-agent service.</li>
+      <li>Delivered Malaysian <b>LHDN MyInvois e-invoicing</b> with MSIC tax codes, and two-way sync to <b>QuickBooks Online</b> and <b>Xero</b>.</li>
+      <li>On-device face recognition with MediaPipe; IndexedDB offline sync keeps the POS trading when the network drops.</li>
+    </ul>
+    <div class="stack">Laravel 13 &middot; React &middot; TypeScript &middot; PostgreSQL &middot; Redis &middot; Docker &middot; Reverb &middot; Capacitor &middot; Stripe &middot; MinIO &middot; Playwright</div>
+  </div>
+
+  <div class="proj">
+    <div class="ptop"><span class="pname">QParking Cloud 2.0 &mdash; Multi-Site Parking SaaS</span><span class="prole">Lead Developer</span></div>
+    <div class="pdesc">Parking management SaaS for operators running multiple sites: live occupancy, automated plate-recognition gates, season passes, billing and ESG rewards.</div>
+    <ul>
+      <li>Laravel 13 REST API with <b>Sanctum auth and Spatie role permissions</b>; one React 18 + TypeScript + Vite frontend serves three separate portals (HQ admin, site operator, customer).</li>
+      <li>Integrated a vendor <b>LPR camera SDK</b> and TCP-controlled barriers and kiosks so vehicles enter and exit unattended.</li>
+      <li>Designed the customer/vehicle/pass/bay model: a pass covers a pool of plates while concurrent entry is capped by bays, with the on-premise gate controller sharing the same model so the two cannot drift apart.</li>
+      <li>18-table schema; three Docker Compose overlays (local, staging, production) over one base file, with a deploy script that backs up the database before rebuilding.</li>
+    </ul>
+    <div class="stack">Laravel 13 &middot; React 18 &middot; TypeScript &middot; Vite &middot; Tailwind &middot; MySQL &middot; Docker &middot; Sanctum &middot; Spatie</div>
+  </div>
+
+  <div class="proj">
+    <div class="ptop"><span class="pname">QBot &mdash; Multi-Tenant Management &amp; Ordering Platform</span><span class="prole">Lead Developer</span></div>
+    <div class="pdesc">Multi-tenant Laravel platform with separate APIs for back-office and POS/kiosk clients. Led since the first commit.</div>
+    <ul>
+      <li>Sanctum token auth, Spatie permissions and a modular API layout enforcing <b>tenant isolation</b>.</li>
+      <li>Authored all <b>267 Blade templates</b>: Bootstrap 5 back-office with DataTables, Select2 and ApexCharts, plus a <b>white-label storefront theme</b> where each tenant gets its own branding, including RTL support.</li>
+      <li>Integrated GKASH payments, QuickBooks and Xero accounting, Pusher real-time events, Mailgun transactional email, and PDF/Excel report exports.</li>
+      <li>Scheduled tasks with <b>overlap guards</b>, tenant-scoped nightly jobs, and expiry sweeps for work queued but never claimed.</li>
+    </ul>
+    <div class="stack">Laravel 11 &middot; PHP 8 &middot; Blade &middot; Bootstrap 5 &middot; jQuery &middot; Sanctum &middot; Spatie &middot; QuickBooks &middot; Xero &middot; Pusher &middot; MySQL</div>
+  </div>
+
+  <div class="proj">
+    <div class="ptop"><span class="pname">QBot POS &mdash; Offline-First Mobile POS</span><span class="prole">Solo Build</span></div>
+    <div class="pdesc">Cross-platform POS that keeps trading with no internet and prints straight to a thermal printer.</div>
+    <ul>
+      <li>Ionic 8 + React + TypeScript UI with <b>Dexie (IndexedDB)</b> holding data locally and reconciling on reconnect.</li>
+      <li>Ships its own thermal print server; packaged native for Android through Capacitor. End-to-end flows covered by Cypress.</li>
+    </ul>
+    <div class="stack">Ionic 8 &middot; React &middot; TypeScript &middot; Capacitor &middot; Dexie &middot; Tailwind &middot; Cypress</div>
+  </div>
+
+  <div class="proj">
+    <div class="ptop"><span class="pname">Appolous BMS &mdash; Cloud Business Management &amp; POS</span><span class="prole">Backend / Performance</span></div>
+    <div class="pdesc">Business management and POS system for small businesses: sales, inventory, clients and visit tracking.</div>
+    <ul>
+      <li>Ran <b>Laravel Octane on Swoole</b> with Redis caching to hold up under concurrent load; moved email and SMS onto queues and split the databases so reporting stopped slowing the operational side.</li>
+      <li>Built the <b>Meta Conversions API</b> integration on the Facebook Business SDK &mdash; server-side purchase and cart events with hashed user data and a Meta access token stored per merchant account.</li>
+    </ul>
+    <div class="stack">Laravel 10 &middot; Octane / Swoole &middot; Redis &middot; Stripe &middot; Meta Business SDK &middot; Lazada &middot; MySQL</div>
+  </div>
+
+  <div class="proj">
+    <div class="ptop"><span class="pname">SaltyCustoms &mdash; Custom-Apparel E-Commerce</span><span class="prole">Contributor</span></div>
+    <div class="pdesc">Laravel 8 platform for custom-printed apparel: two storefronts sharing one back-office across 245 Blade templates.</div>
+    <ul>
+      <li>Delivered the <b>QuickBooks Online integration</b>: OAuth setup, sync functions, and migrations linking customer accounts and orders to their QuickBooks records.</li>
+      <li>Implemented GA4 and Meta Pixel tracking, building gtag payloads for add-to-cart, remove-from-cart and purchase events from real cart data.</li>
+    </ul>
+    <div class="stack">Laravel 8 &middot; Blade &middot; Bootstrap 4 &middot; jQuery &middot; QuickBooks &middot; GA4 &middot; Meta Pixel &middot; MySQL</div>
+  </div>
+
+  <div class="proj">
+    <div class="ptop"><span class="pname">February Bloom &mdash; Order &amp; Delivery Management</span><span class="prole">Contributor</span></div>
+    <div class="pdesc">Laravel platform for florist order and delivery management, wiring the storefront to on-demand courier fleets.</div>
+    <ul>
+      <li>Built the <b>Lalamove v3</b> and <b>Borzo</b> courier integrations end to end: hand-rolled HMAC-SHA256 request signing, multi-stop route-optimised quotations, bulk dispatch across selected orders, and signature-verified webhooks that advance orders to Delivered on courier completion.</li>
+      <li>Two-way <b>Shopify</b> sync: scheduled nightly order import mapping products, variants, customers and addresses onto local records, plus fulfilment push-back through the Admin GraphQL API.</li>
+      <li>Role-based permissions, country/state helpers and phone-number validation; migrated slow synchronous jobs onto queues.</li>
+      <li>Worked across <b>141 Blade templates</b> on a themeable Bootstrap 4 setup with reusable form partials and a CSS override layer.</li>
+    </ul>
+    <div class="stack">Laravel &middot; Blade &middot; Bootstrap 4 &middot; jQuery &middot; Queues &middot; Shopify &middot; Lalamove &middot; Borzo &middot; Spatie &middot; MySQL</div>
+  </div>
+
+  <div class="proj">
+    <div class="ptop"><span class="pname">Printer &amp; Hardware Tooling</span><span class="prole">Solo Build</span></div>
+    <div class="pdesc">Node.js utilities letting a web app drive real retail hardware.</div>
+    <ul>
+      <li>Generates <b>ESC/POS and TSPL command bytes</b> for receipts and labels, kicks the cash drawer open, and bridges browser to device over a WebSocket server.</li>
+    </ul>
+    <div class="stack">Node.js &middot; ESC/POS &middot; TSPL &middot; WebSocket</div>
+  </div>
+
+  <h3>Third-Party Integrations Delivered</h3>
+  <div class="integ">
+    <div class="irow"><b>Payments</b> &middot; Stripe (PHP SDK, Stripe.js), GKASH checkout &amp; webhooks</div>
+    <div class="irow"><b>Accounting</b> &middot; QuickBooks Online v3, Xero OAuth2, token refresh</div>
+    <div class="irow"><b>Marketing</b> &middot; Meta Conversions API, Meta Pixel, GA4 / gtag</div>
+    <div class="irow"><b>Tax &amp; Compliance</b> &middot; LHDN MyInvois e-invoicing, MSIC codes</div>
+    <div class="irow"><b>Commerce</b> &middot; Shopify, Lazada marketplace sync</div>
+    <div class="irow"><b>Logistics</b> &middot; Lalamove v3 HMAC signing, Borzo dispatch &amp; webhooks</div>
+    <div class="irow"><b>Messaging</b> &middot; Pusher, Laravel Reverb, Mailgun, MailerSend</div>
+    <div class="irow"><b>Auth &amp; Security</b> &middot; Sanctum, Firebase JWT, Google 2FA, OAuth2 flows</div>
+    <div class="irow"><b>Hardware</b> &middot; ESC/POS, Sunmi SDK, TSPL cash drawer, LPR cameras, TCP gates</div>
+    <div class="irow"><b>Vision &amp; Scanning</b> &middot; MediaPipe face recognition, html5-qrcode</div>
+    <div class="irow"><b>Storage &amp; Reporting</b> &middot; DigitalOcean Spaces, AWS S3, MinIO, PDF / Excel export</div>
+  </div>
+
+  <h3>Experience</h3>
+
+  <div class="row">
+    <div class="meta">Kuala Lumpur<i>Aug 2024 &ndash; Present</i></div>
+    <div>
+      <div class="rtitle">Full-Stack Developer</div>
+      <div class="rorg">Crave Asia</div>
+      <div class="rnote">Lead developer on the QBotu and QBot commerce platforms. Own the Laravel backend &mdash; APIs, auth, queues, broadcasting and reporting &mdash; and build the React and Ionic frontends plus the Docker setup that ships them to web and native Android. Delivered payment gateways, thermal printing and offline-capable POS.</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="meta">Subang Jaya<i>Nov 2021 &ndash; Aug 2024</i></div>
+    <div>
+      <div class="rtitle">Web Developer</div>
+      <div class="rorg">Appolous</div>
+      <div class="rnote">Laravel development on the Appolous BMS cloud business-management and POS product: backend performance work, queued email and SMS, and third-party integrations including Stripe, Lazada and the Meta Conversions API. Also handled client-reported issues across live merchant sites.</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="meta">Klang<i>Mar 2021 &ndash; Jun 2021</i></div>
+    <div>
+      <div class="rtitle">Application Engineer</div>
+      <div class="rorg">LCP Buildsoft Technology</div>
+      <div class="rnote">Built and maintained application features, and translated user requirements into technical design specifications.</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="meta">Shah Alam<i>Nov 2020 &ndash; Jan 2021</i></div>
+    <div>
+      <div class="rtitle">Web Developer (Intern)</div>
+      <div class="rorg">Opensoft Technologies</div>
+      <div class="rnote">Built and maintained web applications in Laravel, PHP, JavaScript and jQuery; cross-browser debugging and prototyping of new pages and features.</div>
+    </div>
+  </div>
+
+  <h3>Education</h3>
+
+  <div class="row">
+    <div class="meta">Kuala Lumpur<i>Jan 2018 &ndash; Jul 2020</i></div>
+    <div>
+      <div class="rtitle">Bachelor of Computing</div>
+      <div class="rorg">SEGi College Kuala Lumpur</div>
+      <div class="rnote">Upper Second Class Honours</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="meta">Kuala Lumpur<i>2020</i></div>
+    <div>
+      <div class="rtitle">Certificates in Big Data Technology &amp; Management, and Data Analytics with Python</div>
+      <div class="rorg">SEGi College Kuala Lumpur</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="meta">Kuala Lumpur<i>Jan 2015 &ndash; Oct 2017</i></div>
+    <div>
+      <div class="rtitle">Diploma in Computer Studies</div>
+      <div class="rorg">SEGi College Kuala Lumpur</div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <b>Availability:</b> open to contract and freelance engagements, remote, GMT+8 with overlap into EU and US mornings.
+    Most work above is commercial and private &mdash; code walkthroughs available on request.
+  </div>
+
+</main>
+
+</body>
+</html>

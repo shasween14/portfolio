@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Annotated Screenshots — QBot</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;background:#1a1d24;padding:24px}
+
+  .page-head{max-width:1920px;margin:0 auto 24px;color:#c8ccd4;font-size:.92rem;line-height:1.6}
+  .page-head h1{font-size:1.25rem;color:#fff;margin-bottom:8px}
+  .page-head code{background:#252932;padding:1px 6px;border-radius:4px;font-size:.9em}
+
+  .item{max-width:1920px;margin:0 auto 30px}
+  .item .fname{color:#7d8494;font-size:.8rem;margin-bottom:6px;font-family:ui-monospace,Consolas,monospace}
+
+  .sheet{width:1920px;background:#fff;position:relative}
+  .shot{position:relative;width:1920px;height:1080px;line-height:0}
+  .shot img{width:1920px;height:1080px;display:block}
+
+  .pin{position:absolute;width:30px;height:30px;border-radius:50%;
+       background:#c2260f;color:#fff;font-size:16px;font-weight:700;
+       display:flex;align-items:center;justify-content:center;
+       box-shadow:0 0 0 3px #fff, 0 1px 3px rgba(0,0,0,.4);
+       transform:translate(-50%,-50%)}
+
+  .legend{background:#12151c;border-top:3px solid #c2260f;padding:18px 26px 20px;height:300px}
+  .legend .hd{display:flex;justify-content:space-between;align-items:baseline;gap:24px;
+              padding-bottom:13px;margin-bottom:14px;border-bottom:1px solid #262b36}
+  .legend .hd .t{color:#fff;font-size:19px;font-weight:700}
+  .legend .hd .t span{color:#8d95a6;font-weight:400;font-size:15px}
+  .legend .hd .who{color:#8d95a6;font-size:14px;white-space:nowrap}
+  .notes{display:grid;grid-template-columns:1fr 1fr;gap:9px 36px}
+  .note{display:grid;grid-template-columns:21px 1fr;gap:11px;align-items:start}
+  .note i{width:21px;height:21px;border-radius:50%;background:#c2260f;color:#fff;
+          font-size:12.5px;font-weight:700;font-style:normal;
+          display:flex;align-items:center;justify-content:center;margin-top:1px}
+  .note p{color:#b9c0cd;font-size:14.5px;line-height:1.45}
+  .note p b{color:#fff;font-weight:600}
+  .note p code{font-family:ui-monospace,Consolas,monospace;font-size:.9em;color:#e2e6ee}
+  .foot{color:#6c7382;font-size:12.5px;margin-top:14px;padding-top:11px;border-top:1px solid #1c212b}
+</style>
+</head>
+<body>
+
+<div class="page-head">
+  <h1>Annotated screenshots — QBot multi-tenant ordering &amp; admin platform</h1>
+  Native 1920&times;1080 captures of the running application, with numbered markers on flat background beside what they
+  point at and a plain legend underneath. Rendered to <code>upwork-covers/qbot/</code>.
+</div>
+
+<div id="items"></div>
+
+<script>
+/* =========================================================================
+   Captures come from the real app served against a copy of the database in
+   which every tenant, outlet, staff member, customer, guest and reviewer has
+   been replaced by a generated identity. Pin coordinates are in the same
+   1920x1080 pixel space and were checked against the source pixels: no pin
+   sits on top of the element it points at.
+   ========================================================================= */
+
+const STACK = 'Laravel 12 &middot; Blade / Bootstrap 5 &middot; jQuery + DataTables &middot; ApexCharts &middot; Spatie Permission &middot; Sanctum &middot; MySQL';
+
+const SHEETS = [
+  {
+    id: 'platform-accounts', file: 'qbot-src/be-accounts.png',
+    title: 'Platform console &middot; accounts',
+    sub: 'one deployment, twenty-two tenants',
+    pins: [
+      {n:1, x:540,  y:320},
+      {n:2, x:800,  y:426},
+      {n:3, x:1240, y:534},
+      {n:4, x:1500, y:642},
+      {n:5, x:1700, y:131}
+    ],
+    notes: [
+      'A separate host and a separate guard: platform staff sign in on <code>backend.&lt;domain&gt;</code> against the users table, while every tenant works on <code>backoffice.&lt;domain&gt;</code> against employees. Same codebase, two session guards.',
+      'Each row is a tenant with its own company identity, because reminder mail and invoices go out per account rather than from the platform.',
+      'The account contact is the address the renewal reminder is sent to &mdash; onboarding, billing and support all key off this row.',
+      'Subscription expiry is enforced at request time: the storefront middleware refuses to serve a store whose account has lapsed, so it is not waiting on a nightly job.',
+      'Adding a tenant here is the whole of onboarding &mdash; the account gets its own roles, its own outlets and its own webstore subdomain, all scoped by <code>account_id</code>.'
+    ]
+  },
+  {
+    id: 'tenant-dashboard', file: 'qbot-src/bo-dashboard-month.png',
+    title: 'Tenant dashboard',
+    sub: 'one outlet, one period, one payment state',
+    pins: [
+      {n:1, x:1520, y:217},
+      {n:2, x:520,  y:395},
+      {n:3, x:1760, y:395},
+      {n:4, x:700,  y:480}
+    ],
+    notes: [
+      'Three filters decide everything below: the period preset, which outlet, and which payment state. The account comes from the signed-in employee, never from the URL.',
+      'Sales, transactions and items sold are computed from the order lines with the gateway fee added and discounts taken off, not read from a stored total column.',
+      'New members counts sign-ups inside the same window, so the four tiles always describe one period rather than three.',
+      'The ApexCharts series is this period against the one before it. The grouping follows the preset &mdash; hour for a day, weekday for a week, day for a month &mdash; and both periods are loaded once, eager-loaded, instead of per-point queries.'
+    ]
+  },
+  {
+    id: 'orders', file: 'qbot-src/bo-orders-30d.png',
+    title: 'Orders',
+    sub: 'three client surfaces, one order table',
+    pins: [
+      {n:1, x:1000, y:540},
+      {n:2, x:985,  y:700},
+      {n:3, x:1265, y:660},
+      {n:4, x:1420, y:755},
+      {n:5, x:1740, y:800}
+    ],
+    notes: [
+      'Filters are server-side: date and time-of-day range, transaction channel, payment type, status and outlet, with the same query behind <b>Export to Excel</b>.',
+      'The order number carries the outlet prefix (<code>LGT-</code>). Webstore checkout, kiosk and POS all mint it the same way, so a number identifies where it was taken.',
+      'Channel records which surface wrote the row &mdash; POS and kiosk arrive through a Sanctum-protected API on their own host, the webstore through the session.',
+      'A row is either a member or a guest; guest checkout stores its own name and contact on the order instead of forcing an account.',
+      'Payment type is the gateway product, not just "card": counter, GKASH card and GKASH internet banking are separate rows in the tenant\'s payment settings.'
+    ]
+  },
+  {
+    id: 'permissions', file: 'qbot-src/bo-permissions.png',
+    title: 'Permissions',
+    sub: 'roles are per tenant, not global',
+    pins: [
+      {n:1, x:1200, y:271},
+      {n:2, x:751,  y:663},
+      {n:3, x:1755, y:663},
+      {n:4, x:1551, y:957}
+    ],
+    notes: [
+      'Spatie roles as columns, the 30 permissions grouped by area as rows. Each role is stored against the account and prefixed with its id (<code>6.cashier</code>), so two tenants can both run a "Cashier" without sharing one.',
+      'Staff sits at the bottom of the ladder: dashboard, orders and customers, nothing else.',
+      'Store Manager holds nearly the whole grid &mdash; catalogue, pricing, staff and outlets &mdash; which is what makes the middle rows meaningful.',
+      'Accounts gets orders, reports, payment types and taxes and nothing about the catalogue. Assigning a role is separate from assigning outlets, so scope and capability stay independent.'
+    ]
+  },
+  {
+    id: 'sales-summary', file: 'qbot-src/bo-report-sales-30d.png',
+    title: 'Reports &middot; sales summary',
+    sub: 'per outlet, per payment state',
+    pins: [
+      {n:1, x:1600, y:470},
+      {n:2, x:700,  y:560},
+      {n:3, x:620,  y:724},
+      {n:4, x:1080, y:724},
+      {n:5, x:1600, y:818}
+    ],
+    notes: [
+      'Range, time of day, booking date, status and outlet. The Excel export runs the same query as the screen, so the file and the page cannot disagree.',
+      'Grouped by outlet and payment state rather than flattened, because a cancelled RM1,625 is a different fact from a paid one and both need to stay visible.',
+      'One row per outlet per status &mdash; four rows for one park is the point, not noise.',
+      'Quantity sold is counted from the order lines, so a single order of twelve tickets is one transaction and twelve items.',
+      'Tax, gateway transaction charge and discount are held apart from net sales, which is the figure that reconciles against what the gateway actually settles.'
+    ]
+  },
+  {
+    id: 'storefront-tickets', file: 'qbot-src/ws-tickets-qty.png',
+    title: 'Storefront &middot; ticket catalogue',
+    sub: 'the tenant\'s own site, on the tenant\'s own host',
+    pins: [
+      {n:1, x:1430, y:39},
+      {n:2, x:1200, y:227},
+      {n:3, x:620,  y:538},
+      {n:4, x:600,  y:636},
+      {n:5, x:500,  y:703}
+    ],
+    notes: [
+      'The storefront is resolved from the hostname &mdash; the outlet\'s slug subdomain or its own custom domain &mdash; and the same middleware refuses to serve a store whose account has lapsed, so billing state reaches the customer-facing site too.',
+      'The catalogue is answered for one booking date, chosen above this grid: the option count and the per-ticket <b>Available</b> / <b>Stock Left</b> badges all describe that date, not the product in general.',
+      'Layout comes from one of the selectable Blade themes, picked per outlet in the store settings. That is what white-label means here &mdash; same code, different theme and branding for each store.',
+      'Category and price come from the tenant\'s own catalogue, so two outlets of one tenant can sell the same ticket at different prices.',
+      'Quantity writes to a server-side cart keyed to the session. Whether sign-in, sign-up or guest checkout are offered at all is a per-store setting, not a build-time decision.'
+    ]
+  },
+  {
+    id: 'kitchen-display', file: 'qbot-src/ws-kds.png',
+    title: 'Kitchen display',
+    sub: 'a public screen on the outlet\'s own host',
+    pins: [
+      {n:1, x:1660, y:41},
+      {n:2, x:400,  y:151},
+      {n:3, x:450,  y:300},
+      {n:4, x:1000, y:760}
+    ],
+    notes: [
+      'The screen is public on the outlet\'s host: a kitchen tablet opens it with no login, and it shows only that outlet\'s work.',
+      'The timer runs from the moment the order was taken. On a line that is the number that matters, not the timestamp.',
+      'Only today\'s <b>paid</b> orders carrying food or beverage lines reach this screen, and a completed one drops off it. Variants ride along, because "Set with Drink" is a different job from "Regular".',
+      'The four buttons write the queue status back, and the same statuses drive the customer-facing queue display. New paid orders arrive over a per-outlet Pusher channel (<code>KDS-&lt;outlet-slug&gt;</code>), so the tablet never polls.'
+    ]
+  },
+  {
+    id: 'storefront-cart', file: 'qbot-src/ws-cart.png',
+    title: 'Storefront &middot; cart',
+    sub: 'lines, add-ons and the outlet\'s own tax',
+    pins: [
+      {n:1, x:1500, y:39},
+      {n:2, x:950,  y:340},
+      {n:3, x:900,  y:551},
+      {n:4, x:1350, y:340}
+    ],
+    notes: [
+      'The cart lives on the server, not in the browser: the badge, this page and the checkout all read the same record, so a refresh or a second tab cannot disagree about what is being bought.',
+      'Each ticket type is its own group with its own quantity and unit price. Changing a quantity re-prices that group; the order summary follows.',
+      'Add-ons hang off the ticket they belong to &mdash; an unlimited-entry upgrade at <code>+RM8.00</code> &mdash; so an upsell stays attached to its line instead of becoming a separate order.',
+      'Tax comes from the outlet\'s own tax configuration rather than a global rate, which is why it lands on part of the basket and not the whole subtotal. Another outlet of the same tenant can tax the same ticket differently.'
+    ]
+  },
+  {
+    id: 'storefront-checkout', file: 'qbot-src/ws-checkout.png',
+    title: 'Storefront &middot; checkout',
+    sub: 'guest or account, then the gateway',
+    pins: [
+      {n:1, x:900,  y:168},
+      {n:2, x:1090, y:515},
+      {n:3, x:1090, y:656},
+      {n:4, x:1300, y:175},
+      {n:5, x:1350, y:355}
+    ],
+    notes: [
+      'Guest checkout is a first-class path, and whether it is offered at all is a per-store setting &mdash; the same code serves an outlet that insists on accounts. Contact details are stored on the order, which is what lets a guest still receive updates and an e-invoice.',
+      'Payment types are the tenant\'s own configured products, not a hardcoded list: GKASH card, GKASH internet banking, GKASH e-wallet and pay-at-counter are each a row in that tenant\'s payment settings, so one outlet can offer a subset of another\'s.',
+      '<b>Pay Now</b> creates the order and hands off to the gateway. Return and callback are separate routes, so a customer who closes the tab still has the callback settle the order.',
+      'Vouchers are applied against the cart before the gateway is called, so the amount authorised is the amount owed.',
+      'Tax and the consumer order fee are carried as their own lines to the last screen &mdash; the customer sees the same breakdown the sales report reconciles against.'
+    ]
+  }
+];
+
+const root = document.getElementById('items');
+
+SHEETS.forEach(function(s, idx){
+  const fname = 'qbot-' + (idx + 1) + '-' + s.id;
+  const el = document.createElement('div');
+  el.className = 'item';
+  el.innerHTML =
+    '<div class="fname">' + fname + '.png &middot; 1920&times;1380</div>' +
+    '<div class="sheet" id="' + s.id + '">' +
+      '<div class="shot">' +
+        '<img src="' + s.file + '" alt="" />' +
+        s.pins.map(function(p){
+          return '<div class="pin" style="left:' + p.x + 'px;top:' + p.y + 'px">' + p.n + '</div>';
+        }).join('') +
+      '</div>' +
+      '<div class="legend">' +
+        '<div class="hd">' +
+          '<div class="t">' + s.title + ' <span>' + s.sub + '</span></div>' +
+          '<div class="who">' + STACK + '</div>' +
+        '</div>' +
+        '<div class="notes">' +
+          s.notes.map(function(t, i){
+            return '<div class="note"><i>' + (i + 1) + '</i><p>' + t + '</p></div>';
+          }).join('') +
+        '</div>' +
+        '<div class="foot">Screenshot of the running application. Tenant, outlet, staff and customer identities have been replaced with generated values before publication.</div>' +
+      '</div>' +
+    '</div>';
+  root.appendChild(el);
+});
+</script>
+
+</body>
+</html>

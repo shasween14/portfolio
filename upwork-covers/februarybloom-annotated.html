@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Annotated Screenshots — February Bloom</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;background:#1a1d24;padding:24px}
+
+  .page-head{max-width:1920px;margin:0 auto 24px;color:#c8ccd4;font-size:.92rem;line-height:1.6}
+  .page-head h1{font-size:1.25rem;color:#fff;margin-bottom:8px}
+  .page-head code{background:#252932;padding:1px 6px;border-radius:4px;font-size:.9em}
+
+  .item{max-width:1920px;margin:0 auto 30px}
+  .item .fname{color:#7d8494;font-size:.8rem;margin-bottom:6px;font-family:ui-monospace,Consolas,monospace}
+
+  /* the deliverable: the raw capture plus annotation, nothing else */
+  .sheet{width:1920px;background:#fff;position:relative}
+  .shot{position:relative;width:1920px;height:1080px;line-height:0}
+  .shot img{width:1920px;height:1080px;display:block}
+
+  /* numbered marker, sits on flat background beside what it points at */
+  .pin{position:absolute;width:30px;height:30px;border-radius:50%;
+       background:#c2260f;color:#fff;font-size:16px;font-weight:700;
+       display:flex;align-items:center;justify-content:center;
+       box-shadow:0 0 0 3px #fff, 0 1px 3px rgba(0,0,0,.4);
+       transform:translate(-50%,-50%)}
+
+  .legend{background:#12151c;border-top:3px solid #c2260f;padding:18px 26px 20px;height:300px}
+  .legend .hd{display:flex;justify-content:space-between;align-items:baseline;gap:24px;
+              padding-bottom:13px;margin-bottom:14px;border-bottom:1px solid #262b36}
+  .legend .hd .t{color:#fff;font-size:19px;font-weight:700}
+  .legend .hd .t span{color:#8d95a6;font-weight:400;font-size:15px}
+  .legend .hd .who{color:#8d95a6;font-size:14px;white-space:nowrap}
+  .legend .hd .who b{color:#c8ccd4;font-weight:600}
+  .notes{display:grid;grid-template-columns:1fr 1fr;gap:9px 36px}
+  .note{display:grid;grid-template-columns:21px 1fr;gap:11px;align-items:start}
+  .note i{width:21px;height:21px;border-radius:50%;background:#c2260f;color:#fff;
+          font-size:12.5px;font-weight:700;font-style:normal;
+          display:flex;align-items:center;justify-content:center;margin-top:1px}
+  .note p{color:#b9c0cd;font-size:14.5px;line-height:1.45}
+  .note p b{color:#fff;font-weight:600}
+  .note p code{font-family:ui-monospace,Consolas,monospace;font-size:.9em;color:#e2e6ee}
+  .foot{color:#6c7382;font-size:12.5px;margin-top:14px;padding-top:11px;border-top:1px solid #1c212b}
+</style>
+</head>
+<body>
+
+<div class="page-head">
+  <h1>Annotated screenshots — February Bloom order &amp; delivery admin</h1>
+  The raw 1920&times;1080 captures at native resolution, with numbered markers on flat background beside what they point at
+  and a plain legend underneath. No frame, no headline, no gradient.
+  Rendered to <code>upwork-covers/februarybloom/</code>.
+</div>
+
+<div id="items"></div>
+
+<script>
+/* =========================================================================
+   Captures are 1920x1080 from the real app running against a copy of the
+   database with every customer name, address, phone, email and card message
+   replaced by generated values. Pin coordinates are in that same pixel space
+   and were checked against the source pixels: each one sits on flat
+   background, never on the element it points at.
+   ========================================================================= */
+
+const STACK = 'Laravel 9.52 &middot; Blade / Bootstrap 4 &middot; jQuery + DataTables &middot; MySQL &middot; database queue';
+
+const SHEETS = [
+  {
+    id: 'orders-board', file: 'fb-src-final/orders.png',
+    title: 'Orders',
+    sub: 'one delivery day &mdash; the board the shop works from',
+    pins: [
+      {n:1, x:445,  y:272},
+      {n:2, x:1065, y:272},
+      {n:3, x:1390, y:450},
+      {n:4, x:1553, y:570},
+      {n:5, x:1240, y:680},
+      {n:6, x:1660, y:272}
+    ],
+    notes: [
+      'The board is scoped to <b>one delivery date</b> and opens on today. The day is the unit of work, not the order table.',
+      'Riders are assigned in bulk &mdash; tick rows, pick a rider, apply. The same field pushes a batch to <b>Lalamove</b> or <b>Borzo</b>, which are stored as delivery categories rather than special-cased in code.',
+      'The assigned rider is a coloured chip on every row, so a full day can be checked for unassigned drops in one pass.',
+      'Two independent states per order: fulfilment (<code>Processed / Wrapping / On the Way</code>) and payment (<code>Paid / Unpaid</code>). A wrapped order that is unpaid is a different problem from an unwrapped paid one.',
+      'Recipient instructions ride on the row itself, so the florist and the driver list are read off one screen instead of two.',
+      'Server-side table: <b>100 rows a page</b>, search debounced by a second, status / rider / product lines eager-loaded so a page costs a fixed number of queries.'
+    ]
+  },
+  {
+    id: 'order-recipients', file: 'fb-src-final/order-edit.png',
+    title: 'Order',
+    sub: 'one order, many recipients',
+    pins: [
+      {n:1, x:950,  y:190},
+      {n:2, x:720,  y:351},
+      {n:3, x:700,  y:533},
+      {n:4, x:660,  y:658},
+      {n:5, x:1750, y:650}
+    ],
+    notes: [
+      'State options are generated from the account country through the <b>country / state helper</b>, so an address cannot be saved with a state that does not belong to its country.',
+      'Billing mirrors shipping with one tick but is <b>stored as its own address</b> &mdash; the invoice still needs it once the two diverge.',
+      'Every line carries its own recipient: name, size, SKU and phone. A corporate order of nine bouquets is one order with nine deliveries, not nine orders.',
+      'The card instruction belongs to the <b>line</b>, not the order, because it differs per recipient.',
+      'Quantity and price stay editable per line. The confirmation mail that follows a save is <b>queued</b>, not sent inside the request.'
+    ]
+  },
+  {
+    id: 'permissions', file: 'fb-src-final/permissions.png',
+    title: 'Permissions',
+    sub: 'Spatie roles, edited as one grid',
+    pins: [
+      {n:1, x:1150, y:345},
+      {n:2, x:1000, y:389},
+      {n:3, x:1000, y:529},
+      {n:4, x:1000, y:923}
+    ],
+    notes: [
+      'Owner is fixed full access and rendered disabled, so the grid only offers what is actually editable.',
+      'Each checkbox is one role&ndash;permission pair; a save is a single <code>syncPermissions</code> per role rather than a diff of individual grants.',
+      'Employees hold the operational subset &mdash; orders, packing, delivery, past orders &mdash; while invoices, products and printers stay with admin. The row, not the documentation, is the answer.',
+      'Permissions are grouped by area, so granting a report does not quietly grant HR.'
+    ]
+  },
+  {
+    id: 'report-sales', file: 'fb-src-final/report-sales.png',
+    title: 'Reports &middot; order sales',
+    sub: 'range in, rollup out',
+    pins: [
+      {n:1, x:1250, y:234},
+      {n:2, x:700,  y:379},
+      {n:3, x:1500, y:426},
+      {n:4, x:700,  y:866}
+    ],
+    notes: [
+      'Range and payment method post to a generate endpoint that returns the same view, so the Excel and PDF exports run off the same query as the screen.',
+      'Orders, order amount, shipping and nett are kept apart &mdash; shipping collected is not revenue earned.',
+      'Payment mix by method with amount and count: how the money actually arrived, not just how much.',
+      'Status breakdown with amount and count, so an odd month is readable by state instead of by total alone.'
+    ]
+  },
+  {
+    id: 'members', file: 'fb-src-final/members.png',
+    title: 'Members',
+    sub: 'the customer list &mdash; and which rows Shopify owns',
+    pins: [
+      {n:1, x:560,  y:71},
+      {n:2, x:620,  y:233},
+      {n:3, x:1600, y:283},
+      {n:4, x:1790, y:426},
+      {n:5, x:1465, y:520}
+    ],
+    notes: [
+      'The header total is a plain <code>Member::count()</code>, kept apart from the paged query &mdash; rendering one page of twenty never has to know how many thousands sit behind it.',
+      'Client Type does not call a second endpoint. It runs <code>column().search()</code> on the corporate flag, and the controller turns every non-empty column search into a <code>where</code> &mdash; the filter and the search box are one code path.',
+      'Server-side throughout: twenty rows a page, and the search is debounced a full second, so a typed query costs one request instead of one per keystroke.',
+      'Rows that came from <b>Shopify</b> show <code>-</code> where edit and delete would be. The cell is gated on a hidden <code>shopify_member_id</code>, so the storefront stays the system of record for the members it owns and the admin cannot quietly fork one.',
+      'Active and Corporate Client are independent flags, each with its own pill rather than one merged status &mdash; an account can be switched off without ceasing to be corporate, which is why the filter targets the corporate column alone.'
+    ]
+  }
+];
+
+const root = document.getElementById('items');
+
+SHEETS.forEach(function(s, idx){
+  const fname = 'februarybloom-' + (idx + 1) + '-' + s.id;
+  const el = document.createElement('div');
+  el.className = 'item';
+  el.innerHTML =
+    '<div class="fname">' + fname + '.png &middot; 1920&times;1380</div>' +
+    '<div class="sheet" id="' + s.id + '">' +
+      '<div class="shot">' +
+        '<img src="' + s.file + '" alt="" />' +
+        s.pins.map(function(p){
+          return '<div class="pin" style="left:' + p.x + 'px;top:' + p.y + 'px">' + p.n + '</div>';
+        }).join('') +
+      '</div>' +
+      '<div class="legend">' +
+        '<div class="hd">' +
+          '<div class="t">' + s.title + ' <span>' + s.sub + '</span></div>' +
+          '<div class="who">' + STACK + '</div>' +
+        '</div>' +
+        '<div class="notes">' +
+          s.notes.map(function(t, i){
+            return '<div class="note"><i>' + (i + 1) + '</i><p>' + t + '</p></div>';
+          }).join('') +
+        '</div>' +
+        '<div class="foot">Screenshot of the running application. Customer names, addresses, phone numbers, e-mail and card messages have been replaced with generated values before publication.</div>' +
+      '</div>' +
+    '</div>';
+  root.appendChild(el);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Annotated Screenshots — QBotu</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;background:#1a1d24;padding:24px}
+
+  .page-head{max-width:1920px;margin:0 auto 24px;color:#c8ccd4;font-size:.92rem;line-height:1.6}
+  .page-head h1{font-size:1.25rem;color:#fff;margin-bottom:8px}
+  .page-head code{background:#252932;padding:1px 6px;border-radius:4px;font-size:.9em}
+
+  .item{max-width:1920px;margin:0 auto 30px}
+  .item .fname{color:#7d8494;font-size:.8rem;margin-bottom:6px;font-family:ui-monospace,Consolas,monospace}
+
+  .sheet{width:1920px;background:#fff;position:relative}
+  .shot{position:relative;width:1920px;height:1080px;line-height:0}
+  .shot img{width:1920px;height:1080px;display:block}
+
+  .pin{position:absolute;width:30px;height:30px;border-radius:50%;
+       background:#c2260f;color:#fff;font-size:16px;font-weight:700;
+       display:flex;align-items:center;justify-content:center;
+       box-shadow:0 0 0 3px #fff, 0 1px 3px rgba(0,0,0,.4);
+       transform:translate(-50%,-50%)}
+
+  .legend{background:#12151c;border-top:3px solid #c2260f;padding:18px 26px 20px;height:300px}
+  .legend .hd{display:flex;justify-content:space-between;align-items:baseline;gap:24px;
+              padding-bottom:13px;margin-bottom:14px;border-bottom:1px solid #262b36}
+  .legend .hd .t{color:#fff;font-size:19px;font-weight:700}
+  .legend .hd .t span{color:#8d95a6;font-weight:400;font-size:15px}
+  .legend .hd .who{color:#8d95a6;font-size:14px;white-space:nowrap}
+  .notes{display:grid;grid-template-columns:1fr 1fr;gap:9px 36px}
+  .note{display:grid;grid-template-columns:21px 1fr;gap:11px;align-items:start}
+  .note i{width:21px;height:21px;border-radius:50%;background:#c2260f;color:#fff;
+          font-size:12.5px;font-weight:700;font-style:normal;
+          display:flex;align-items:center;justify-content:center;margin-top:1px}
+  .note p{color:#b9c0cd;font-size:14.5px;line-height:1.45}
+  .note p b{color:#fff;font-weight:600}
+  .note p code{font-family:ui-monospace,Consolas,monospace;font-size:.9em;color:#e2e6ee}
+  .foot{color:#6c7382;font-size:12.5px;margin-top:14px;padding-top:11px;border-top:1px solid #1c212b}
+</style>
+</head>
+<body>
+
+<div class="page-head">
+  <h1>Annotated screenshots — QBotu multi-app commerce &amp; POS platform</h1>
+  Native 1920&times;1080 captures of the running stack (Docker Compose: Caddy, Laravel API, Vite front-ends, queue worker,
+  scheduler, Reverb, MySQL, Redis, MinIO, face-recognition service), with numbered markers on flat background beside what
+  they point at. Rendered to <code>upwork-covers/qbotu/</code>.
+</div>
+
+<div id="items"></div>
+
+<script>
+/* =========================================================================
+   Served from the real stack against a sanitized copy of the working
+   database: every merchant, outlet, staff member, cardholder and customer
+   identity is generated, biometric face encodings and tokens are dropped.
+   Pin coordinates are in the same 1920x1080 space and were checked against
+   the source pixels.
+   ========================================================================= */
+
+const STACK = 'Laravel API &middot; React + TypeScript &middot; Vite &middot; Sanctum &middot; MySQL &middot; Redis queues &middot; Reverb &middot; MinIO &middot; Docker Compose';
+
+const SHEETS = [
+  {
+    id: 'platform-companies', file: 'qbotu-src/hq-companies.png',
+    title: 'Platform console &middot; companies',
+    sub: 'the HQ surface, on its own guard',
+    pins: [
+      {n:1, x:1250, y:90},
+      {n:2, x:1450, y:258},
+      {n:3, x:1200, y:313},
+      {n:4, x:1000, y:370}
+    ],
+    notes: [
+      'The HQ console runs on its own route tree and its own session guard against a separate <code>hq_users</code> table &mdash; platform staff and merchant staff never share an account store, and an HQ token is useless on a merchant surface.',
+      'Every merchant on the deployment is listed here with search and plan / status filters; onboarding a new one is a form on this page, not a migration.',
+      'A row is a whole tenant: display name, URL slug, owner, contact and outlet count. The slug is what the merchant\'s own portal and storefront hang off (<code>/&lt;slug&gt;/hub</code>).',
+      'Plan, account status and subscription state are three separate facts, shown as three separate badges, with MRR beside them. An <b>active</b> account can still be <b>EXPIRED</b> on its subscription &mdash; which is exactly the case the billing screens have to handle.'
+    ]
+  },
+  {
+    id: 'merchant-dashboard', file: 'qbotu-src/hub-02-dashboard.png',
+    title: 'Merchant hub &middot; dashboard',
+    sub: 'one merchant inside the platform',
+    pins: [
+      {n:1, x:1500, y:273},
+      {n:2, x:700,  y:356},
+      {n:3, x:500,  y:460},
+      {n:4, x:1200, y:800}
+    ],
+    notes: [
+      'The same React app serves this surface: sales, operations and customers are three lenses over one merchant, chosen here rather than in three separate builds.',
+      'Period is a comparison, not a filter &mdash; today against yesterday, this week against last &mdash; so every tile below carries a delta rather than a bare number.',
+      'Revenue, transactions and average order value are computed from the order lines of the signed-in merchant only; the account is resolved from the token, never from the URL.',
+      'Channel mix answers where the money came in &mdash; kiosk, POS, webstore or tablet &mdash; which is the point of running four front-ends against one API.'
+    ]
+  },
+  {
+    id: 'merchant-orders', file: 'qbotu-src/hub-03-orders.png',
+    title: 'Merchant hub &middot; orders',
+    sub: 'every surface writes into one order table',
+    pins: [
+      {n:1, x:1500, y:115},
+      {n:2, x:950,  y:484},
+      {n:3, x:1250, y:558},
+      {n:4, x:1600, y:423},
+      {n:5, x:1500, y:195}
+    ],
+    notes: [
+      'Export and AI insights sit on the same query as the table, so what is analysed and what is exported are what is on screen.',
+      'The order number encodes the surface that took it, and the payment channel rides on the row: <code>DuitNow</code> and internet banking are separate rails, not one "online" bucket.',
+      'Payment state and fulfilment state are tracked apart. A paid order that is still preparing and a cancelled order that was already paid are different problems, and the row says which.',
+      'Receipts are generated per order and reachable from the list, because the counter is asked for one long after the order closed.',
+      'The page explains itself in-app. On a platform where a merchant\'s staff turn over constantly, that panel is cheaper than training.'
+    ]
+  },
+  {
+    id: 'kiosk-binding', file: 'qbotu-src/kiosk-05-binding.png',
+    title: 'Kiosk &middot; device binding',
+    sub: 'the same React bundle, activated as a device',
+    pins: [
+      {n:1, x:1150, y:265},
+      {n:2, x:1150, y:397},
+      {n:3, x:900,  y:467},
+      {n:4, x:1150, y:595},
+      {n:5, x:1230, y:700}
+    ],
+    notes: [
+      'A kiosk is not a separate application: the same project builds <code>kiosk.html</code>, <code>pos.html</code>, <code>tablet.html</code> and the web app from one source tree, and a device becomes a kiosk by activating here.',
+      'Activation is a management action &mdash; merchant code, then a manager\'s own credentials &mdash; and the device is bound to a specific outlet rather than to the merchant as a whole.',
+      'The kiosk code is the short identifier staff read out (<code>KI1</code>); the long device id stays in the binding record.',
+      'Device type is carried with the binding, so an Android tablet, a desktop kiosk and a POS terminal can be told apart in reporting.',
+      'The notice states the contract plainly: the binding survives until a manager changes it, and every order taken on the device is attributed to it. That attribution is what makes the channel mix on the dashboard meaningful.'
+    ]
+  }
+];
+
+const root = document.getElementById('items');
+
+SHEETS.forEach(function(s, idx){
+  const fname = 'qbotu-' + (idx + 1) + '-' + s.id;
+  const el = document.createElement('div');
+  el.className = 'item';
+  el.innerHTML =
+    '<div class="fname">' + fname + '.png &middot; 1920&times;1380</div>' +
+    '<div class="sheet" id="' + s.id + '">' +
+      '<div class="shot">' +
+        '<img src="' + s.file + '" alt="" />' +
+        s.pins.map(function(p){
+          return '<div class="pin" style="left:' + p.x + 'px;top:' + p.y + 'px">' + p.n + '</div>';
+        }).join('') +
+      '</div>' +
+      '<div class="legend">' +
+        '<div class="hd">' +
+          '<div class="t">' + s.title + ' <span>' + s.sub + '</span></div>' +
+          '<div class="who">' + STACK + '</div>' +
+        '</div>' +
+        '<div class="notes">' +
+          s.notes.map(function(t, i){
+            return '<div class="note"><i>' + (i + 1) + '</i><p>' + t + '</p></div>';
+          }).join('') +
+        '</div>' +
+        '<div class="foot">Screenshot of the running application. Merchant, outlet, staff and customer identities have been replaced with generated values before publication.</div>' +
+      '</div>' +
+    '</div>';
+  root.appendChild(el);
+});
+</script>
+
+</body>
+</html>

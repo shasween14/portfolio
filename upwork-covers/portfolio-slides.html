@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Upwork Portfolio Slides — Shaswin Kumar</title>
+<style>
+  :root{
+    --bg:#0b1020; --bg-2:#0f152b; --card:#141c33; --card-2:#18213d; --border:#243156;
+    --text:#e7ecf5; --muted:#9aa6c4;
+    --brand:#ff2d20; --brand-2:#f9603a; --accent:#5b8cff; --accent-2:#22d3ee; --ok:#34d399;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;background:#070a16;color:var(--text);padding:30px 20px 60px}
+
+  .page-head{max-width:1024px;margin:0 auto 30px;text-align:center}
+  .page-head h1{font-size:1.6rem;font-weight:800}
+  .page-head p{color:var(--muted);margin-top:10px;font-size:.95rem;line-height:1.65}
+  .dl{display:inline-block;padding:9px 18px;border-radius:999px;font-weight:700;font-size:.9rem;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;border:0;cursor:pointer}
+  .dl.all{background:transparent;border:1px solid var(--border);color:var(--text);margin-top:14px}
+  .dl.deck{background:transparent;border:1px solid rgba(255,45,32,.5);color:#ffb3aa}
+
+  .deck-head{max-width:1024px;margin:52px auto 22px;display:flex;justify-content:space-between;
+             align-items:flex-end;gap:20px;border-bottom:1px solid var(--border);padding-bottom:14px}
+  .deck-head h2{font-size:1.25rem;font-weight:800}
+  .deck-head .meta{color:var(--muted);font-size:.86rem;margin-top:4px}
+
+  .cover-wrap{max-width:1024px;margin:0 auto 34px}
+  .cover-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+  .cover-bar .lbl{color:var(--muted);font-size:.85rem}
+  .scaler{transform-origin:top left}
+
+  /* ---------- THE SLIDE ---------- */
+  .cover{
+    width:1024px;height:768px;position:relative;overflow:hidden;
+    background:
+      radial-gradient(900px 460px at 82% -8%,rgba(91,140,255,.18),transparent 60%),
+      radial-gradient(760px 420px at -8% 8%,rgba(255,45,32,.16),transparent 55%),
+      var(--bg);
+    border:1px solid var(--border);border-radius:18px;
+    padding:48px 60px 40px;display:flex;flex-direction:column;
+  }
+  .kicker{color:var(--brand-2);font-weight:800;font-size:.9rem;letter-spacing:3px;text-transform:uppercase}
+  .cover h3{font-size:2.25rem;line-height:1.1;font-weight:800;letter-spacing:-1px;margin-top:12px;max-width:900px}
+  .cover h3 .grad{color:var(--brand-2)}
+  .sub{color:var(--muted);font-size:1.02rem;margin-top:12px;max-width:860px;line-height:1.5}
+  .body{flex:1;display:flex;flex-direction:column;justify-content:center;margin:22px 0 18px;min-height:0}
+  .foot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:16px}
+  .foot .who{font-weight:800;font-size:1.08rem;letter-spacing:.4px}
+  .foot .who .dot{color:var(--brand)}
+  .foot .role{color:var(--muted);font-size:.9rem}
+
+  /* ---------- ARCHITECTURE TIERS ---------- */
+  .tiers{display:flex;flex-direction:column;justify-content:space-between;height:100%}
+  .tier{display:grid;grid-template-columns:100px 1fr;gap:15px;align-items:center}
+  .tier .tl{font-size:.66rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent-2);
+            text-align:right;line-height:1.35}
+  .tier .boxes{display:flex;gap:10px}
+  .box{flex:1;background:var(--card);border:1px solid var(--border);border-radius:11px;padding:11px 12px;min-width:0}
+  .box b{display:block;font-size:.94rem;font-weight:700;color:#fff;line-height:1.25}
+  .box span{display:block;font-size:.76rem;color:var(--muted);margin-top:3px;line-height:1.35}
+  .box.hot{border-color:rgba(255,45,32,.45);background:rgba(255,45,32,.07)}
+  .box.hot b{color:#ffd0ca}
+  .box.edge{border-color:rgba(34,211,238,.35);background:rgba(34,211,238,.06)}
+  .link{display:grid;grid-template-columns:100px 1fr;gap:15px;align-items:center;padding:4px 0}
+  .link .arw{text-align:right;color:var(--brand-2);font-size:.9rem;letter-spacing:2px}
+  .link .cap{font-size:.78rem;color:var(--muted);border-left:2px solid var(--border);padding-left:12px;line-height:1.4}
+  .link .cap b{color:#cfd6e8;font-weight:700}
+
+  /* ---------- STATS ---------- */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;height:100%}
+  .stat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;
+        display:flex;flex-direction:column;justify-content:center}
+  .stat .n{font-size:2.4rem;font-weight:800;color:#fff;line-height:1}
+  .stat .l{font-size:.95rem;font-weight:700;color:#dbe2f2;margin-top:8px}
+  .stat .d{font-size:.78rem;color:var(--muted);margin-top:5px;line-height:1.4}
+
+  /* ---------- FLOW STEPS ---------- */
+  .steps{display:flex;flex-direction:column;gap:12px}
+  .step{display:grid;grid-template-columns:38px 92px 1fr;gap:14px;align-items:start}
+  .step .n{height:38px;border-radius:11px;background:rgba(255,45,32,.12);
+    border:1px solid rgba(255,45,32,.45);color:#ffb3aa;font-weight:800;font-size:1rem;
+    display:flex;align-items:center;justify-content:center}
+  .step .lane{font-size:.66rem;font-weight:800;letter-spacing:1.1px;text-transform:uppercase;
+    color:var(--accent-2);background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.25);
+    border-radius:7px;padding:6px 6px;text-align:center;margin-top:4px}
+  .step .t{font-size:1rem;font-weight:700;color:#fff;line-height:1.3}
+  .step .d{font-size:.855rem;color:var(--muted);margin-top:3px;line-height:1.45}
+  .step .d code{font-family:ui-monospace,Consolas,monospace;font-size:.9em;background:var(--card-2);
+    border:1px solid var(--border);border-radius:5px;padding:1px 5px;color:#dbe2f2}
+
+  /* ---------- PROBLEM / SOLUTION ---------- */
+  .ps{display:grid;grid-template-columns:1fr 1fr;gap:18px;height:100%}
+  .panel{border-radius:14px;padding:22px;display:flex;flex-direction:column}
+  .panel.bad{background:rgba(255,45,32,.07);border:1px solid rgba(255,45,32,.32)}
+  .panel.good{background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.30)}
+  .panel .ph{font-size:.68rem;font-weight:800;letter-spacing:1.7px;text-transform:uppercase;margin-bottom:11px}
+  .panel.bad .ph{color:#ff8a7a}
+  .panel.good .ph{color:#6ee7b7}
+  .panel .pt{font-size:1.08rem;font-weight:700;color:#fff;line-height:1.35;margin-bottom:12px}
+  .panel ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+  .panel li{font-size:.855rem;color:#c3ccdf;padding-left:19px;position:relative;line-height:1.45}
+  .panel.bad li::before{content:"\00d7";position:absolute;left:0;color:#ff8a7a;font-weight:800}
+  .panel.good li::before{content:"\2713";position:absolute;left:0;color:#6ee7b7;font-weight:800}
+  .panel li code{font-family:ui-monospace,Consolas,monospace;font-size:.9em;background:rgba(0,0,0,.28);
+    border-radius:5px;padding:1px 5px;color:#e7ecf5}
+
+  /* ---------- TILE GRID ---------- */
+  .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;height:100%;align-content:center}
+  .tile{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 15px}
+  .tile .ic{font-size:1.25rem;line-height:1}
+  .tile b{display:block;font-size:.95rem;font-weight:700;color:#fff;margin-top:8px;line-height:1.25}
+  .tile span{display:block;font-size:.79rem;color:var(--muted);margin-top:5px;line-height:1.45}
+  .tiles.two{grid-template-columns:repeat(2,1fr)}
+  .tiles.two .tile{padding:20px}
+  .tiles.two .tile b{font-size:1.05rem}
+  .tiles.two .tile span{font-size:.87rem}
+
+  /* ---------- STACK TAGS ---------- */
+  .stack{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+  .tag{font-size:.82rem;background:var(--card);border:1px solid var(--border);color:#cdd5ea;padding:6px 11px;border-radius:9px}
+  .tag.hot{border-color:rgba(255,45,32,.5);color:#ffb3aa;background:rgba(255,45,32,.10)}
+</style>
+</head>
+<body>
+
+<div class="page-head">
+  <h1>Upwork Portfolio Slides — extra images per project</h1>
+  <p>Each slide is exactly 1024&times;768, in the same style as your existing thumbnails, and exports at 2&times;
+  for a sharp upload. Add them to the <strong>same</strong> Upwork portfolio item as extra images: the title card
+  stays as image 1, these become images 2, 3, 4&hellip; so a client opening the item sees the architecture, the real
+  numbers and the hard problems instead of just a title.<br>
+  No client names, no logos, no URLs and no credentials appear on any slide.</p>
+  <button class="dl all" onclick="downloadAll()">&#11015; Download all slides</button>
+</div>
+
+<div id="decks"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+/* =========================================================================
+   DECKS — one deck per portfolio item already published on Upwork.
+   The QParking numbers were counted out of the repository itself
+   (149 endpoints, 31 tables, 75 screens, 56 controllers, 33 models),
+   so every claim on these slides is one a client could ask you to prove.
+   ========================================================================= */
+const DECKS = [
+{
+  deck:"qparking",
+  name:"QParking Cloud — Multi-Site Parking & Gate Management SaaS",
+  meta:"5 extra images · for your published item #1",
+  role:"Lead developer",
+  slides:[
+    {
+      id:"qp-arch", type:"arch",
+      kicker:"System architecture",
+      title:["Three portals, one API, and ","hardware on the ground"],
+      tiers:[
+        {label:"Portals", boxes:[
+          {t:"HQ Admin",      s:"Multi-site rollup, alerts, command centre"},
+          {t:"Site Operator", s:"Gates, passes, rates, billing, devices"},
+          {t:"Customer",      s:"Availability, passes, vouchers, visitors"}
+        ]},
+        {cap:"One <b>React 18 + TypeScript + Vite</b> build serves all three, with a shared adapter layer so the portals cannot drift on vocabulary &middot; Sanctum bearer tokens, and Spatie roles decide what loads"},
+        {label:"API surfaces", boxes:[
+          {t:"operator",hot:1,s:"site operations"},
+          {t:"hq",hot:1,s:"group rollup"},
+          {t:"customer",hot:1,s:"self-service"},
+          {t:"local",hot:1,s:"on-prem devices"},
+          {t:"public",hot:1,s:"QR signup"}
+        ]},
+        {cap:"<b>Laravel 13</b> &middot; 149 endpoints across 6 route files, split by audience rather than one flat API &middot; 56 controllers over 33 Eloquent models, with policies per role"},
+        {label:"Data", boxes:[
+          {t:"MySQL",       s:"31 tables — sites, vehicles, passes, bays, tariffs, transactions"},
+          {t:"Activity log",s:"Who changed what, per company and per site"},
+          {t:"File storage",s:"Plate captures, invoices, exports"}
+        ]},
+        {cap:"The site server holds a <b>local copy of the gate decision</b> and reports back &middot; barrier and display driven over TCP, so a dropped uplink does not trap cars at the lane"},
+        {label:"On site", boxes:[
+          {t:"Local server",edge:1,s:"decides at the gate"},
+          {t:"LPR camera",edge:1,s:"reads the plate"},
+          {t:"Boom barrier",edge:1,s:"TCP open command"},
+          {t:"LED / LCD",edge:1,s:"tells the driver"},
+          {t:"Kiosk",edge:1,s:"pay on exit"}
+        ]}
+      ],
+      stack:[["Laravel 13",1],["React 18",0],["TypeScript",0],["MySQL",0],["Docker",0],["Sanctum",0],["Spatie",0],["LPR camera SDK",0]]
+    },
+    {
+      id:"qp-numbers", type:"stats",
+      kicker:"What is actually in the build",
+      title:["Not a demo — ","a system in daily use"],
+      sub:"Counted straight out of the repository, so you can hold me to every one of them.",
+      stats:[
+        {n:"149", l:"REST endpoints",      d:"Across 6 route files split by audience: operator, HQ, customer, on-prem device, public and shared."},
+        {n:"31",  l:"Database tables",     d:"Sites, customers, vehicles, passes, bays, rate policies, tariff rules, transactions, refunds, adjustments."},
+        {n:"75",  l:"Front-end screens",   d:"57 operator, 11 customer, 7 HQ — one React codebase serving three role-scoped portals."},
+        {n:"56",  l:"Controllers",         d:"Thin controllers over form requests and policies; the rules live in the domain, not in the HTTP layer."},
+        {n:"33",  l:"Eloquent models",     d:"The customer / vehicle / pass / bay model is shared with the on-prem gate box so the two cannot disagree."},
+        {n:"3",   l:"Deploy environments", d:"One base Docker Compose file plus local, staging and production overlays."}
+      ],
+      stack:[["Laravel 13",1],["React 18",0],["MySQL",0],["Docker Compose",0],["Sanctum",0],["Spatie Permission",0]]
+    },
+    {
+      id:"qp-gate", type:"flow",
+      kicker:"The core loop",
+      title:["A car arrives. ","No staff involved."],
+      sub:"Every step below is a real table or service in the system, not a diagram of an intention.",
+      steps:[
+        ["1","Camera","The plate is read at the lane","The LPR camera posts the read to the on-prem API and it lands in <code>camera_lpr_events</code> with the capture attached."],
+        ["2","Match","Plate resolved to a customer","The plate is matched to a vehicle, the vehicle to its owner, and the owner to whatever pass they hold <em>at that site</em>."],
+        ["3","Rules","Capacity checked against bays","A pass covers a pool of plates, but how many may be inside at once comes from the bays it holds — four plates on two bays admits two cars and refuses the third."],
+        ["4","Gate","Barrier opens, driver is told","An approved decision queues a row in <code>gate_open_commands</code>, and the lane display shows the driver the result either way."],
+        ["5","Record","The stay is opened and priced","A <code>parking_records</code> row opens on entry. On exit the site's rate policy and tariff rules price the stay."],
+        ["6","Money","Paid, and provable afterwards","Kiosk, wallet or card. Transactions, refunds and adjustments are separate records, so the audit trail survives a dispute."]
+      ],
+      stack:[["LPR camera SDK",1],["TCP barrier control",0],["Rate policies",0],["Tariff rules",0],["Audit trail",0]]
+    },
+    {
+      id:"qp-pass", type:"ps",
+      kicker:"The hard part",
+      title:["The rule the whole ","design turns on"],
+      sub:"Parking software gets this wrong constantly, and the bug only surfaces once real tenants are inside.",
+      bad:{
+        h:"The obvious model, and why it fails",
+        t:"“A pass belongs to a car.”",
+        li:[
+          "A household or company owns several cars and any one of them might arrive — one pass per plate means selling them five passes for one bay.",
+          "Flip it so one pass covers many plates, and registering ten cars quietly buys ten simultaneous entries.",
+          "Tie the customer record to a site, and the same person renting from two operators becomes two identities with two logins.",
+          "Let the gate box carry its own copy of the rules and it will eventually disagree with the cloud — at the barrier, with a queue behind."
+        ]
+      },
+      good:{
+        h:"How it is actually modelled",
+        t:"A pass covers a pool of plates. Bays cap how many are inside.",
+        li:[
+          "The pass holds a pool of registered vehicles, and concurrency comes from bays rather than plate count — the plan sets that ceiling.",
+          "A customer is a global identity: email is the login, one record system-wide, and the pass is the only thing tying them to a site.",
+          "Roles — resident, staff, season, visitor — live on the pass, per site, so the same person can be a resident at one site and a visitor at another.",
+          "Cloud and on-prem run against the same gate-decision fixture, so the two cannot drift apart."
+        ]
+      },
+      stack:[["Domain modelling",1],["Written domain doc",0],["Shared test fixture",0],["Cloud + on-prem parity",0]]
+    },
+    {
+      id:"qp-ops", type:"tiles",
+      kicker:"Shipping and operations",
+      title:["Deployed with a script, ","not by hand over SSH"],
+      sub:"The part a client feels six months in: can this be updated safely by someone who is not me?",
+      tiles:[
+        {ic:"🧩",t:"One base file, three overlays",s:"A single Docker Compose base with local, staging and production overlays — environments differ by overlay, not by drift."},
+        {ic:"💾",t:"Database backed up first",s:"The deploy script dumps the database in a consistent single-transaction snapshot before anything is touched."},
+        {ic:"🔍",t:"Dry run before the real one",s:"It prints its plan first — branch, whether it pulls, whether it backs up, which compose files load — and can stop there."},
+        {ic:"⏩",t:"Fast-forward pulls only",s:"Deploys refuse to merge. If the server has diverged from the branch it stops instead of guessing."},
+        {ic:"🔁",t:"Rebuild is a flag, not a ritual",s:"Cached rebuild by default, a full no-cache rebuild behind a flag, and a skip-pull mode for code already checked out."},
+        {ic:"📄",t:"The domain is written down",s:"The non-obvious rules live in a committed document that records why each one exists, so the next developer inherits the reasoning."}
+      ],
+      stack:[["Docker Compose",1],["Bash deploy script",0],["mysqldump",0],["nginx",0],["Staging + production",0]]
+    }
+  ]
+},
+{
+  deck:"commerce",
+  name:"Multi-App Commerce & POS Platform — Laravel API + React Apps",
+  meta:"3 extra images · for your published item #4",
+  role:"Lead developer",
+  slides:[
+    {
+      id:"cm-arch", type:"arch",
+      kicker:"System architecture",
+      title:["Four front-ends, ","one Laravel API"],
+      tiers:[
+        {label:"Client apps", boxes:[
+          {t:"POS",   s:"Counter selling, works offline"},
+          {t:"Kiosk", s:"Self-order, face recognition"},
+          {t:"Tablet",s:"Table-side ordering"},
+          {t:"Web",   s:"Customer storefront"}
+        ]},
+        {cap:"<b>React + TypeScript</b> shared across all four &middot; POS, Kiosk and Tablet wrapped into native <b>Android</b> builds with Capacitor from the same codebase"},
+        {label:"API", boxes:[
+          {t:"Laravel REST API",hot:1,s:"One API behind every client — auth, catalogue, orders, payments, tax and reporting"}
+        ]},
+        {cap:"<b>Reverb websockets</b> push live order state to the kitchen and the counter &middot; queues carry printing, invoicing and accounting sync off the request"},
+        {label:"Services", boxes:[
+          {t:"PostgreSQL",  s:"System of record"},
+          {t:"Redis",       s:"Cache, queues, sessions"},
+          {t:"Queue workers",s:"Jobs off the request"},
+          {t:"Scheduler",   s:"Recurring work"},
+          {t:"MinIO",       s:"S3-compatible files"}
+        ]},
+        {cap:"<b>Docker Compose</b> brings the whole nine-service stack up with one command — Caddy, API, PostgreSQL, Redis, Reverb, workers, scheduler, MinIO and the print agent"},
+        {label:"Hardware", boxes:[
+          {t:"Print agent",edge:1,s:"separate service"},
+          {t:"ESC/POS printer",edge:1,s:"receipts"},
+          {t:"Cash drawer",edge:1,s:"kick on sale"},
+          {t:"Camera",edge:1,s:"on-device face match"}
+        ]}
+      ],
+      stack:[["Laravel",1],["React",0],["TypeScript",0],["PostgreSQL",0],["Redis",0],["Reverb",0],["Capacitor",0],["Docker",0],["MinIO",0]]
+    },
+    {
+      id:"cm-offline", type:"flow",
+      kicker:"The awkward requirement",
+      title:["The wifi drops. ","The shop keeps selling."],
+      sub:"An offline POS is the feature clients ask about last and care about most.",
+      steps:[
+        ["1","Local","The catalogue lives on the device","Products, prices and tax rules are held locally in IndexedDB, so the sale screen never waits on a network round-trip."],
+        ["2","Sale","Orders are written locally first","A sale completes against local storage and gets an identifier that survives reconnection, so nothing depends on the server being reachable."],
+        ["3","Print","The receipt prints regardless","Printing goes through a separate print-agent service speaking ESC/POS to the thermal printer — not through the browser, and not over the internet."],
+        ["4","Sync","Queued orders replay on reconnect","When the connection returns, queued orders sync to the API in order, and duplicates are rejected by identifier rather than by hope."],
+        ["5","Live","Everyone sees the same state","Reverb websockets push order changes to the kitchen display and the other terminals as soon as the API has them."],
+        ["6","Books","Tax and accounting follow automatically","Malaysian LHDN e-invoicing with MSIC codes, plus two-way sync to QuickBooks and Xero — all queued, so a slow third party never blocks a sale."]
+      ],
+      stack:[["IndexedDB",1],["Offline-first",0],["ESC/POS",0],["Reverb",0],["Queues",0],["Idempotent sync",0]]
+    },
+    {
+      id:"cm-integrations", type:"tiles",
+      kicker:"Integrations that are live",
+      title:["The parts that ","touch real money"],
+      sub:"Each of these is wired, tested and running in production — not sitting on a roadmap.",
+      tiles:[
+        {ic:"💳",t:"Card payments",s:"Stripe and GKASH checkout flows, with the failure and refund paths handled rather than assumed."},
+        {ic:"🧾",t:"Malaysian e-invoicing",s:"LHDN MyInvois submission with MSIC tax classification codes — the compliance work most builds skip."},
+        {ic:"📊",t:"Accounting sync",s:"Two-way sync with QuickBooks and Xero, so sales land in the books without anyone re-typing them."},
+        {ic:"🖨️",t:"Thermal printing",s:"ESC/POS receipts and TSPL labels through a dedicated print agent, plus cash-drawer kick."},
+        {ic:"🧠",t:"On-device face recognition",s:"MediaPipe running locally on the kiosk — no image leaves the device, so it works offline and stays private."},
+        {ic:"🗄️",t:"Object storage",s:"MinIO for receipts, exports and media, S3-compatible so it can move to real S3 without a rewrite."},
+        {ic:"⚡",t:"Live order updates",s:"Reverb websockets driving the kitchen display and multi-terminal state."},
+        {ic:"📱",t:"Native Android builds",s:"Capacitor packages the React front-ends as installable Android apps for POS, kiosk and tablet hardware."},
+        {ic:"🧪",t:"End-to-end tested",s:"Playwright covers the flows that cost money when they break — checkout, payment and printing."}
+      ],
+      stack:[["Stripe",1],["GKASH",0],["LHDN MyInvois",0],["QuickBooks",0],["Xero",0],["MediaPipe",0],["ESC/POS",0],["Playwright",0]]
+    }
+  ]
+},
+{
+  deck:"multitenant",
+  name:"Multi-Tenant Ordering & Admin Platform (Laravel)",
+  meta:"3 extra images · for your published item #3",
+  role:"Lead developer",
+  slides:[
+    {
+      id:"mt-arch", type:"arch",
+      kicker:"System architecture",
+      title:["One platform, ","many tenants, kept apart"],
+      tiers:[
+        {label:"Clients", boxes:[
+          {t:"Back-office",     s:"Staff admin, reports, configuration"},
+          {t:"Webstore",        s:"White-label storefront per tenant"},
+          {t:"POS / Kiosk",     s:"In-store terminals"},
+          {t:"Kitchen display", s:"Live order screen"}
+        ]},
+        {cap:"Separate API surfaces for the back-office and for the POS/Kiosk clients, so an in-store terminal can never reach an admin endpoint"},
+        {label:"Application", boxes:[
+          {t:"Laravel 11",hot:1,s:"Modular API layout with tenant scoping enforced below the controller"},
+          {t:"Sanctum + Spatie",hot:1,s:"Token auth and per-tenant role permissions"}
+        ]},
+        {cap:"Heavy work — reports, exports, email — runs on <b>queues</b> &middot; <b>Pusher</b> pushes live order events out to the kitchen and the counter"},
+        {label:"Services", boxes:[
+          {t:"MySQL",      s:"Tenant-scoped data"},
+          {t:"Queues",     s:"Reports, exports, mail"},
+          {t:"Pusher",     s:"Real-time events"},
+          {t:"Mailgun",    s:"Transactional email"},
+          {t:"PDF / Excel",s:"Report exports"}
+        ]},
+        {cap:"Every tenant gets its own branding on the same codebase — one theme, white-labelled, including right-to-left layouts"},
+        {label:"Presentation", boxes:[
+          {t:"267 Blade templates",edge:1,s:"all written by me"},
+          {t:"Bootstrap 5 + jQuery",edge:1,s:"back-office"},
+          {t:"DataTables / ApexCharts",edge:1,s:"tables and reporting"},
+          {t:"RTL support",edge:1,s:"mirrored layouts"}
+        ]}
+      ],
+      stack:[["Laravel 11",1],["PHP 8",0],["Blade",0],["Bootstrap 5",0],["jQuery",0],["Sanctum",0],["Spatie",0],["Pusher",0],["MySQL",0]]
+    },
+    {
+      id:"mt-order", type:"flow",
+      kicker:"Order lifecycle",
+      title:["From tap, to kitchen, ","to the accounts"],
+      sub:"The same order record moves through every surface without being re-entered anywhere.",
+      steps:[
+        ["1","Order","Placed on any surface","Webstore, POS, kiosk or tablet — all of them create the same order record, scoped to the tenant it belongs to."],
+        ["2","Pay","Payment taken and recorded","GKASH handles the card flow, and the payment is stored against the order with its own status rather than folded into the order status."],
+        ["3","Kitchen","Live on the kitchen screen","Pusher pushes the new order to the Kitchen Display in real time — a screen I wrote the CSS for from scratch, with no template underneath."],
+        ["4","Fulfil","Status moves, everyone sees it","Status changes broadcast back out, so counter staff and the customer see the same state without refreshing."],
+        ["5","Books","Synced into accounting","QuickBooks and Xero integrations push the sale into the tenant's books on a queue, so the request never waits on them."],
+        ["6","Report","Exported on demand","PDF and Excel exports run as queued jobs, so one tenant pulling a year of data does not slow anyone else down."]
+      ],
+      stack:[["GKASH",1],["Pusher",0],["QuickBooks",0],["Xero",0],["Queues",0],["Mailgun",0]]
+    },
+    {
+      id:"mt-frontend", type:"tiles", cols:2,
+      kicker:"Front-end scope",
+      title:["267 Blade templates, ","hand-written CSS"],
+      sub:"Not a purchased theme with the colours changed — this is the front-end work itself.",
+      tiles:[
+        {ic:"🎨",t:"White-label storefront theme",s:"One webstore theme that re-skins per tenant — each store gets its own branding, logo and palette out of the same templates, with right-to-left layouts handled."},
+        {ic:"✍️",t:"CSS written from scratch",s:"The signup page and the Kitchen Display screen are mine end to end: own reset, keyframe animations, and media queries for the tablet and phone breakpoints. No framework doing the layout."},
+        {ic:"📊",t:"Real admin interfaces",s:"A Bootstrap 5 and jQuery back-office with DataTables for large tables, Select2 for relational pickers, and ApexCharts across the reporting screens."},
+        {ic:"📱",t:"Built for the hardware it runs on",s:"Breakpoints written for the actual devices in the shop — a kitchen tablet mounted on a wall and a phone in a manager's hand are different problems."}
+      ],
+      stack:[["Blade",1],["HTML5 / CSS3",0],["Bootstrap 5",0],["jQuery",0],["DataTables",0],["Select2",0],["ApexCharts",0],["RTL",0]]
+    }
+  ]
+},
+{
+  deck:"delivery",
+  name:"Laravel Order & Delivery Platform with Queued Job Processing",
+  meta:"2 extra images · for your published item #2",
+  role:"Team contributor",
+  slides:[
+    {
+      id:"dl-queues", type:"ps",
+      kicker:"The performance work",
+      title:["Why the app got fast ","without a rewrite"],
+      sub:"Most “slow Laravel app” tickets are not a database problem. They are a doing-it-in-the-request problem.",
+      bad:{
+        h:"Before — everything in the request",
+        t:"The user waits for work they do not care about.",
+        li:[
+          "Order confirmation email sent inline, so the customer watches a spinner while a mail server thinks about it.",
+          "Report and export generation blocking the response, and timing out on the larger accounts.",
+          "One slow third-party call able to hold a web worker open — and enough of them to exhaust the pool.",
+          "Failures surfacing to the customer as a 500 instead of as something retryable."
+        ]
+      },
+      good:{
+        h:"After — queued and retryable",
+        t:"The response returns; the work still happens.",
+        li:[
+          "The slow jobs moved onto <code>queues</code> — mail, exports and third-party calls dispatched rather than awaited.",
+          "The request returns as soon as the order is persisted, which is the only part the customer is actually waiting on.",
+          "A failed job retries on its own instead of becoming a support ticket and a lost order.",
+          "Role-based permissions, country and state helpers and phone validation tightened alongside, so bad data stops arriving in the first place."
+        ]
+      },
+      stack:[["Laravel",1],["Queues",0],["Spatie Permission",0],["MySQL",0],["PHP",0]]
+    },
+    {
+      id:"dl-frontend", type:"tiles", cols:2,
+      kicker:"Front-end scope",
+      title:["141 Blade templates ","on a themeable base"],
+      sub:"Backend performance work and front-end work on the same platform.",
+      tiles:[
+        {ic:"🧱",t:"Reusable form partials",s:"Checkbox and switch partials built once and used across the platform, so a form field looks and behaves the same everywhere instead of being restyled page by page."},
+        {ic:"🎯",t:"An override layer, not a fork",s:"A CSS override layer sitting on top of the base theme — customisation that survives a theme update instead of being wiped by it."},
+        {ic:"🔤",t:"Self-hosted typography",s:"Fonts served through self-hosted @font-face rather than pulled from a third party — no external dependency, no privacy question, no render delay."},
+        {ic:"📐",t:"Themeable Bootstrap 4 build",s:"141 templates across a Bootstrap 4 and jQuery front-end, kept consistent while the platform's feature set grew."}
+      ],
+      stack:[["Blade",1],["HTML5 / CSS3",0],["Bootstrap 4",0],["jQuery",0],["@font-face",0]]
+    }
+  ]
+}
+];
+
+/* ============================== RENDERING ============================== */
+function titleHTML(parts){
+  return parts.map(function(p,i){ return i%2===1 ? '<span class="grad">'+p+'</span>' : p; }).join("");
+}
+
+function renderArch(s){
+  var rows = s.tiers.map(function(t){
+    if(t.cap) return '<div class="link"><div class="arw">&#9660;</div><div class="cap">'+t.cap+'</div></div>';
+    var boxes = t.boxes.map(function(b){
+      var cls = b.hot ? ' hot' : (b.edge ? ' edge' : '');
+      return '<div class="box'+cls+'"><b>'+b.t+'</b><span>'+b.s+'</span></div>';
+    }).join("");
+    return '<div class="tier"><div class="tl">'+t.label+'</div><div class="boxes">'+boxes+'</div></div>';
+  }).join("");
+  return '<div class="tiers">'+rows+'</div>';
+}
+
+function renderStats(s){
+  return '<div class="stats">'+s.stats.map(function(x){
+    return '<div class="stat"><div class="n">'+x.n+'</div><div class="l">'+x.l+'</div><div class="d">'+x.d+'</div></div>';
+  }).join("")+'</div>';
+}
+
+function renderFlow(s){
+  return '<div class="steps">'+s.steps.map(function(p){
+    return '<div class="step"><div class="n">'+p[0]+'</div><div class="lane">'+p[1]+'</div>'+
+           '<div><div class="t">'+p[2]+'</div><div class="d">'+p[3]+'</div></div></div>';
+  }).join("")+'</div>';
+}
+
+function renderPS(s){
+  function panel(p,kind){
+    return '<div class="panel '+kind+'"><div class="ph">'+p.h+'</div><div class="pt">'+p.t+'</div>'+
+           '<ul>'+p.li.map(function(l){ return '<li>'+l+'</li>'; }).join("")+'</ul></div>';
+  }
+  return '<div class="ps">'+panel(s.bad,'bad')+panel(s.good,'good')+'</div>';
+}
+
+function renderTiles(s){
+  return '<div class="tiles'+(s.cols===2?' two':'')+'">'+s.tiles.map(function(t){
+    return '<div class="tile"><div class="ic">'+t.ic+'</div><b>'+t.t+'</b><span>'+t.s+'</span></div>';
+  }).join("")+'</div>';
+}
+
+const RENDERERS = {arch:renderArch, stats:renderStats, flow:renderFlow, ps:renderPS, tiles:renderTiles};
+
+/* Image 1 on each Upwork item is the existing title card, so extra images start at 2. */
+function fileNameFor(deck, slide, idx){
+  return deck.deck+'-'+(idx+2)+'-'+slide.id.replace(/^[a-z]+-/,'');
+}
+
+const root = document.getElementById('decks');
+
+DECKS.forEach(function(deck){
+  const dh = document.createElement('div');
+  dh.className = 'deck-head';
+  dh.innerHTML = '<div><h2>'+deck.name+'</h2><div class="meta">'+deck.meta+'</div></div>'+
+    '<button class="dl deck" onclick="downloadDeck(\''+deck.deck+'\')">&#11015; Download this deck</button>';
+  root.appendChild(dh);
+
+  deck.slides.forEach(function(s,idx){
+    const wrap = document.createElement('div');
+    wrap.className = 'cover-wrap';
+    wrap.innerHTML =
+      '<div class="cover-bar">'+
+        '<span class="lbl">Image '+(idx+2)+' &middot; '+s.kicker+' &middot; 1024&times;768</span>'+
+        '<button class="dl" onclick="dl(\''+s.id+'\',\''+fileNameFor(deck,s,idx)+'\')">&#11015; Download PNG</button>'+
+      '</div>'+
+      '<div class="scaler" id="scaler-'+s.id+'">'+
+        '<div class="cover" id="'+s.id+'">'+
+          '<div class="kicker">'+s.kicker+'</div>'+
+          '<h3>'+titleHTML(s.title)+'</h3>'+
+          (s.sub ? '<div class="sub">'+s.sub+'</div>' : '')+
+          '<div class="body">'+RENDERERS[s.type](s)+'</div>'+
+          '<div class="stack">'+s.stack.map(function(t){
+              return '<span class="tag '+(t[1]?'hot':'')+'">'+t[0]+'</span>';
+            }).join("")+'</div>'+
+          '<div class="foot">'+
+            '<div class="who">Shaswin<span class="dot">.</span>dev</div>'+
+            '<div class="role">'+deck.role+' &middot; Laravel &amp; Full-Stack</div>'+
+          '</div>'+
+        '</div>'+
+      '</div>';
+    root.appendChild(wrap);
+  });
+});
+
+/* ============================== FIT & EXPORT ============================== */
+function fit(){
+  const avail = Math.min(1024, document.body.clientWidth - 60);
+  const s = avail/1024;
+  document.querySelectorAll('.scaler').forEach(function(el){
+    el.style.transform = 'scale('+s+')';
+    el.style.height = (768*s)+'px';
+  });
+}
+window.addEventListener('resize', fit); fit();
+
+async function dl(id, filename){
+  const node = document.getElementById(id);
+  const scaler = document.getElementById('scaler-'+id);
+  // html2canvas mis-measures inside a CSS transform, so un-scale for the capture and restore after.
+  const prevT = scaler.style.transform, prevH = scaler.style.height;
+  scaler.style.transform = 'none';
+  scaler.style.height = '768px';
+  try{
+    const canvas = await html2canvas(node, {width:1024, height:768, scale:2, backgroundColor:'#0b1020'});
+    const a = document.createElement('a');
+    a.download = filename+'.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  } finally {
+    scaler.style.transform = prevT;
+    scaler.style.height = prevH;
+  }
+}
+
+async function downloadDeck(deckId){
+  const deck = DECKS.find(function(d){ return d.deck===deckId; });
+  for(let i=0;i<deck.slides.length;i++){
+    await dl(deck.slides[i].id, fileNameFor(deck, deck.slides[i], i));
+    await new Promise(function(r){ setTimeout(r,450); });
+  }
+}
+
+async function downloadAll(){
+  for(const deck of DECKS){ await downloadDeck(deck.deck); }
+}
+</script>
+</body>
+</html>
