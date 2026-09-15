@@ -1,0 +1,232 @@
+<meta charset="utf-8">
+<title>API service covers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0F1E;
+    --ink:#F5F7FA;
+    --muted:#8B95A7;
+    --orange:#FF6A3D;
+    --teal:#2DD4A8;
+    --red:#F87171;
+    --code:#E6E9EF;
+    --rule:#1D212F;
+    --box-warm:#1A1220;
+    --box-cool:#0D1E28;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#111;padding:40px;display:flex;flex-direction:column;gap:40px;
+       font-family:'Plus Jakarta Sans','Segoe UI',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+
+  .sheet{
+    width:1280px;height:960px;position:relative;overflow:hidden;
+    background:
+      radial-gradient(760px 520px at 0% 0%, rgba(255,106,61,.13), transparent 62%),
+      radial-gradient(820px 560px at 100% 100%, rgba(45,212,168,.10), transparent 60%),
+      radial-gradient(700px 460px at 100% 0%, rgba(255,106,61,.05), transparent 60%),
+      var(--bg);
+    color:var(--ink);
+    padding:104px 64px 0;
+    display:flex;flex-direction:column;
+  }
+
+  .eyebrow{font-family:'JetBrains Mono',ui-monospace,Consolas,monospace;font-size:13px;font-weight:700;
+           letter-spacing:3.4px;color:var(--orange);text-transform:uppercase;margin-bottom:22px}
+  h1{font-size:62px;line-height:1.06;font-weight:800;letter-spacing:-1.6px}
+  h1.sm{font-size:42px;letter-spacing:-1.1px}
+  h1 .hot{color:var(--orange)}
+  .main{flex:1;display:flex;flex-direction:column;justify-content:center;padding-bottom:26px}
+  .sub{margin-top:22px;font-size:17.5px;line-height:1.62;color:var(--muted);max-width:520px}
+
+  .tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px;max-width:700px}
+  .tag{font-size:14px;font-weight:600;padding:9px 17px;border-radius:999px;
+       border:1px solid #232a3d;color:var(--ink);background:rgba(255,255,255,.015)}
+  .tag.fill{background:var(--orange);border-color:var(--orange);color:#150a06}
+
+  /* footer */
+  .foot{margin-top:auto;padding-bottom:56px}
+  .foot .rule{height:1px;background:var(--rule);margin-bottom:30px}
+  .foot .row{display:flex;justify-content:space-between;align-items:baseline;gap:24px}
+  .foot .name{font-size:17.5px;font-weight:800;letter-spacing:-.2px}
+  .foot .name i{color:var(--orange);font-style:normal}
+  .foot .right{font-size:14px;color:var(--muted)}
+  .foot .right b{color:var(--ink);font-weight:600}
+
+  /* ---- sheet 1 : hero ---- */
+  .hero{display:flex;gap:60px;align-items:flex-start}
+  .hero .left{flex:1;min-width:0}
+  .hero .right{width:400px;flex:none;padding-top:4px}
+  .box{border-radius:14px;padding:20px 22px;border:1px solid}
+  .box.warm{background:#0E1424;border-color:#242d44}
+  .box.cool{background:var(--box-cool);border-color:#16404a}
+  .box .lbl{font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:700;letter-spacing:2.4px;margin-bottom:13px}
+  .box.warm .lbl{color:#93A2BE}
+  .box.cool .lbl{color:var(--teal)}
+  .box pre{font-family:'JetBrains Mono',ui-monospace,Consolas,monospace;font-size:13px;line-height:1.78;color:var(--code);white-space:pre}
+  .box pre .k{color:var(--muted)}
+  .arrow{text-align:center;color:var(--orange);font-size:22px;line-height:1;margin:14px 0}
+
+  /* ---- sheet 2 : list ---- */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;column-gap:64px;row-gap:27px;margin-top:56px}
+  .it{display:flex;gap:14px;align-items:flex-start}
+  .it .cv{color:var(--orange);font-size:17px;font-weight:800;line-height:1.35;flex:none}
+  .it .t{font-size:16px;font-weight:700;letter-spacing:-.1px}
+  .it .d{font-size:13.5px;color:var(--muted);margin-top:3px;line-height:1.45}
+
+  /* ---- sheet 3 : steps ---- */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:60px}
+  .card{border:1px solid #1f2637;border-radius:16px;padding:28px 26px 30px;background:rgba(255,255,255,.012)}
+  .card .n{font-family:'JetBrains Mono',monospace;font-size:27px;font-weight:700;color:var(--orange);letter-spacing:-1px}
+  .card .t{font-size:17px;font-weight:700;margin-top:14px}
+  .card .d{font-size:14px;line-height:1.62;color:var(--muted);margin-top:11px}
+  .callout{margin-top:34px;border:1px solid #16404a;background:var(--box-cool);
+           border-radius:14px;padding:22px 26px;font-size:14.5px;color:var(--muted);line-height:1.5}
+  .callout b{color:var(--teal);font-weight:700}
+</style>
+
+<!-- ============ 1 · HERO ============ -->
+<div class="sheet" data-name="api-cover-1-hero.png">
+ <div class="main">
+  <div class="hero">
+    <div class="left">
+      <div class="eyebrow">Laravel &middot; REST API &middot; Sanctum</div>
+      <h1>Laravel<br><span class="hot">REST API Backend</span></h1>
+      <p class="sub">Clean, documented endpoints with token auth, validation and
+        the third-party integrations your app actually runs on.</p>
+      <div class="tags">
+        <span class="tag fill">Laravel</span>
+        <span class="tag">PHP 8</span>
+        <span class="tag">Sanctum</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">Stripe</span>
+        <span class="tag">Webhooks</span>
+        <span class="tag">PHPUnit</span>
+      </div>
+    </div>
+    <div class="right">
+      <div class="box warm">
+        <div class="lbl">REQUEST</div>
+<pre>POST /api/v1/orders
+<span class="k">Authorization:</span> Bearer &lt;token&gt;
+
+{ "customer_id": 42,
+  "items": [ ... ] }</pre>
+      </div>
+      <div class="arrow">&darr;</div>
+      <div class="box cool">
+        <div class="lbl">RESPONSE</div>
+<pre>HTTP 201 &middot; Created
+
+{ "id": 1087,
+  "status": "confirmed",
+  "total": "149.00" }</pre>
+      </div>
+    </div>
+  </div>
+ </div>
+  <div class="foot">
+    <div class="rule"></div>
+    <div class="row">
+      <div class="name">Shaswin Kumar<i>.</i></div>
+      <div class="right">Laravel &amp; API Developer</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 2 · WHAT I BUILD ============ -->
+<div class="sheet" data-name="api-cover-2-what-i-build.png">
+ <div class="main">
+  <div class="eyebrow">What I build</div>
+  <h1 class="sm">Every part of a <span class="hot">production API</span></h1>
+
+  <div class="grid2">
+    <div class="it"><span class="cv">&rsaquo;</span><div>
+      <div class="t">REST endpoints</div>
+      <div class="d">versioned routes, CRUD, resource controllers</div></div></div>
+    <div class="it"><span class="cv">&rsaquo;</span><div>
+      <div class="t">Token auth &amp; roles</div>
+      <div class="d">Sanctum, permissions, protected routes</div></div></div>
+
+    <div class="it"><span class="cv">&rsaquo;</span><div>
+      <div class="t">Validation &amp; error handling</div>
+      <div class="d">consistent JSON errors, proper status codes</div></div></div>
+    <div class="it"><span class="cv">&rsaquo;</span><div>
+      <div class="t">Pagination, filtering &amp; search</div>
+      <div class="d">query params that scale past 10,000 rows</div></div></div>
+
+    <div class="it"><span class="cv">&rsaquo;</span><div>
+      <div class="t">Payment gateways</div>
+      <div class="d">Stripe and local gateways, end to end</div></div></div>
+    <div class="it"><span class="cv">&rsaquo;</span><div>
+      <div class="t">Accounting &amp; commerce APIs</div>
+      <div class="d">QuickBooks, Xero, Shopify, Lazada</div></div></div>
+
+    <div class="it"><span class="cv">&rsaquo;</span><div>
+      <div class="t">Webhooks in and out</div>
+      <div class="d">signature verification, retries, idempotency</div></div></div>
+    <div class="it"><span class="cv">&rsaquo;</span><div>
+      <div class="t">Queues, jobs &amp; schedules</div>
+      <div class="d">slow work off the request cycle</div></div></div>
+
+    <div class="it"><span class="cv">&rsaquo;</span><div>
+      <div class="t">File uploads &amp; storage</div>
+      <div class="d">S3, DigitalOcean Spaces, MinIO</div></div></div>
+    <div class="it"><span class="cv">&rsaquo;</span><div>
+      <div class="t">Docs &amp; tests</div>
+      <div class="d">Postman or OpenAPI, PHPUnit feature tests</div></div></div>
+  </div>
+ </div>
+
+  <div class="foot">
+    <div class="rule"></div>
+    <div class="row">
+      <div class="name">Shaswin Kumar<i>.</i></div>
+      <div class="right">Not listed? Message me &mdash; I'll tell you if I can build it</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 3 · HOW IT WORKS ============ -->
+<div class="sheet" data-name="api-cover-3-how-it-works.png">
+ <div class="main">
+  <div class="eyebrow">How it works</div>
+  <h1 class="sm">Three steps, <span class="hot">no surprises</span></h1>
+
+  <div class="cards">
+    <div class="card">
+      <div class="n">01</div>
+      <div class="t">You send the spec</div>
+      <div class="d">Your endpoint list or data model, and which services it has to talk to.
+        Sample payloads help. I confirm what's in scope before you buy.</div>
+    </div>
+    <div class="card">
+      <div class="n">02</div>
+      <div class="t">I build and test it</div>
+      <div class="d">Migrations, models, form requests and controllers, with feature tests
+        run against real payloads rather than just the happy path.</div>
+    </div>
+    <div class="card">
+      <div class="n">03</div>
+      <div class="t">You get a working API</div>
+      <div class="d">Source code, a Postman collection or OpenAPI docs, and setup notes
+        so it runs on your server the way it runs on mine.</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <b>Free scope check.</b> Send me your endpoint list first &mdash; I'll tell you which tier
+    covers it, or that it doesn't, before you spend anything.
+  </div>
+ </div>
+
+  <div class="foot">
+    <div class="rule"></div>
+    <div class="row">
+      <div class="name">Shaswin Kumar<i>.</i></div>
+      <div class="right">Laravel &amp; API Developer</div>
+    </div>
+  </div>
+</div>

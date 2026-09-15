@@ -110,7 +110,7 @@
   .tag.hot{border-color:rgba(255,45,32,.45);color:#ffb3aa;background:rgba(255,45,32,.08)}
 
   /* PROJECTS */
-  .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+  .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;align-items:start}
   @media(max-width:820px){.proj-grid{grid-template-columns:1fr}}
   .proj{position:relative;background:linear-gradient(180deg,var(--card),var(--bg-2));border:1px solid var(--border);border-radius:var(--radius);padding:26px;overflow:hidden;transition:transform .2s,border-color .2s}
   .proj:hover{transform:translateY(-5px);border-color:var(--brand)}
@@ -129,6 +129,71 @@
   .proj ul li code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.85em;background:var(--card-2);border:1px solid var(--border);border-radius:5px;padding:1px 5px;color:var(--text)}
   .proj .stack{display:flex;flex-wrap:wrap;gap:7px}
   .proj .stack .tag{font-size:.76rem;padding:4px 9px}
+
+  /* SCREENSHOTS — carousel */
+  .shots{margin:20px 0 18px;border-top:1px solid var(--border);padding-top:18px}
+  .shots-hd{font-size:.78rem;text-transform:uppercase;letter-spacing:1.4px;color:var(--accent-2);font-weight:700;margin-bottom:12px}
+  .shots-hd span{text-transform:none;letter-spacing:0;color:var(--muted);font-weight:400}
+
+  .carousel{position:relative;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--card-2)}
+  .frames{position:relative;transition:opacity .22s ease}
+  .frames.fading{opacity:0}
+  .frame{display:none;width:100%;padding:0;margin:0;border:0;background:none;cursor:zoom-in}
+  .frame.on{display:block}
+  .frame img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;object-position:top center;background:#fff}
+
+  .cr-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:2;
+    width:40px;height:40px;border-radius:50%;border:1px solid var(--border);
+    background:rgba(11,16,32,.82);color:var(--text);font-size:1.25rem;line-height:1;
+    cursor:pointer;display:flex;align-items:center;justify-content:center;
+    opacity:0;transition:opacity .2s,border-color .2s,background .2s}
+  .carousel:hover .cr-nav,.cr-nav:focus-visible{opacity:1}
+  .cr-nav:hover{border-color:var(--brand);background:rgba(11,16,32,.95)}
+  .cr-prev{left:10px} .cr-next{right:10px}
+  /* no hover to reveal them on touch or narrow screens, so keep them showing */
+  @media(hover:none),(max-width:820px){.cr-nav{opacity:1}}
+
+  .cr-zoom{position:absolute;right:10px;bottom:10px;z-index:2;pointer-events:none;
+    background:rgba(11,16,32,.82);border:1px solid var(--border);border-radius:999px;
+    padding:5px 11px;font-size:.72rem;color:var(--muted);opacity:0;transition:opacity .2s}
+  .carousel:hover .cr-zoom{opacity:1}
+
+  .cr-bar{display:flex;align-items:center;gap:14px;margin-top:11px;flex-wrap:wrap}
+  .cr-cap{font-size:.84rem;color:var(--text);font-weight:600;flex:1;min-width:140px}
+  .cr-dots{display:flex;gap:6px;flex-wrap:wrap}
+  .cr-dot{width:8px;height:8px;padding:0;border-radius:50%;border:0;cursor:pointer;
+    background:var(--border);transition:background .2s,transform .2s}
+  .cr-dot:hover{background:var(--muted)}
+  .cr-dot.on{background:var(--brand-2);transform:scale(1.3)}
+  .cr-count{font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+  /* LIGHTBOX */
+  .lb{position:fixed;inset:0;z-index:100;background:rgba(6,9,18,.94);backdrop-filter:blur(6px);
+    display:flex;flex-direction:column;padding:14px;gap:12px}
+  .lb[hidden]{display:none}
+  .lb-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;color:var(--muted);font-size:.86rem}
+  .lb-bar .cap{color:var(--text);font-weight:600}
+  .lb-bar .cap em{color:var(--muted);font-weight:400;font-style:normal}
+  .lb-bar .tools{display:flex;align-items:center;gap:10px;white-space:nowrap}
+  .lb-btn{background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:8px;
+    padding:7px 13px;font:inherit;font-size:.84rem;cursor:pointer;transition:border-color .2s,background .2s}
+  .lb-btn:hover{border-color:var(--accent);background:var(--card-2)}
+  .lb-stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:10px}
+  .lb-stage img{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;background:#fff;
+    box-shadow:0 20px 60px rgba(0,0,0,.6)}
+  .lb-nav{background:rgba(20,28,51,.85);border:1px solid var(--border);color:var(--text);
+    width:42px;height:42px;flex:none;border-radius:50%;font-size:1.2rem;cursor:pointer;transition:border-color .2s}
+  .lb-nav:hover{border-color:var(--accent)}
+  .lb-nav:disabled{opacity:.3;cursor:default}
+  @media(max-width:560px){
+    .lb{padding:10px}
+    .lb-bar{flex-direction:column;align-items:flex-start;gap:8px}
+    .lb-bar .cap{font-size:.8rem}
+    /* arrows overlay the image instead of squeezing it off-screen */
+    .lb-stage{position:relative;gap:0}
+    .lb-nav{position:absolute;bottom:10px;z-index:2;background:rgba(11,16,32,.9)}
+    #lbPrev{left:10px} #lbNext{right:10px}
+  }
 
   /* TIMELINE */
   .tl{border-left:2px solid var(--border);margin-left:8px;padding-left:28px;display:flex;flex-direction:column;gap:30px}
@@ -471,6 +536,33 @@
           <li>Face recognition runs on-device with MediaPipe. Offline sync uses IndexedDB, so the POS keeps working when the wifi drops</li>
           <li>Docker Compose runs the lot: Caddy, PostgreSQL, Redis, MinIO, queue workers and the scheduler</li>
         </ul>
+        <div class="shots" data-proj="QBotu">
+          <div class="shots-hd">Screenshots <span>· annotated captures of the running stack</span></div>
+          <div class="carousel">
+            <div class="frames">
+              <button class="frame on" type="button" data-src="upwork-covers/qbotu/qbotu-1-platform-companies.png" data-cap="Platform console · companies">
+                <img src="upwork-covers/slides/qbotu-1-platform-companies.jpg" alt="QBotu platform console — companies list" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/qbotu/qbotu-2-merchant-dashboard.png" data-cap="Merchant hub · dashboard">
+                <img src="upwork-covers/slides/qbotu-2-merchant-dashboard.jpg" alt="QBotu merchant hub dashboard" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/qbotu/qbotu-3-merchant-orders.png" data-cap="Merchant hub · orders">
+                <img src="upwork-covers/slides/qbotu-3-merchant-orders.jpg" alt="QBotu merchant hub orders table" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/qbotu/qbotu-4-kiosk-binding.png" data-cap="Kiosk · device binding">
+                <img src="upwork-covers/slides/qbotu-4-kiosk-binding.jpg" alt="QBotu kiosk device binding screen" loading="lazy" decoding="async">
+              </button>
+            </div>
+            <button class="cr-nav cr-prev" type="button" aria-label="Previous screenshot">&lsaquo;</button>
+            <button class="cr-nav cr-next" type="button" aria-label="Next screenshot">&rsaquo;</button>
+            <span class="cr-zoom">Click for annotated view</span>
+          </div>
+          <div class="cr-bar">
+            <span class="cr-cap"></span>
+            <span class="cr-dots"></span>
+            <span class="cr-count"></span>
+          </div>
+        </div>
         <div class="stack">
           <span class="tag hot">Laravel 13</span><span class="tag">React</span><span class="tag">TypeScript</span>
           <span class="tag">PostgreSQL</span><span class="tag">Docker</span><span class="tag">Redis</span>
@@ -499,6 +591,39 @@
           <li>18-table schema covering sites, vehicles, season passes, invoices, rate policies, promotions and wallets</li>
           <li>Three Docker Compose overlays (local, staging, production) on top of one base file, with a <code>deploy.sh</code> that backs up the DB, pulls and rebuilds</li>
         </ul>
+        <div class="shots" data-proj="QParking Cloud 2.0">
+          <div class="shots-hd">Screenshots <span>· annotated captures of the operator portal</span></div>
+          <div class="carousel">
+            <div class="frames">
+              <button class="frame on" type="button" data-src="upwork-covers/annotated/qparking-1-dashboard.png" data-cap="Live dashboard">
+                <img src="upwork-covers/slides/qparking-1-dashboard.jpg" alt="QParking live dashboard with site occupancy" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/annotated/qparking-2-activity.png" data-cap="Parking activity · LPR capture">
+                <img src="upwork-covers/slides/qparking-2-activity.jpg" alt="QParking parking activity log with LPR snapshots" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/annotated/qparking-3-cameras.png" data-cap="Equipment · cameras">
+                <img src="upwork-covers/slides/qparking-3-cameras.jpg" alt="QParking equipment page listing LPR cameras" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/annotated/qparking-4-bays.png" data-cap="Bays · bulk generation">
+                <img src="upwork-covers/slides/qparking-4-bays.jpg" alt="QParking bay management with add-bays wizard" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/annotated/qparking-5-passplan.png" data-cap="Pass plans · bays per pass">
+                <img src="upwork-covers/slides/qparking-5-passplan.jpg" alt="QParking pass plan configuration" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/annotated/qparking-6-finance.png" data-cap="Finance &amp; billing summary">
+                <img src="upwork-covers/slides/qparking-6-finance.jpg" alt="QParking finance and billing summary" loading="lazy" decoding="async">
+              </button>
+            </div>
+            <button class="cr-nav cr-prev" type="button" aria-label="Previous screenshot">&lsaquo;</button>
+            <button class="cr-nav cr-next" type="button" aria-label="Next screenshot">&rsaquo;</button>
+            <span class="cr-zoom">Click for annotated view</span>
+          </div>
+          <div class="cr-bar">
+            <span class="cr-cap"></span>
+            <span class="cr-dots"></span>
+            <span class="cr-count"></span>
+          </div>
+        </div>
         <div class="stack">
           <span class="tag hot">Laravel 13</span><span class="tag">React 18</span><span class="tag">TypeScript</span>
           <span class="tag">Vite</span><span class="tag">MySQL</span><span class="tag">Docker</span>
@@ -508,7 +633,7 @@
       </article>
 
       <!-- QBOT -->
-      <article class="proj reveal">
+      <article class="proj feature reveal">
         <div class="top">
           <div><h3>QBot</h3><div class="kind">Laravel management web app</div></div>
           <span class="role lead">Lead developer</span>
@@ -521,6 +646,48 @@
           <li>All 267 Blade templates are mine. The back-office is Bootstrap 5 and jQuery with DataTables, Select2 and ApexCharts. The webstore theme is white-label, so each store gets its own branding, and it handles RTL</li>
           <li>Wrote the CSS for the signup page and the Kitchen Display screen myself, no template. Own reset, keyframe animations, and media queries for the tablet and phone breakpoints</li>
         </ul>
+        <div class="shots" data-proj="QBot">
+          <div class="shots-hd">Screenshots <span>· back-office, storefront and kitchen display</span></div>
+          <div class="carousel">
+            <div class="frames">
+              <button class="frame on" type="button" data-src="upwork-covers/qbot/qbot-1-platform-accounts.png" data-cap="Platform console · accounts">
+                <img src="upwork-covers/slides/qbot-1-platform-accounts.jpg" alt="QBot platform console listing tenant accounts" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/qbot/qbot-2-tenant-dashboard.png" data-cap="Tenant dashboard">
+                <img src="upwork-covers/slides/qbot-2-tenant-dashboard.jpg" alt="QBot tenant dashboard with sales comparison chart" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/qbot/qbot-3-orders.png" data-cap="Orders · POS, kiosk &amp; web">
+                <img src="upwork-covers/slides/qbot-3-orders.jpg" alt="QBot orders table with server-side filters" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/qbot/qbot-4-permissions.png" data-cap="Permissions · per-tenant roles">
+                <img src="upwork-covers/slides/qbot-4-permissions.jpg" alt="QBot per-tenant role and permission grid" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/qbot/qbot-5-sales-summary.png" data-cap="Reports · sales summary">
+                <img src="upwork-covers/slides/qbot-5-sales-summary.jpg" alt="QBot sales summary report" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/qbot/qbot-6-storefront-tickets.png" data-cap="Storefront · ticket catalogue">
+                <img src="upwork-covers/slides/qbot-6-storefront-tickets.jpg" alt="QBot white-label storefront ticket catalogue" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/qbot/qbot-7-kitchen-display.png" data-cap="Kitchen display">
+                <img src="upwork-covers/slides/qbot-7-kitchen-display.jpg" alt="QBot kitchen display screen" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/qbot/qbot-8-storefront-cart.png" data-cap="Storefront · cart">
+                <img src="upwork-covers/slides/qbot-8-storefront-cart.jpg" alt="QBot storefront cart with add-ons and tax" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/qbot/qbot-9-storefront-checkout.png" data-cap="Storefront · checkout">
+                <img src="upwork-covers/slides/qbot-9-storefront-checkout.jpg" alt="QBot storefront checkout with guest and gateway options" loading="lazy" decoding="async">
+              </button>
+            </div>
+            <button class="cr-nav cr-prev" type="button" aria-label="Previous screenshot">&lsaquo;</button>
+            <button class="cr-nav cr-next" type="button" aria-label="Next screenshot">&rsaquo;</button>
+            <span class="cr-zoom">Click for annotated view</span>
+          </div>
+          <div class="cr-bar">
+            <span class="cr-cap"></span>
+            <span class="cr-dots"></span>
+            <span class="cr-count"></span>
+          </div>
+        </div>
         <div class="stack"><span class="tag hot">Laravel 11</span><span class="tag">PHP 8</span><span class="tag">Blade</span><span class="tag">HTML5 / CSS3</span><span class="tag">Bootstrap 5</span><span class="tag">jQuery</span><span class="tag">DataTables</span><span class="tag">Sanctum</span><span class="tag">Spatie</span><span class="tag">GKASH</span><span class="tag">QuickBooks</span><span class="tag">Xero</span><span class="tag">Pusher</span><span class="tag">MySQL</span></div>
       </article>
 
@@ -553,6 +720,36 @@
           <li>Moved the slow jobs onto queues</li>
           <li>Worked in the Blade front-end too. 141 templates on a themeable Bootstrap 4 and jQuery setup, with reusable checkbox and switch partials, a CSS override layer over the base theme, and self-hosted <code>@font-face</code> typography</li>
         </ul>
+        <div class="shots" data-proj="February Bloom">
+          <div class="shots-hd">Screenshots <span>· order board, reports and permissions</span></div>
+          <div class="carousel">
+            <div class="frames">
+              <button class="frame on" type="button" data-src="upwork-covers/februarybloom/februarybloom-1-orders-board.png" data-cap="Orders · one delivery day">
+                <img src="upwork-covers/slides/februarybloom-1-orders-board.jpg" alt="February Bloom orders board for one delivery day" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/februarybloom/februarybloom-2-order-recipients.png" data-cap="Order · many recipients">
+                <img src="upwork-covers/slides/februarybloom-2-order-recipients.jpg" alt="February Bloom order edit screen with multiple recipients" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/februarybloom/februarybloom-3-permissions.png" data-cap="Permissions · role grid">
+                <img src="upwork-covers/slides/februarybloom-3-permissions.jpg" alt="February Bloom Spatie role permission grid" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/februarybloom/februarybloom-4-report-sales.png" data-cap="Reports · order sales">
+                <img src="upwork-covers/slides/februarybloom-4-report-sales.jpg" alt="February Bloom order sales report" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/februarybloom/februarybloom-5-members.png" data-cap="Members · Shopify-sourced rows">
+                <img src="upwork-covers/slides/februarybloom-5-members.jpg" alt="February Bloom members list showing Shopify-sourced rows" loading="lazy" decoding="async">
+              </button>
+            </div>
+            <button class="cr-nav cr-prev" type="button" aria-label="Previous screenshot">&lsaquo;</button>
+            <button class="cr-nav cr-next" type="button" aria-label="Next screenshot">&rsaquo;</button>
+            <span class="cr-zoom">Click for annotated view</span>
+          </div>
+          <div class="cr-bar">
+            <span class="cr-cap"></span>
+            <span class="cr-dots"></span>
+            <span class="cr-count"></span>
+          </div>
+        </div>
         <div class="stack"><span class="tag hot">Laravel</span><span class="tag">PHP</span><span class="tag">Blade</span><span class="tag">HTML5 / CSS3</span><span class="tag">Bootstrap 4</span><span class="tag">jQuery</span><span class="tag">Queues</span><span class="tag hot">Shopify</span><span class="tag hot">Lalamove</span><span class="tag hot">Borzo</span><span class="tag">Spatie</span><span class="tag">MySQL</span></div>
       </article>
 
@@ -703,6 +900,22 @@
   <div class="wrap">© <span id="yr"></span> Shaswin Kumar · Full-Stack &amp; Laravel Developer · Built as a single HTML file.</div>
 </footer>
 
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Screenshot viewer">
+  <div class="lb-bar">
+    <div class="cap"><span id="lbCap"></span> <em id="lbCount"></em></div>
+    <div class="tools">
+      <a class="lb-btn alt" id="lbFull" href="#" target="_blank" rel="noopener">Open full size ↗</a>
+      <button class="lb-btn" type="button" id="lbClose">Close ✕</button>
+    </div>
+  </div>
+  <div class="lb-stage">
+    <button class="lb-nav" type="button" id="lbPrev" aria-label="Previous screenshot">‹</button>
+    <img id="lbImg" src="" alt="">
+    <button class="lb-nav" type="button" id="lbNext" aria-label="Next screenshot">›</button>
+  </div>
+</div>
+
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
   // scroll reveal
@@ -710,6 +923,103 @@
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
   },{threshold:.12});
   document.querySelectorAll('.reveal').forEach((el,i)=>{ el.style.transitionDelay=(i%4*60)+'ms'; io.observe(el); });
+
+  // screenshot carousels
+  let openLightbox;
+  document.querySelectorAll('.shots').forEach(shots=>{
+    const wrap=shots.querySelector('.frames'),
+          frames=[...shots.querySelectorAll('.frame')],
+          cap=shots.querySelector('.cr-cap'),
+          dots=shots.querySelector('.cr-dots'),
+          count=shots.querySelector('.cr-count');
+    let i=0;
+
+    frames.forEach((f,n)=>{
+      const d=document.createElement('button');
+      d.type='button'; d.className='cr-dot'+(n?'':' on');
+      d.setAttribute('aria-label','Screenshot '+(n+1)+': '+f.dataset.cap);
+      d.addEventListener('click',()=>go(n));
+      dots.appendChild(d);
+    });
+
+    function paint(){
+      frames.forEach((f,n)=>f.classList.toggle('on',n===i));
+      [...dots.children].forEach((d,n)=>d.classList.toggle('on',n===i));
+      cap.textContent=frames[i].dataset.cap;
+      count.textContent=(i+1)+' / '+frames.length;
+    }
+    function go(n){
+      const t=(n+frames.length)%frames.length;
+      if(t===i) return;
+      wrap.classList.add('fading');
+      setTimeout(()=>{
+        i=t; paint(); wrap.classList.remove('fading');
+        // warm the neighbour so the next step doesn't flash
+        new Image().src=frames[(i+1)%frames.length].querySelector('img').src;
+      },140);
+    }
+
+    shots.querySelector('.cr-prev').addEventListener('click',()=>go(i-1));
+    shots.querySelector('.cr-next').addEventListener('click',()=>go(i+1));
+    frames.forEach(f=>f.addEventListener('click',()=>openLightbox(frames,frames.indexOf(f),shots.dataset.proj)));
+
+    // swipe
+    let x0=null;
+    wrap.addEventListener('touchstart',e=>{ x0=e.touches[0].clientX; },{passive:true});
+    wrap.addEventListener('touchend',e=>{
+      if(x0===null) return;
+      const dx=e.changedTouches[0].clientX-x0; x0=null;
+      if(Math.abs(dx)>45) go(dx<0?i+1:i-1);
+    },{passive:true});
+
+    paint();
+  });
+
+  // screenshot lightbox
+  (function(){
+    const lb=document.getElementById('lb'), img=document.getElementById('lbImg'),
+          cap=document.getElementById('lbCap'), count=document.getElementById('lbCount'),
+          full=document.getElementById('lbFull'), prev=document.getElementById('lbPrev'),
+          next=document.getElementById('lbNext');
+    let group=[], proj='', i=0, opener=null;
+
+    function show(n){
+      i=n;
+      const b=group[i];
+      img.src=b.dataset.src;
+      img.alt=b.querySelector('img').alt;
+      cap.textContent=proj+' — '+b.dataset.cap;
+      count.textContent='('+(i+1)+' of '+group.length+')';
+      full.href=b.dataset.src;
+      prev.disabled=i===0;
+      next.disabled=i===group.length-1;
+    }
+    function close(){
+      lb.hidden=true;
+      img.src='';
+      document.body.style.overflow='';
+      if(opener) opener.focus();
+    }
+
+    openLightbox=function(frames,n,name){
+      group=frames; proj=name; opener=frames[n];
+      show(n);
+      lb.hidden=false;
+      document.body.style.overflow='hidden';
+      document.getElementById('lbClose').focus();
+    };
+
+    prev.addEventListener('click',()=>{ if(i>0) show(i-1); });
+    next.addEventListener('click',()=>{ if(i<group.length-1) show(i+1); });
+    document.getElementById('lbClose').addEventListener('click',close);
+    lb.addEventListener('click',e=>{ if(e.target===lb||e.target.classList.contains('lb-stage')) close(); });
+    document.addEventListener('keydown',e=>{
+      if(lb.hidden) return;
+      if(e.key==='Escape') close();
+      else if(e.key==='ArrowLeft'&&i>0) show(i-1);
+      else if(e.key==='ArrowRight'&&i<group.length-1) show(i+1);
+    });
+  })();
 </script>
 </body>
 </html>
