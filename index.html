@@ -1,546 +1,292 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Shaswin Kumar — Full-Stack & Laravel Developer</title>
-<meta name="description" content="Shaswin Kumar — Full-Stack Developer working in Laravel, PHP, React and TypeScript. I build commerce platforms, POS systems and real-time apps." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shaswin Kumar &mdash; Full-Stack &amp; Laravel Developer</title>
+<meta name="description" content="Shaswin Kumar &mdash; Full-Stack Developer working in Laravel, PHP, React and TypeScript. I build commerce platforms, POS systems and real-time apps.">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js"></script>
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
 <style>
-  :root{
-    --bg:#0b1020;
-    --bg-2:#0f152b;
-    --card:#141c33;
-    --card-2:#18213d;
-    --border:#243156;
-    --text:#e7ecf5;
-    --muted:#9aa6c4;
-    --brand:#ff2d20;      /* Laravel red */
-    --brand-2:#f9603a;
-    --accent:#5b8cff;     /* blue accent */
-    --accent-2:#22d3ee;
-    --ok:#34d399;
-    --radius:16px;
-    --shadow:0 10px 30px rgba(0,0,0,.35);
-    --maxw:1100px;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{
-    font-family:'Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
-    background:radial-gradient(1200px 600px at 80% -10%,rgba(91,140,255,.15),transparent 60%),
-               radial-gradient(900px 500px at -10% 10%,rgba(255,45,32,.12),transparent 55%),
-               var(--bg);
-    color:var(--text);
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
-  a{color:inherit;text-decoration:none}
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
-  .accent{color:var(--brand-2)}
-  .muted{color:var(--muted)}
+:root{--bg:#0b1020;--bg-2:#0f152b;--ink:#e7ecf5;--muted:#9aa6c4;--line:rgba(255,255,255,.10);--red:#ff2d20;--green:#2f7d4f;--dark:#0b1020;--card:#141c33;--card-2:#18213d;--border:#243156;--brand:#ff2d20;--brand-2:#f9603a;--accent:#5b8cff;--accent-2:#22d3ee;--ok:#34d399;}
+html{scroll-behavior:smooth}
+/* keep anchored sections clear of the 64px sticky header */
+section[id]{scroll-margin-top:84px}
+body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}
+.mono{font-family:'Space Mono',monospace}
+.hair{border-color:var(--border)}
+.grid-bg{background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:48px 48px}
+.grid-dark{background-image:linear-gradient(#ffffff0d 1px,transparent 1px),linear-gradient(90deg,#ffffff0d 1px,transparent 1px);background-size:40px 40px}
+/* UI mockup panels — dark surfaces, the way a dark admin/terminal UI actually looks */
+.shot{background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 1px 2px #00000030,0 18px 40px -16px #000000cc;transition:transform .4s ease,box-shadow .4s ease,border-color .3s ease}
+.shot:hover{transform:translateY(-4px);border-color:#31406e;box-shadow:0 2px 6px #00000040,0 28px 56px -18px #000000e0}
+.shot-dark{background:#0c1222;border:1px solid var(--border);border-radius:12px}
+.section-rule{border-top:1px solid var(--border)}
+.card-grid{align-items:stretch}
+.card-grid>*{min-height:100%}
+@media (max-width:767px){.card-grid{gap:1rem}}
+.dots span{width:7px;height:7px;border-radius:50%;background:#3a4468;display:inline-block}
+.marquee{mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.marquee-track{display:flex;width:max-content;animation:scroll 38s linear infinite}
+.marquee:hover .marquee-track{animation-play-state:paused}
+@keyframes scroll{to{transform:translateX(-50%)}}
+.pulse{animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 #2f7d4f66}70%{box-shadow:0 0 0 7px #2f7d4f00}100%{box-shadow:0 0 0 0 #2f7d4f00}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+.arrow-link{transition:gap .2s}
+.arrow-link:hover{letter-spacing:.01em}
+a:focus-visible,button:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:6px}
+.cam{background:repeating-linear-gradient(115deg,#2a2d2c 0 14px,#262928 14px 28px)}
+.flow-line{stroke-dasharray:4 5;animation:dash 1.4s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-18}}
+.load{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}}
 
-  /* NAV */
-  header.nav{
-    position:sticky;top:0;z-index:50;
-    backdrop-filter:blur(12px);
-    background:rgba(11,16,32,.72);
-    border-bottom:1px solid var(--border);
-  }
-  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
-  .logo{font-weight:800;letter-spacing:.5px;font-size:1.05rem}
-  .logo .dot{color:var(--brand)}
-  nav.links{display:flex;gap:26px}
-  nav.links a{color:var(--muted);font-size:.95rem;font-weight:500;transition:color .2s}
-  nav.links a:hover{color:var(--text)}
-  .btn{
-    display:inline-block;padding:10px 18px;border-radius:999px;font-weight:600;font-size:.92rem;
-    background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;
-    box-shadow:0 6px 18px rgba(255,45,32,.35);transition:transform .15s,box-shadow .2s;
-  }
-  .btn:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(255,45,32,.45)}
-  .btn.ghost{background:transparent;border:1px solid var(--border);color:var(--text);box-shadow:none}
-  .btn.ghost:hover{border-color:var(--accent);color:#fff}
-  @media(max-width:720px){nav.links{display:none}}
+/* SCREENSHOT CAROUSEL (real, annotated captures) */
+.shots{margin:22px 0 4px;border-top:1px solid var(--border);padding-top:18px}
+.shots-hd{font-family:'Space Mono',monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:1.4px;color:var(--accent-2);font-weight:700;margin-bottom:12px}
+.shots-hd span{text-transform:none;letter-spacing:0;color:var(--muted);font-weight:400}
+.carousel{position:relative;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--card-2)}
+.frames{position:relative;transition:opacity .22s ease}
+.frames.fading{opacity:0}
+.frame{display:none;width:100%;padding:0;margin:0;border:0;background:none;cursor:zoom-in}
+.frame.on{display:block}
+.frame img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;object-position:top center;background:#fff}
+.cr-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:rgba(11,16,32,.82);color:var(--ink);font-size:1.2rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s,border-color .2s,background .2s}
+.carousel:hover .cr-nav,.cr-nav:focus-visible{opacity:1}
+.cr-nav:hover{border-color:var(--brand);background:rgba(11,16,32,.95)}
+.cr-prev{left:10px} .cr-next{right:10px}
+@media(hover:none),(max-width:820px){.cr-nav{opacity:1}}
+.cr-zoom{position:absolute;right:10px;bottom:10px;z-index:2;pointer-events:none;background:rgba(11,16,32,.82);border:1px solid var(--border);border-radius:999px;padding:4px 10px;font-size:.7rem;color:var(--muted);opacity:0;transition:opacity .2s}
+.carousel:hover .cr-zoom{opacity:1}
+.cr-bar{display:flex;align-items:center;gap:14px;margin-top:11px;flex-wrap:wrap}
+.cr-cap{font-size:.82rem;color:var(--ink);font-weight:600;flex:1;min-width:140px}
+.cr-dots{display:flex;gap:6px;flex-wrap:wrap}
+.cr-dot{width:7px;height:7px;padding:0;border-radius:50%;border:0;cursor:pointer;background:var(--border);transition:background .2s,transform .2s}
+.cr-dot:hover{background:var(--muted)}
+.cr-dot.on{background:var(--brand-2);transform:scale(1.3)}
+.cr-count{font-size:.76rem;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+/* LIGHTBOX */
+.lb{position:fixed;inset:0;z-index:100;background:rgba(6,9,18,.94);backdrop-filter:blur(6px);display:flex;flex-direction:column;padding:14px;gap:12px}
+.lb[hidden]{display:none}
+.lb-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;color:var(--muted);font-size:.86rem}
+.lb-bar .cap{color:var(--ink);font-weight:600}
+.lb-bar .cap em{color:var(--muted);font-weight:400;font-style:normal}
+.lb-bar .tools{display:flex;align-items:center;gap:10px;white-space:nowrap}
+.lb-btn{background:var(--card);border:1px solid var(--border);color:var(--ink);border-radius:8px;padding:7px 13px;font:inherit;font-size:.84rem;cursor:pointer;transition:border-color .2s,background .2s;text-decoration:none;display:inline-block}
+.lb-btn:hover{border-color:var(--accent);background:var(--card-2)}
+.lb-stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:10px}
+.lb-stage img{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;background:#fff;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.lb-nav{background:rgba(20,28,51,.85);border:1px solid var(--border);color:var(--ink);width:42px;height:42px;flex:none;border-radius:50%;font-size:1.2rem;cursor:pointer;transition:border-color .2s}
+.lb-nav:hover{border-color:var(--accent)}
+.lb-nav:disabled{opacity:.3;cursor:default}
+@media(max-width:560px){
+  .lb{padding:10px}
+  .lb-bar{flex-direction:column;align-items:flex-start;gap:8px}
+  .lb-stage{position:relative;gap:0}
+  .lb-nav{position:absolute;bottom:10px;z-index:2;background:rgba(11,16,32,.9)}
+  #lbPrev{left:10px} #lbNext{right:10px}
+}
+/* project index / role badges for the standard cards */
+.pnum{font-family:'Space Mono',monospace;font-size:.72rem;color:#5d6b93}
+.prole{font-family:'Space Mono',monospace;font-size:.68rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:5px 11px;border-radius:999px;white-space:nowrap;border:1px solid var(--border)}
+.prole.lead{background:rgba(52,211,153,.14);color:var(--ok);border-color:rgba(52,211,153,.3)}
+.prole.solo{background:rgba(91,140,255,.14);color:var(--accent);border-color:rgba(91,140,255,.3)}
+.prole.team{background:rgba(154,166,196,.12);color:var(--muted)}
+.ptag{font-family:'Space Mono',monospace;font-size:.74rem;background:var(--card-2);border:1px solid var(--border);color:var(--muted);padding:5px 10px;border-radius:7px}
+.ptag.hot{border-color:rgba(255,45,32,.45);color:#ffb3aa;background:rgba(255,45,32,.08)}
 
-  /* HERO */
-  .hero{padding:90px 0 70px}
-  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;color:var(--accent-2);
-    background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.25);padding:6px 14px;border-radius:999px;margin-bottom:22px}
-  .eyebrow .ping{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(52,211,153,.6);animation:ping 1.8s infinite}
-  @keyframes ping{0%{box-shadow:0 0 0 0 rgba(52,211,153,.5)}70%{box-shadow:0 0 0 10px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
-  h1{font-size:clamp(2.2rem,6vw,4rem);line-height:1.05;font-weight:800;letter-spacing:-1px}
-  h1 .grad{background:linear-gradient(120deg,var(--brand),var(--brand-2) 45%,var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .hero p.lead{margin-top:22px;font-size:1.15rem;color:var(--muted);max-width:680px}
-  .hero-cta{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap}
-  .stats{margin-top:54px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  .stat{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center}
-  .stat .n{font-size:1.8rem;font-weight:800;color:#fff}
-  .stat .l{font-size:.82rem;color:var(--muted);margin-top:4px}
-  @media(max-width:720px){.stats{grid-template-columns:repeat(2,1fr)}}
-
-  /* SECTIONS */
-  section{padding:70px 0}
-  .sec-head{margin-bottom:40px}
-  .sec-head .kicker{color:var(--brand-2);font-weight:700;font-size:.85rem;letter-spacing:2px;text-transform:uppercase}
-  .sec-head h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-top:8px;letter-spacing:-.5px}
-  .sec-head p{color:var(--muted);max-width:620px;margin-top:10px}
-
-  /* ABOUT */
-  .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:30px;align-items:start}
-  @media(max-width:820px){.about-grid{grid-template-columns:1fr}}
-  .about-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:28px}
-  .about-card p{color:var(--muted);margin-bottom:14px}
-  .about-card p:last-child{margin-bottom:0}
-  .about-card strong{color:var(--text)}
-  .facts{display:flex;flex-direction:column;gap:14px}
-  .fact{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;display:flex;gap:14px;align-items:center}
-  .fact .ico{font-size:1.4rem}
-  .fact .t{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
-  .fact .v{font-weight:600}
-
-  /* SKILLS */
-  .skill-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-  @media(max-width:820px){.skill-grid{grid-template-columns:1fr}}
-  .skill{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;transition:transform .2s,border-color .2s}
-  .skill:hover{transform:translateY(-4px);border-color:var(--accent)}
-  .skill h3{font-size:1.05rem;margin-bottom:14px;display:flex;align-items:center;gap:10px}
-  .skill h3 .badge{font-size:.65rem;background:rgba(255,45,32,.15);color:var(--brand-2);padding:3px 8px;border-radius:999px;font-weight:700;letter-spacing:.5px}
-  .tags{display:flex;flex-wrap:wrap;gap:8px}
-  .tag{font-size:.82rem;background:var(--card-2);border:1px solid var(--border);color:var(--muted);padding:6px 11px;border-radius:8px}
-  .tag.hot{border-color:rgba(255,45,32,.45);color:#ffb3aa;background:rgba(255,45,32,.08)}
-
-  /* PROJECTS */
-  .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;align-items:start}
-  @media(max-width:820px){.proj-grid{grid-template-columns:1fr}}
-  .proj{position:relative;background:linear-gradient(180deg,var(--card),var(--bg-2));border:1px solid var(--border);border-radius:var(--radius);padding:26px;overflow:hidden;transition:transform .2s,border-color .2s}
-  .proj:hover{transform:translateY(-5px);border-color:var(--brand)}
-  .proj.feature{grid-column:1 / -1;background:linear-gradient(135deg,rgba(255,45,32,.10),var(--card) 40%)}
-  .proj .top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:8px}
-  .proj h3{font-size:1.25rem;font-weight:700}
-  .proj .role{font-size:.72rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:5px 11px;border-radius:999px;white-space:nowrap}
-  .role.lead{background:rgba(52,211,153,.14);color:var(--ok);border:1px solid rgba(52,211,153,.3)}
-  .role.solo{background:rgba(91,140,255,.14);color:var(--accent);border:1px solid rgba(91,140,255,.3)}
-  .role.team{background:rgba(154,166,196,.12);color:var(--muted);border:1px solid var(--border)}
-  .role.gig{background:rgba(29,191,115,.14);color:#1dbf73;border:1px solid rgba(29,191,115,.3)}
-  .proj .kind{font-size:.82rem;color:var(--brand-2);font-weight:600;margin-bottom:12px}
-  .proj p.desc{color:var(--muted);font-size:.95rem;margin-bottom:16px}
-  .proj ul{list-style:none;margin-bottom:18px}
-  .proj ul li{font-size:.9rem;color:var(--muted);padding-left:20px;position:relative;margin-bottom:6px}
-  .proj ul li::before{content:"▹";position:absolute;left:0;color:var(--brand-2)}
-  .proj ul li code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.85em;background:var(--card-2);border:1px solid var(--border);border-radius:5px;padding:1px 5px;color:var(--text)}
-  .proj .stack{display:flex;flex-wrap:wrap;gap:7px}
-  .proj .stack .tag{font-size:.76rem;padding:4px 9px}
-  .proj .svc-cta{margin-top:20px}
-
-  /* SCREENSHOTS — carousel */
-  .shots{margin:20px 0 18px;border-top:1px solid var(--border);padding-top:18px}
-  .shots-hd{font-size:.78rem;text-transform:uppercase;letter-spacing:1.4px;color:var(--accent-2);font-weight:700;margin-bottom:12px}
-  .shots-hd span{text-transform:none;letter-spacing:0;color:var(--muted);font-weight:400}
-
-  .carousel{position:relative;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--card-2)}
-  .frames{position:relative;transition:opacity .22s ease}
-  .frames.fading{opacity:0}
-  .frame{display:none;width:100%;padding:0;margin:0;border:0;background:none;cursor:zoom-in}
-  .frame.on{display:block}
-  .frame img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;object-position:top center;background:#fff}
-
-  .cr-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:2;
-    width:40px;height:40px;border-radius:50%;border:1px solid var(--border);
-    background:rgba(11,16,32,.82);color:var(--text);font-size:1.25rem;line-height:1;
-    cursor:pointer;display:flex;align-items:center;justify-content:center;
-    opacity:0;transition:opacity .2s,border-color .2s,background .2s}
-  .carousel:hover .cr-nav,.cr-nav:focus-visible{opacity:1}
-  .cr-nav:hover{border-color:var(--brand);background:rgba(11,16,32,.95)}
-  .cr-prev{left:10px} .cr-next{right:10px}
-  /* no hover to reveal them on touch or narrow screens, so keep them showing */
-  @media(hover:none),(max-width:820px){.cr-nav{opacity:1}}
-
-  .cr-zoom{position:absolute;right:10px;bottom:10px;z-index:2;pointer-events:none;
-    background:rgba(11,16,32,.82);border:1px solid var(--border);border-radius:999px;
-    padding:5px 11px;font-size:.72rem;color:var(--muted);opacity:0;transition:opacity .2s}
-  .carousel:hover .cr-zoom{opacity:1}
-
-  .cr-bar{display:flex;align-items:center;gap:14px;margin-top:11px;flex-wrap:wrap}
-  .cr-cap{font-size:.84rem;color:var(--text);font-weight:600;flex:1;min-width:140px}
-  .cr-dots{display:flex;gap:6px;flex-wrap:wrap}
-  .cr-dot{width:8px;height:8px;padding:0;border-radius:50%;border:0;cursor:pointer;
-    background:var(--border);transition:background .2s,transform .2s}
-  .cr-dot:hover{background:var(--muted)}
-  .cr-dot.on{background:var(--brand-2);transform:scale(1.3)}
-  .cr-count{font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
-
-  /* LIGHTBOX */
-  .lb{position:fixed;inset:0;z-index:100;background:rgba(6,9,18,.94);backdrop-filter:blur(6px);
-    display:flex;flex-direction:column;padding:14px;gap:12px}
-  .lb[hidden]{display:none}
-  .lb-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;color:var(--muted);font-size:.86rem}
-  .lb-bar .cap{color:var(--text);font-weight:600}
-  .lb-bar .cap em{color:var(--muted);font-weight:400;font-style:normal}
-  .lb-bar .tools{display:flex;align-items:center;gap:10px;white-space:nowrap}
-  .lb-btn{background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:8px;
-    padding:7px 13px;font:inherit;font-size:.84rem;cursor:pointer;transition:border-color .2s,background .2s}
-  .lb-btn:hover{border-color:var(--accent);background:var(--card-2)}
-  .lb-stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:10px}
-  .lb-stage img{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;background:#fff;
-    box-shadow:0 20px 60px rgba(0,0,0,.6)}
-  .lb-nav{background:rgba(20,28,51,.85);border:1px solid var(--border);color:var(--text);
-    width:42px;height:42px;flex:none;border-radius:50%;font-size:1.2rem;cursor:pointer;transition:border-color .2s}
-  .lb-nav:hover{border-color:var(--accent)}
-  .lb-nav:disabled{opacity:.3;cursor:default}
-  @media(max-width:560px){
-    .lb{padding:10px}
-    .lb-bar{flex-direction:column;align-items:flex-start;gap:8px}
-    .lb-bar .cap{font-size:.8rem}
-    /* arrows overlay the image instead of squeezing it off-screen */
-    .lb-stage{position:relative;gap:0}
-    .lb-nav{position:absolute;bottom:10px;z-index:2;background:rgba(11,16,32,.9)}
-    #lbPrev{left:10px} #lbNext{right:10px}
-  }
-
-  /* TIMELINE */
-  .tl{border-left:2px solid var(--border);margin-left:8px;padding-left:28px;display:flex;flex-direction:column;gap:30px}
-  .tl .item{position:relative}
-  .tl .item::before{content:"";position:absolute;left:-37px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--brand);box-shadow:0 0 0 4px var(--bg)}
-  .tl .when{font-size:.8rem;color:var(--accent-2);font-weight:600;letter-spacing:1px;text-transform:uppercase}
-  .tl h3{font-size:1.15rem;margin:4px 0}
-  .tl .co{color:var(--brand-2);font-weight:600;margin-bottom:8px}
-  .tl p{color:var(--muted);font-size:.95rem}
-
-  /* CONTACT */
-  .contact{text-align:center;background:linear-gradient(135deg,rgba(255,45,32,.12),rgba(91,140,255,.10));border:1px solid var(--border);border-radius:24px;padding:56px 26px}
-  .contact h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800}
-  .contact p{color:var(--muted);max-width:520px;margin:14px auto 28px}
-  .contact .row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-
-  footer{text-align:center;padding:40px 0;color:var(--muted);font-size:.85rem;border-top:1px solid var(--border)}
-
-  /* reveal animation */
-  .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
-  .reveal.in{opacity:1;transform:none}
 </style>
 </head>
-<body>
-
-<!-- NAV -->
-<header class="nav">
-  <div class="wrap nav-inner">
-    <div class="logo">Shaswin<span class="dot">.</span>dev</div>
-    <nav class="links">
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#integrations">Integrations</a>
-      <a href="#projects">Projects</a>
-      <a href="#services">Services</a>
-      <a href="#experience">Experience</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <a class="btn" href="#contact">Get in touch</a>
+<body class="w-full min-h-screen">
+<header class="sticky top-0 z-50 border-b hair backdrop-blur" style="background:rgba(11,16,32,.82)">
+ <nav class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between" aria-label="Main">
+  <a href="#top" class="font-extrabold tracking-tight">Shaswin<span style="color:var(--brand)">.</span>dev</a>
+  <div class="hidden lg:flex items-center gap-7 text-sm">
+   <a href="#about" class="hover:opacity-70 transition" style="color:var(--muted)">About</a>
+   <a href="#skills" class="hover:opacity-70 transition" style="color:var(--muted)">Skills</a>
+   <a href="#integrations" class="hover:opacity-70 transition" style="color:var(--muted)">Integrations</a>
+   <a href="#projects" class="hover:opacity-70 transition" style="color:var(--muted)">Projects</a>
+   <a href="#services" class="hover:opacity-70 transition" style="color:var(--muted)">Services</a>
+   <a href="#experience" class="hover:opacity-70 transition" style="color:var(--muted)">Experience</a>
+   <a href="#contact" class="hover:opacity-70 transition" style="color:var(--muted)">Contact</a>
   </div>
+  <a href="#contact" class="px-4 py-2 rounded-lg font-semibold text-sm hover:opacity-90 transition" style="background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff">Get in touch</a>
+ </nav>
 </header>
+<main id="top">
 
 <!-- HERO -->
-<section class="hero">
-  <div class="wrap">
-    <span class="eyebrow reveal"><span class="ping"></span> Available for new opportunities</span>
-    <h1 class="reveal">Full-Stack Developer<br>building with <span class="grad">Laravel &amp; React</span></h1>
-    <p class="lead reveal">I'm <strong>Shaswin Kumar</strong>. I build commerce platforms, point-of-sale systems and
-      real-time apps that run in actual shops and restaurants. <strong>Laravel and PHP</strong> are where I'm strongest,
-      and I handle the React/TypeScript front-ends and Docker setup that go with them.</p>
-    <div class="hero-cta reveal">
-      <a class="btn" href="#projects">View my work</a>
-      <a class="btn ghost" href="mailto:shasween94@gmail.com">Email me</a>
-    </div>
-    <div class="stats">
-      <div class="stat reveal"><div class="n">5+ yrs</div><div class="l">Web development</div></div>
-      <div class="stat reveal"><div class="n">10+</div><div class="l">Production projects</div></div>
-      <div class="stat reveal"><div class="n">Laravel</div><div class="l">Primary specialty</div></div>
-    </div>
+<section class="relative overflow-hidden border-b hair">
+ <div class="absolute inset-0 grid-bg opacity-20 pointer-events-none" style="mask-image:radial-gradient(ellipse at 75% 40%,#000 20%,transparent 70%)"></div>
+ <div class="relative max-w-7xl mx-auto px-6 pt-16 pb-14 lg:pt-24 grid lg:grid-cols-12 gap-12 items-center">
+  <div class="lg:col-span-5 load">
+   <div class="inline-flex items-center gap-2 border hair rounded-full px-3 py-1.5" style="background:rgba(255,255,255,.04)">
+    <span class="w-2 h-2 rounded-full pulse" style="background:#2f7d4f"></span> <span class="mono text-xs" style="color:var(--accent-2)">Available for new opportunities</span>
+   </div>
+   <h1 class="mt-7 leading-[1.02] text-[2.4rem] sm:text-5xl font-extrabold tracking-tight"><span class="block">Full-Stack Developer</span> <span class="block">building with <span style="background:linear-gradient(120deg,var(--brand),var(--brand-2) 45%,var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent">Laravel &amp; React</span></span></h1>
+   <p class="mt-6 max-w-lg opacity-80">I'm <strong>Shaswin Kumar</strong>. I build commerce platforms, point-of-sale systems and real-time apps that run in actual shops and restaurants. <strong>Laravel and PHP</strong> are where I'm strongest, and I handle the React/TypeScript front-ends and Docker setup that go with them.</p>
+   <div class="mt-8 flex flex-wrap gap-3">
+    <a href="#projects" class="px-6 py-3.5 rounded-lg font-semibold hover:-translate-y-0.5 transition shadow-sm" style="background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff">View my work</a>
+    <a href="mailto:shasween94@gmail.com" class="px-6 py-3.5 rounded-lg border hair hover:-translate-y-0.5 transition">Email me</a>
+   </div>
+   <dl class="mt-12 grid grid-cols-3 border-t hair">
+    <div class="pt-5 pr-4"><dt class="mono text-xs opacity-60 mt-1">Web development</dt><dd class="text-xl font-extrabold">5+ yrs</dd></div>
+    <div class="pt-5 px-4 border-l hair"><dt class="mono text-xs opacity-60 mt-1">Production projects</dt><dd class="text-xl font-extrabold">10+</dd></div>
+    <div class="pt-5 pl-4 border-l hair"><dt class="mono text-xs opacity-60 mt-1">Primary specialty</dt><dd class="text-xl font-extrabold">Laravel</dd></div>
+   </dl>
   </div>
+  <div class="lg:col-span-7 relative h-[520px] hidden md:block load" style="animation-delay:.15s" aria-hidden="true">
+   <svg class="absolute inset-0 w-full h-full" viewbox="0 0 700 520" preserveaspectratio="none" fill="none">
+    <path class="flow-line" d="M300 150 C360 150 380 90 440 90" stroke="#e5382a" stroke-width="1.2"/><path class="flow-line" d="M250 250 C250 320 200 330 170 360" stroke="#3a4468" stroke-width="1.2"/><path class="flow-line" d="M310 230 C400 260 420 300 470 320" stroke="#3a4468" stroke-width="1.2"/><path class="flow-line" d="M560 190 L560 280" stroke="#3a4468" stroke-width="1.2"/>
+   </svg>
+   <div class="shot-dark absolute left-[4%] top-[8%] w-[46%] p-4 text-[11px] mono text-slate-300 shadow-2xl">
+    <div class="flex items-center justify-between mb-3"><span class="text-white">api.qbotu / v2</span><span class="text-[#6fcf97]">&#9679; 200 OK</span></div>
+    <div class="space-y-1.5">
+     <div><span class="text-[#ff6b52]">POST</span> /orders <span class="text-slate-400">&middot; 42ms</span></div>
+     <div><span class="text-[#6fcf97]">GET</span>&nbsp; /menu/items <span class="text-slate-400">&middot; 18ms</span></div>
+     <div><span class="text-[#ff6b52]">POST</span> /payments/gkash <span class="text-slate-400">&middot; 310ms</span></div>
+     <div><span class="text-amber-300">JOB</span>&nbsp; PrintReceipt <span class="text-slate-400">queued</span></div>
+     <div><span class="text-sky-300">WS</span>&nbsp;&nbsp; order.created &rarr; kds</div>
+    </div>
+    <div class="mt-3 pt-3 border-t border-white/10 flex gap-4 text-slate-400"><span>queue: 3</span><span>redis: ok</span><span>db: 12ms</span></div>
+   </div>
+   <div class="shot absolute right-[2%] top-[4%] w-[40%] p-4">
+    <div class="flex justify-between items-baseline"><span class="text-[11px] font-semibold">Sales today</span><span class="mono text-[10px] text-slate-400">MYR</span></div>
+    <div class="text-2xl font-extrabold tracking-tight mt-1">18,420<span class="text-sm text-emerald-400 ml-2">+12%</span></div>
+    <div class="mt-3 flex items-end gap-1.5 h-16">
+     <div class="flex-1 bg-white/[0.10] rounded-sm" style="height:35%"></div><div class="flex-1 bg-white/[0.10] rounded-sm" style="height:55%"></div><div class="flex-1 bg-white/[0.10] rounded-sm" style="height:45%"></div><div class="flex-1 bg-white/[0.10] rounded-sm" style="height:70%"></div><div class="flex-1 bg-white/[0.10] rounded-sm" style="height:60%"></div><div class="flex-1 rounded-sm" style="height:92%;background:#e5382a"></div><div class="flex-1 bg-white/[0.10] rounded-sm" style="height:50%"></div>
+    </div>
+   </div>
+   <div class="shot absolute left-[18%] top-[44%] w-[44%] p-3">
+    <div class="flex justify-between items-center mb-2"><span class="text-[11px] font-bold">QBot POS</span><span class="mono text-[9px] px-1.5 py-0.5 rounded bg-amber-400/15 text-amber-300">OFFLINE &middot; 2 queued</span></div>
+    <div class="grid grid-cols-5 gap-2">
+     <div class="col-span-3 grid grid-cols-3 gap-1.5"><div class="h-10 rounded bg-[#ff2d20]/12"></div><div class="h-10 rounded bg-white/[0.06]"></div><div class="h-10 rounded bg-white/[0.06]"></div><div class="h-10 rounded bg-white/[0.06]"></div><div class="h-10 rounded bg-emerald-400/10"></div><div class="h-10 rounded bg-white/[0.06]"></div></div>
+     <div class="col-span-2 flex flex-col text-[9px]">
+      <div class="flex justify-between"><span>Nasi Lemak</span><span>12.90</span></div>
+      <div class="flex justify-between text-slate-400"><span>Teh Tarik &times;2</span><span>7.00</span></div>
+      <div class="mt-auto rounded py-1.5 text-center text-white font-bold" style="background:#e5382a">Pay 19.90</div>
+     </div>
+    </div>
+   </div>
+   <div class="shot absolute right-[4%] top-[54%] w-[30%] p-3">
+    <div class="text-[11px] font-bold mb-2">Kitchen &middot; 4 open</div>
+    <div class="space-y-1.5 text-[10px]">
+     <div class="flex justify-between border-l-2 pl-2" style="border-color:#e5382a"><span>#1042 Table 7</span><span class="mono text-slate-400">03:12</span></div>
+     <div class="flex justify-between border-l-2 pl-2 border-amber-400"><span>#1043 Kiosk</span><span class="mono text-slate-400">01:40</span></div>
+     <div class="flex justify-between border-l-2 pl-2" style="border-color:#2f7d4f"><span>#1041 Delivery</span><span class="mono text-slate-400">ready</span></div>
+    </div>
+   </div>
+   <div class="shot absolute left-[0%] bottom-[2%] w-[22%] p-2 rounded-2xl">
+    <div class="rounded-lg bg-white/[0.04] p-2">
+     <div class="text-[9px] font-bold">Table 7</div>
+     <div class="grid grid-cols-2 gap-1 mt-1.5"><div class="h-8 rounded bg-[#ff2d20]/12"></div><div class="h-8 rounded bg-white/[0.10]"></div><div class="h-8 rounded bg-white/[0.10]"></div><div class="h-8 rounded bg-white/[0.10]"></div></div>
+    </div>
+   </div>
+   <span class="absolute mono text-[10px] px-1.5 left-[58%] top-[17%]" style="color:var(--muted);background:var(--bg)">websocket</span> <span class="absolute mono text-[10px] px-1.5 left-[62%] top-[48%]" style="color:var(--muted);background:var(--bg)">REST</span> <span class="absolute mono text-[10px] px-1.5 left-[25%] top-[82%]" style="color:var(--muted);background:var(--bg)">sync</span>
+  </div>
+ </div>
+</section>
+
+<!-- STACK STRIP -->
+<section class="section-rule border-b hair py-5" aria-label="Technology stack">
+ <div class="marquee overflow-hidden">
+  <div class="marquee-track mono">
+   <div class="flex items-center gap-10 pr-10"><span style="color:var(--muted)">Laravel</span><span style="color:var(--border)">/</span> <span style="color:var(--muted)">PHP</span><span style="color:var(--border)">/</span> <span style="color:var(--muted)">HTML5</span><span style="color:var(--border)">/</span> <span style="color:var(--muted)">CSS3</span><span style="color:var(--border)">/</span> <span style="color:var(--muted)">JavaScript</span><span style="color:var(--border)">/</span> <span style="color:var(--muted)">React</span><span style="color:var(--border)">/</span> <span style="color:var(--muted)">TypeScript</span><span style="color:var(--border)">/</span> <span style="color:var(--muted)">PostgreSQL</span><span style="color:var(--border)">/</span> <span style="color:var(--muted)">MySQL</span><span style="color:var(--border)">/</span> <span style="color:var(--muted)">Redis</span><span style="color:var(--border)">/</span> <span style="color:var(--muted)">Docker</span><span style="color:var(--border)">/</span> <span style="color:var(--muted)">Reverb</span><span style="color:var(--border)">/</span> <span style="color:var(--muted)">Capacitor</span><span style="color:var(--border)">/</span></div>
+   <div class="flex items-center gap-10 pr-10" aria-hidden="true"><span style="color:var(--muted)">Laravel</span><span style="color:var(--border)">/</span> <span style="color:var(--muted)">PHP</span><span style="color:var(--border)">/</span> <span style="color:var(--muted)">HTML5</span><span style="color:var(--border)">/</span> <span style="color:var(--muted)">CSS3</span><span style="color:var(--border)">/</span> <span style="color:var(--muted)">JavaScript</span><span style="color:var(--border)">/</span> <span style="color:var(--muted)">React</span><span style="color:var(--border)">/</span> <span style="color:var(--muted)">TypeScript</span><span style="color:var(--border)">/</span> <span style="color:var(--muted)">PostgreSQL</span><span style="color:var(--border)">/</span> <span style="color:var(--muted)">MySQL</span><span style="color:var(--border)">/</span> <span style="color:var(--muted)">Redis</span><span style="color:var(--border)">/</span> <span style="color:var(--muted)">Docker</span><span style="color:var(--border)">/</span> <span style="color:var(--muted)">Reverb</span><span style="color:var(--border)">/</span> <span style="color:var(--muted)">Capacitor</span><span style="color:var(--border)">/</span></div>
+  </div>
+ </div>
 </section>
 
 <!-- ABOUT -->
-<section id="about">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="kicker">About me</div>
-      <h2>Backend first, but I ship the whole thing</h2>
-      <p>Most of my work starts at the database and ends at a receipt printer or a card reader.</p>
-    </div>
-    <div class="about-grid">
-      <div class="about-card reveal">
-        <p>I work at <strong>Crave Asia</strong> as a full-stack developer. I've led the build on a few multi-tenant
-          commerce and POS platforms there, and they're in use in real shops and F&amp;B outlets.</p>
-        <p><strong>Laravel and PHP</strong> are my main thing. Day to day that means REST APIs, auth and role-based
-          permissions, queued jobs, websocket broadcasting, PDF and Excel reports, and payment gateways.
-          The front-end side I'm fine with too. I've written plenty of plain <strong>HTML and CSS</strong>
-          (semantic markup, Flexbox and Grid, media queries) plus <strong>Blade, Bootstrap and jQuery</strong>,
-          and more recently <strong>React, TypeScript and Ionic</strong>. Deployment is usually
-          <strong>Docker</strong>, with PostgreSQL, Redis and S3-compatible storage.</p>
-        <p>The parts I enjoy most are the awkward ones. Offline-first POS apps, ESC/POS thermal printing,
-          kicking a cash drawer open, barcode scanning, face recognition running on the device itself.</p>
-      </div>
-      <div class="facts">
-        <div class="fact reveal"><span class="ico">📍</span><div><div class="t">Based in</div><div class="v">Malaysia</div></div></div>
-        <div class="fact reveal"><span class="ico">💼</span><div><div class="t">Currently</div><div class="v">Full-Stack Dev @ Crave Asia</div></div></div>
-        <div class="fact reveal"><span class="ico">🎯</span><div><div class="t">Focus</div><div class="v">Laravel · APIs · Commerce / POS</div></div></div>
-        <div class="fact reveal"><span class="ico">🤝</span><div><div class="t">Open to</div><div class="v">Backend / Full-Stack roles</div></div></div>
-      </div>
-    </div>
+<section id="about" class="py-24 lg:py-32">
+ <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-14 reveal">
+  <div class="lg:col-span-6">
+   <p class="mono text-xs" style="color:var(--brand-2)">About me</p>
+   <h2 class="mt-5 leading-[1.05] text-3xl sm:text-4xl font-extrabold">Backend first, but I ship the whole thing</h2>
+   <p class="mt-6 max-w-md opacity-80">Most of my work starts at the database and ends at a receipt printer or a card reader.</p>
+   <p class="mt-6 max-w-lg opacity-80">I work at <strong>Crave Asia</strong> as a full-stack developer, leading a few multi-tenant commerce and POS platforms that run in real shops and F&amp;B outlets. <strong>Laravel and PHP</strong> are my main thing &mdash; REST APIs, auth, queues, websockets, PDF/Excel reporting and payment gateways &mdash; and I'm just as comfortable on the front-end: HTML/CSS, Blade, Bootstrap and jQuery, and more recently React, TypeScript and Ionic, deployed on Docker with PostgreSQL, Redis and S3-compatible storage. The parts I enjoy most are the awkward ones: offline-first POS, ESC/POS printing, cash drawers, barcode scanning, on-device face recognition.</p>
+   <dl class="mt-10 border-t hair max-w-lg">
+    <div class="flex justify-between gap-4 py-3 border-b hair"><dt class="mono text-xs opacity-60">Based in</dt><dd class="text-right">Malaysia</dd></div>
+    <div class="flex justify-between gap-4 py-3 border-b hair"><dt class="mono text-xs opacity-60">Currently</dt><dd class="text-right">Full-Stack Dev @ Crave Asia</dd></div>
+    <div class="flex justify-between gap-4 py-3 border-b hair"><dt class="mono text-xs opacity-60">Focus</dt><dd class="text-right">Laravel &middot; APIs &middot; Commerce / POS</dd></div>
+    <div class="flex justify-between gap-4 py-3 border-b hair"><dt class="mono text-xs opacity-60">Open to</dt><dd class="text-right">Backend / Full-Stack roles</dd></div>
+   </dl>
   </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="kicker">Toolbox</div>
-      <h2>Skills &amp; technologies</h2>
-      <p>Everything here is something I've used on a project that shipped, not just tried out once.</p>
+  <div class="lg:col-span-6 lg:pt-16">
+   <div class="relative rounded-2xl p-8 grid-dark overflow-hidden" style="background:var(--card)">
+    <p class="mono text-[10px] text-slate-400 mb-6">fig.01 &mdash; request lifecycle</p>
+    <ol class="space-y-3">
+     <li class="flex items-center gap-4"><span class="mono text-[10px] text-slate-400 w-6">01</span><span class="flex-1 rounded-lg border border-white/10 px-4 py-3">Client hits a Sanctum-guarded endpoint</span></li>
+     <li class="pl-10 text-slate-500 mono text-xs" aria-hidden="true">&darr;</li>
+     <li class="flex items-center gap-4"><span class="mono text-[10px] text-slate-400 w-6">02</span><span class="flex-1 rounded-lg px-4 py-3" style="background:rgba(255,255,255,.03)">Form request validates, controller writes to Postgres / MySQL</span></li>
+     <li class="pl-10 text-slate-500 mono text-xs" aria-hidden="true">&darr;</li>
+     <li class="flex items-center gap-4"><span class="mono text-[10px] text-slate-400 w-6">03</span><span class="flex-1 rounded-lg border border-white/10 px-4 py-3">Slow work &mdash; mail, printing, sync &mdash; dispatched to a queued job</span></li>
+     <li class="pl-10 text-slate-500 mono text-xs" aria-hidden="true">&darr;</li>
+     <li class="flex items-center gap-4"><span class="mono text-[10px] text-slate-400 w-6">04</span><span class="flex-1 rounded-lg border border-white/10 px-4 py-3">Reverb / Pusher broadcasts the update to every connected screen</span></li>
+    </ol>
+    <div class="mt-8 pt-6 border-t border-white/10 flex flex-wrap gap-2 mono">
+     <span class="px-2.5 py-1 rounded border border-white/10 text-xs" style="color:var(--muted)">Laravel</span> <span class="px-2.5 py-1 rounded border border-white/10 text-xs" style="color:var(--muted)">Sanctum</span> <span class="px-2.5 py-1 rounded border border-white/10 text-xs" style="color:var(--muted)">Eloquent</span> <span class="px-2.5 py-1 rounded border border-white/10 text-xs" style="color:var(--muted)">Queues</span> <span class="px-2.5 py-1 rounded border border-white/10 text-xs" style="color:var(--muted)">Reverb</span> <span class="px-2.5 py-1 rounded border border-white/10 text-xs" style="color:var(--muted)">Redis</span> <span class="px-2.5 py-1 rounded border border-white/10 text-xs" style="color:var(--muted)">PostgreSQL</span> <span class="px-2.5 py-1 rounded border border-white/10 text-xs" style="color:var(--muted)">Docker</span>
     </div>
-    <div class="skill-grid">
-      <div class="skill reveal">
-        <h3>⚙️ Backend <span class="badge">PRIMARY</span></h3>
-        <div class="tags">
-          <span class="tag hot">Laravel 8–11</span>
-          <span class="tag hot">PHP 8.x</span>
-          <span class="tag">REST APIs</span>
-          <span class="tag">Sanctum Auth</span>
-          <span class="tag">Spatie Permissions</span>
-          <span class="tag">Queues &amp; Jobs</span>
-          <span class="tag">Octane / Swoole</span>
-          <span class="tag">Reverb / Pusher</span>
-          <span class="tag">Eloquent ORM</span>
-        </div>
-      </div>
-      <div class="skill reveal">
-        <h3>🖥️ Frontend</h3>
-        <div class="tags">
-          <span class="tag hot">HTML5 / Semantic Markup</span>
-          <span class="tag hot">CSS3 · Flexbox &amp; Grid</span>
-          <span class="tag">Responsive Design</span>
-          <span class="tag">JavaScript ES6+</span>
-          <span class="tag">Bootstrap 4 / 5</span>
-          <span class="tag">jQuery</span>
-          <span class="tag">Blade Templating</span>
-          <span class="tag">React 18 / 19</span>
-          <span class="tag">TypeScript</span>
-          <span class="tag">Vite</span>
-          <span class="tag">Tailwind CSS</span>
-          <span class="tag">Ionic</span>
-          <span class="tag">Framer Motion</span>
-          <span class="tag">GSAP</span>
-        </div>
-      </div>
-      <div class="skill reveal">
-        <h3>🗄️ Data &amp; Infra</h3>
-        <div class="tags">
-          <span class="tag">PostgreSQL</span>
-          <span class="tag">MySQL</span>
-          <span class="tag">Redis</span>
-          <span class="tag">Docker / Compose</span>
-          <span class="tag">Nginx</span>
-          <span class="tag">DigitalOcean Spaces</span>
-          <span class="tag">MinIO / S3</span>
-          <span class="tag">Dexie (IndexedDB)</span>
-        </div>
-      </div>
-      <div class="skill reveal">
-        <h3>📱 Mobile &amp; Native</h3>
-        <div class="tags">
-          <span class="tag">Capacitor</span>
-          <span class="tag">Android builds</span>
-          <span class="tag">POS / Kiosk / Tablet</span>
-          <span class="tag">Sunmi devices</span>
-          <span class="tag">Offline-first</span>
-        </div>
-      </div>
-      <div class="skill reveal">
-        <h3>🔌 Integrations</h3>
-        <div class="tags">
-          <span class="tag">Stripe Payments</span>
-          <span class="tag">ESC/POS Printing</span>
-          <span class="tag">Cash Drawer (TSPL)</span>
-          <span class="tag">QR / Barcode</span>
-          <span class="tag">MediaPipe Face Rec</span>
-          <span class="tag">PDF / Excel export</span>
-        </div>
-      </div>
-      <div class="skill reveal">
-        <h3>🧪 Quality &amp; Tooling</h3>
-        <div class="tags">
-          <span class="tag">PHPUnit</span>
-          <span class="tag">Playwright</span>
-          <span class="tag">Vitest</span>
-          <span class="tag">Cypress</span>
-          <span class="tag">Git</span>
-          <span class="tag">CI / GitHub Actions</span>
-        </div>
-      </div>
-    </div>
+   </div>
   </div>
-</section>
-
-<!-- INTEGRATIONS -->
-<section id="integrations">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="kicker">APIs &amp; services</div>
-      <h2>Third-party integrations</h2>
-      <p>These are all running live in the platforms above. None of them are demos or proof of concepts.</p>
-    </div>
-    <div class="skill-grid">
-
-      <div class="skill reveal">
-        <h3>💳 Payments <span class="badge">LIVE</span></h3>
-        <p class="muted" style="font-size:.9rem;margin-bottom:14px">Card checkout and payment flows in the commerce &amp; POS apps.</p>
-        <div class="tags">
-          <span class="tag hot">Stripe (PHP SDK)</span>
-          <span class="tag hot">Stripe.js / React</span>
-          <span class="tag hot">GKASH (Malaysia)</span>
-          <span class="tag">Checkout &amp; webhooks</span>
-        </div>
-      </div>
-
-      <div class="skill reveal">
-        <h3>📊 Accounting</h3>
-        <p class="muted" style="font-size:.9rem;margin-bottom:14px">Two-way sync of invoices and ledgers from the QBotu API.</p>
-        <div class="tags">
-          <span class="tag hot">QuickBooks (v3 SDK)</span>
-          <span class="tag hot">Xero (OAuth2)</span>
-          <span class="tag">OAuth token refresh</span>
-        </div>
-      </div>
-
-      <div class="skill reveal">
-        <h3>🧾 E-Invoicing &amp; Tax <span class="badge">MALAYSIA</span></h3>
-        <p class="muted" style="font-size:.9rem;margin-bottom:14px">Malaysian government e-invoicing compliance built into the commerce platform.</p>
-        <div class="tags">
-          <span class="tag hot">LHDN MyInvois</span>
-          <span class="tag">E-invoice submission</span>
-          <span class="tag">MSIC tax codes</span>
-        </div>
-      </div>
-
-      <div class="skill reveal">
-        <h3>🛒 E-commerce &amp; Marketplace</h3>
-        <p class="muted" style="font-size:.9rem;margin-bottom:14px">Storefront and marketplace order/product sync.</p>
-        <div class="tags">
-          <span class="tag hot">Shopify</span>
-          <span class="tag hot">Lazada (PHP SDK)</span>
-          <span class="tag">Admin GraphQL fulfilment</span>
-        </div>
-      </div>
-
-      <div class="skill reveal">
-        <h3>🚚 Logistics &amp; Delivery <span class="badge">LIVE</span></h3>
-        <p class="muted" style="font-size:.9rem;margin-bottom:14px">On-demand courier dispatch straight from the order board, signed outbound and verified inbound.</p>
-        <div class="tags">
-          <span class="tag hot">Lalamove v3</span>
-          <span class="tag hot">Borzo</span>
-          <span class="tag">HMAC-SHA256 signing</span>
-          <span class="tag">Delivery webhooks</span>
-        </div>
-      </div>
-
-      <div class="skill reveal">
-        <h3>📈 Analytics &amp; Tracking</h3>
-        <p class="muted" style="font-size:.9rem;margin-bottom:14px">Event tracking built into the storefront templates themselves.</p>
-        <div class="tags">
-          <span class="tag hot">GA4 / gtag events</span>
-          <span class="tag hot">Meta (Facebook) Pixel</span>
-          <span class="tag">Google Reviews badge</span>
-        </div>
-      </div>
-
-      <div class="skill reveal">
-        <h3>📡 Real-time &amp; Messaging</h3>
-        <p class="muted" style="font-size:.9rem;margin-bottom:14px">Live broadcasting and transactional email delivery.</p>
-        <div class="tags">
-          <span class="tag hot">Pusher</span>
-          <span class="tag">Laravel Reverb</span>
-          <span class="tag">MailerSend</span>
-          <span class="tag">Mailgun</span>
-        </div>
-      </div>
-
-      <div class="skill reveal">
-        <h3>🔐 Auth &amp; Security</h3>
-        <p class="muted" style="font-size:.9rem;margin-bottom:14px">Token auth and account protection across services.</p>
-        <div class="tags">
-          <span class="tag">Sanctum</span>
-          <span class="tag">Firebase JWT</span>
-          <span class="tag">Google 2FA</span>
-        </div>
-      </div>
-
-      <div class="skill reveal">
-        <h3>☁️ Storage &amp; Files</h3>
-        <p class="muted" style="font-size:.9rem;margin-bottom:14px">Object storage for uploads, exports and media. Production media is served from DigitalOcean Spaces.</p>
-        <div class="tags">
-          <span class="tag hot">DigitalOcean Spaces</span>
-          <span class="tag">AWS S3 (Flysystem)</span>
-          <span class="tag">MinIO</span>
-          <span class="tag">PDF / Excel export</span>
-        </div>
-      </div>
-
-      <div class="skill reveal">
-        <h3>🧠 AI &amp; Vision</h3>
-        <p class="muted" style="font-size:.9rem;margin-bottom:14px">On-device computer vision in the kiosk/POS apps.</p>
-        <div class="tags">
-          <span class="tag hot">MediaPipe Face Rec</span>
-          <span class="tag">html5-qrcode scanning</span>
-        </div>
-      </div>
-
-      <div class="skill reveal">
-        <h3>🖨️ Hardware &amp; Devices</h3>
-        <p class="muted" style="font-size:.9rem;margin-bottom:14px">Talking straight to retail and site hardware, at the counter and at the gate.</p>
-        <div class="tags">
-          <span class="tag hot">ESC/POS printers</span>
-          <span class="tag">Sunmi printer SDK</span>
-          <span class="tag">Cash drawer (TSPL)</span>
-          <span class="tag">QR / Barcode</span>
-          <span class="tag hot">LPR camera SDK</span>
-          <span class="tag">TCP barrier gate control</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
+ </div>
 </section>
 
 <!-- PROJECTS -->
-<section id="projects">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="kicker">Selected work</div>
-      <h2>Projects I've built</h2>
-      <p>Some of these I led, some I built alone, some I joined part-way through. Most are commercial and private, so I've kept the detail general.</p>
-    </div>
-    <div class="proj-grid">
+<section id="projects" class="border-t hair pt-24 lg:pt-32">
+ <div class="max-w-7xl mx-auto px-6">
+  <div class="grid lg:grid-cols-12 gap-6 items-end reveal">
+   <div class="lg:col-span-7"><p class="mono text-xs" style="color:var(--brand-2)">Selected work</p><h2 class="mt-4 leading-none text-3xl sm:text-4xl font-extrabold">Projects I've built</h2></div>
+   <p class="lg:col-span-5 lg:text-right opacity-80">Some of these I led, some I built alone, some I joined part-way through. Most are commercial and private, so I've kept the detail general.</p>
+  </div>
 
-      <!-- FEATURE -->
-      <article class="proj feature reveal">
-        <div class="top">
-          <div>
-            <h3>QBotu — Multi-App Commerce Platform</h3>
-            <div class="kind">Full-stack commerce & POS platform · Lead developer</div>
-          </div>
-          <span class="role lead">Lead developer</span>
-        </div>
-        <p class="desc">Four front-end apps (POS, Kiosk, Tablet and Web) sitting on one Laravel API, with a 9-service
-          Docker stack behind it. The whole thing comes up with a single command.</p>
-        <ul>
-          <li>Laravel REST API on PostgreSQL, with Redis, queues and Reverb websockets driving the live order updates</li>
-          <li>The POS, Kiosk and Tablet front-ends are React + TypeScript, wrapped into native Android builds with Capacitor</li>
-          <li>Stripe and GKASH for payments, plus ESC/POS receipt printing through a separate print-agent service</li>
-          <li>Malaysian LHDN e-invoicing (MyInvois) with MSIC tax codes, and two-way sync to QuickBooks and Xero</li>
-          <li>Face recognition runs on-device with MediaPipe. Offline sync uses IndexedDB, so the POS keeps working when the wifi drops</li>
-          <li>Docker Compose runs the lot: Caddy, PostgreSQL, Redis, MinIO, queue workers and the scheduler</li>
-        </ul>
-        <div class="shots" data-proj="QBotu">
-          <div class="shots-hd">Screenshots <span>· annotated captures of the running stack</span></div>
+  <!-- 01 QBotu: floating screens (bespoke) -->
+  <article class="mt-20 grid lg:grid-cols-12 gap-10 items-center reveal">
+   <div class="lg:col-span-4 order-2 lg:order-1">
+    <p class="pnum">01 / 10</p>
+    <h3 class="mt-3 leading-tight text-2xl font-bold">QBotu &mdash; Multi-App Commerce Platform</h3>
+    <p class="mt-2 text-sm" style="color:var(--brand-2)">Full-stack commerce &amp; POS platform</p>
+    <p class="mt-5 opacity-80 text-[15px]">Four front-end apps (POS, Kiosk, Tablet and Web) sitting on one Laravel API, with a 9-service Docker stack behind it. The whole thing comes up with a single command.</p>
+    <p class="mono mt-6 pt-4 border-t hair text-xs opacity-70">Laravel 13 &middot; React &middot; TypeScript &middot; PostgreSQL &middot; Docker &middot; Redis &middot; Reverb &middot; Capacitor &middot; Stripe &middot; GKASH &middot; LHDN e-Invoice &middot; MediaPipe &middot; MinIO &middot; Playwright</p>
+    <p class="prole lead mono inline-block mt-5">Lead developer</p>
+   </div>
+   <div class="lg:col-span-8 order-1 lg:order-2 relative rounded-2xl border hair grid-bg overflow-hidden h-[420px] sm:h-[480px]" style="background-color:#111a30" aria-hidden="true">
+    <div class="shot absolute left-[4%] top-[8%] w-[62%] p-4">
+     <div class="flex items-center justify-between mb-3"><div class="dots flex gap-1.5"><span></span><span></span><span></span></div><span class="mono text-[10px] text-slate-400">admin.qbotu.com/orders</span></div>
+     <div class="grid grid-cols-4 gap-2 mb-3 text-[10px]">
+      <div class="rounded bg-white/[0.04] p-2"><div class="text-slate-400">Orders</div><div class="font-bold text-sm">1,284</div></div>
+      <div class="rounded bg-white/[0.04] p-2"><div class="text-slate-400">Outlets</div><div class="font-bold text-sm">36</div></div>
+      <div class="rounded bg-white/[0.04] p-2"><div class="text-slate-400">Kiosks</div><div class="font-bold text-sm">58</div></div>
+      <div class="rounded bg-white/[0.04] p-2"><div class="text-slate-400">Avg</div><div class="font-bold text-sm">RM 24</div></div>
+     </div>
+     <div class="space-y-1.5 text-[10px]">
+      <div class="flex justify-between py-1 border-b hair"><span class="mono">#A-1042</span><span>Dine-in &middot; T7</span><span class="text-emerald-400">Paid</span></div>
+      <div class="flex justify-between py-1 border-b hair"><span class="mono">#A-1043</span><span>Kiosk 02</span><span class="text-amber-400">Preparing</span></div>
+      <div class="flex justify-between py-1 border-b hair"><span class="mono">#A-1044</span><span>Online &middot; Pickup</span><span class="text-[#ff6b52]">New</span></div>
+      <div class="flex justify-between py-1"><span class="mono">#A-1045</span><span>Tablet &middot; T3</span><span class="text-slate-400">Queued</span></div>
+     </div>
+    </div>
+    <div class="shot absolute right-[5%] top-[6%] w-[22%] p-2 rounded-2xl">
+     <div class="rounded-lg p-2 text-white text-[10px] font-bold" style="background:#e5382a">Order here</div>
+     <div class="grid grid-cols-2 gap-1 mt-2"><div class="h-12 rounded bg-white/[0.06]"></div><div class="h-12 rounded bg-white/[0.06]"></div><div class="h-12 rounded bg-white/[0.06]"></div><div class="h-12 rounded bg-white/[0.06]"></div></div>
+     <div class="mono text-[9px] text-slate-400 mt-2 text-center">KIOSK &middot; 1080&times;1920</div>
+    </div>
+    <div class="shot absolute left-[30%] bottom-[6%] w-[40%] p-3">
+     <div class="flex justify-between text-[10px] font-bold mb-2"><span>POS &middot; Outlet KLCC</span><span class="mono text-slate-400">shift 2</span></div>
+     <div class="grid grid-cols-4 gap-1.5"><div class="h-9 rounded bg-[#ff2d20]/12"></div><div class="h-9 rounded bg-white/[0.06]"></div><div class="h-9 rounded bg-white/[0.06]"></div><div class="h-9 rounded bg-white/[0.06]"></div></div>
+    </div>
+    <div class="shot-dark absolute right-[5%] bottom-[10%] w-[26%] p-3 mono text-[9px] text-slate-400 shadow-xl">
+     <div class="text-white mb-1">$ php artisan queue:work</div>
+     <div>&check; SyncMenuToKiosk</div><div>&check; PrintKitchenTicket</div><div class="text-[#6fcf97]">&check; SubmitMyInvois</div>
+    </div>
+   </div>
+  </article>
+  <div class="shots" data-proj="QBotu">
+          <div class="shots-hd">Screenshots <span>&middot; annotated captures of the running stack</span></div>
           <div class="carousel">
             <div class="frames">
               <button class="frame on" type="button" data-src="upwork-covers/qbotu/qbotu-1-platform-companies.png" data-cap="Platform console · companies">
@@ -560,42 +306,44 @@
             <button class="cr-nav cr-next" type="button" aria-label="Next screenshot">&rsaquo;</button>
             <span class="cr-zoom">Click for annotated view</span>
           </div>
-          <div class="cr-bar">
-            <span class="cr-cap"></span>
-            <span class="cr-dots"></span>
-            <span class="cr-count"></span>
-          </div>
+          <div class="cr-bar"><span class="cr-cap"></span><span class="cr-dots"></span><span class="cr-count"></span></div>
         </div>
-        <div class="stack">
-          <span class="tag hot">Laravel 13</span><span class="tag">React</span><span class="tag">TypeScript</span>
-          <span class="tag">PostgreSQL</span><span class="tag">Docker</span><span class="tag">Redis</span>
-          <span class="tag">Reverb</span><span class="tag">Capacitor</span><span class="tag">Stripe</span>
-          <span class="tag">GKASH</span><span class="tag">LHDN e-Invoice</span><span class="tag">MediaPipe</span>
-          <span class="tag">MinIO</span><span class="tag">Playwright</span>
-        </div>
-      </article>
 
-      <!-- QPARKING -->
-      <article class="proj feature reveal">
-        <div class="top">
-          <div>
-            <h3>QParking Cloud 2.0 — Multi-Site Parking SaaS</h3>
-            <div class="kind">Multi-portal parking management platform · Core / lead developer</div>
-          </div>
-          <span class="role lead">Lead developer</span>
-        </div>
-        <p class="desc">Parking management SaaS for operators running several sites at once. Three portals (HQ Admin,
-          Site Operator, Customer) covering live occupancy, automated plate-recognition gates, season passes, billing
-          and GreenParking/ESG rewards. Runs on local, staging and production Docker environments.</p>
-        <ul>
-          <li>Laravel 13 REST API with Sanctum auth and Spatie roles on MySQL. One React 18 + TypeScript + Vite front-end serves all three portals</li>
-          <li>Hooked up a vendor LPR camera SDK and TCP-controlled barriers and kiosks, so cars get in and out without staff</li>
-          <li>Worked out the customer/vehicle/pass/bay model. A pass covers a pool of plates, but how many can park at once is capped by bays rather than plate count. The on-prem gate controller shares the same model, so the two can't drift apart</li>
-          <li>18-table schema covering sites, vehicles, season passes, invoices, rate policies, promotions and wallets</li>
-          <li>Three Docker Compose overlays (local, staging, production) on top of one base file, with a <code>deploy.sh</code> that backs up the DB, pulls and rebuilds</li>
-        </ul>
-        <div class="shots" data-proj="QParking Cloud 2.0">
-          <div class="shots-hd">Screenshots <span>· annotated captures of the operator portal</span></div>
+  <!-- 02 QParking Cloud: full-width dark (bespoke) -->
+  <div class="mt-28 py-24 reveal">
+   <div class="max-w-7xl mx-auto px-0">
+    <div class="grid lg:grid-cols-12 gap-8 mb-12">
+     <div class="lg:col-span-5"><p class="pnum">02 / 10</p><h3 class="mt-3 leading-tight text-2xl font-bold">QParking Cloud 2.0 &mdash; Multi-Site Parking SaaS</h3></div>
+     <div class="lg:col-span-6 lg:col-start-7">
+      <p class="opacity-80 text-[15px]">Parking management SaaS for operators running several sites at once. Three portals (HQ Admin, Site Operator, Customer) covering live occupancy, automated plate-recognition gates, season passes, billing and GreenParking/ESG rewards. Runs on local, staging and production Docker environments.</p>
+      <p class="mono mt-5 text-xs opacity-70">Laravel 13 &middot; React 18 &middot; TypeScript &middot; Vite &middot; MySQL &middot; Docker &middot; Sanctum &middot; Spatie &middot; LPR Camera SDK &middot; React Router</p>
+     </div>
+    </div>
+    <div class="shot-dark p-4 sm:p-5 shadow-2xl" aria-hidden="true">
+     <div class="flex items-center justify-between pb-4 border-b border-white/10 text-[11px]">
+      <div class="flex items-center gap-4"><span class="text-white font-bold">QParking Cloud</span><span class="text-slate-400 hidden sm:inline">Site 04 &middot; Level B1</span></div>
+      <div class="flex items-center gap-3 mono text-slate-400"><span class="w-2 h-2 rounded-full bg-[#6fcf97] pulse"></span><span id="live-clock">LIVE</span></div>
+     </div>
+     <div class="grid grid-cols-12 gap-4 pt-4">
+      <div class="col-span-12 md:col-span-8 grid grid-cols-2 gap-3">
+       <div class="cam rounded-lg h-32 sm:h-40 relative"><span class="absolute left-2 top-2 mono text-[9px] text-slate-400">CAM 01 &middot; ENTRY A</span><span class="absolute right-2 bottom-2 mono text-[10px] px-1.5 py-0.5 rounded bg-black/60 text-[#6fcf97]">WXY 4821 &middot; 98%</span><div class="absolute left-[30%] top-[35%] w-[40%] h-[35%] border border-[#6fcf97]"></div></div>
+       <div class="cam rounded-lg h-32 sm:h-40 relative"><span class="absolute left-2 top-2 mono text-[9px] text-slate-400">CAM 02 &middot; EXIT A</span><span class="absolute right-2 bottom-2 mono text-[10px] px-1.5 py-0.5 rounded bg-black/60 text-amber-300">PAYMENT PENDING</span></div>
+       <div class="col-span-2 grid grid-cols-4 gap-2 text-[10px]">
+        <div class="rounded-md bg-white/5 p-2.5"><div class="text-slate-400">Lane 1</div><div class="text-white font-semibold mt-1">Open</div><div class="h-1 mt-2 rounded bg-[#6fcf97]"></div></div>
+        <div class="rounded-md bg-white/5 p-2.5"><div class="text-slate-400">Lane 2</div><div class="text-white font-semibold mt-1">Open</div><div class="h-1 mt-2 rounded bg-[#6fcf97]"></div></div>
+        <div class="rounded-md bg-white/5 p-2.5"><div class="text-slate-400">Lane 3</div><div class="text-white font-semibold mt-1">Busy</div><div class="h-1 mt-2 rounded bg-amber-400"></div></div>
+        <div class="rounded-md bg-white/5 p-2.5"><div class="text-slate-400">Lane 4</div><div class="text-white font-semibold mt-1">Offline</div><div class="h-1 mt-2 rounded" style="background:#e5382a"></div></div>
+       </div>
+      </div>
+      <div class="col-span-12 md:col-span-4 space-y-3 text-[11px]">
+       <div class="rounded-md bg-white/5 p-3"><div class="text-slate-400">Occupancy</div><div class="text-white text-2xl font-extrabold mt-1">412<span class="text-slate-400 text-sm font-medium"> / 520</span></div><div class="h-1.5 rounded bg-white/10 mt-2"><div class="h-full rounded" style="width:79%;background:#e5382a"></div></div></div>
+       <div class="rounded-md bg-white/5 p-3"><div class="text-slate-400 mb-2">Rate config</div><div class="flex justify-between text-slate-300"><span>First hour</span><span class="mono">RM 3.00</span></div><div class="flex justify-between text-slate-300"><span>Subsequent</span><span class="mono">RM 2.00</span></div><div class="flex justify-between text-slate-300"><span>Daily cap</span><span class="mono">RM 20.00</span></div></div>
+       <div class="rounded-md bg-white/5 p-3"><div class="text-slate-400 mb-2">Reports &middot; 7d</div><div class="flex items-end gap-1 h-10"><div class="flex-1 bg-white/15" style="height:40%"></div><div class="flex-1 bg-white/15" style="height:60%"></div><div class="flex-1 bg-white/15" style="height:55%"></div><div class="flex-1 bg-white/15" style="height:80%"></div><div class="flex-1 bg-white/15" style="height:70%"></div><div class="flex-1 bg-white/15" style="height:95%"></div><div class="flex-1" style="height:65%;background:#e5382a"></div></div></div>
+      </div>
+     </div>
+    </div>
+    <div class="shots" data-proj="QParking Cloud 2.0">
+          <div class="shots-hd">Screenshots <span>&middot; annotated captures of the operator portal</span></div>
           <div class="carousel">
             <div class="frames">
               <button class="frame on" type="button" data-src="upwork-covers/annotated/qparking-1-dashboard.png" data-cap="Live dashboard">
@@ -621,57 +369,152 @@
             <button class="cr-nav cr-next" type="button" aria-label="Next screenshot">&rsaquo;</button>
             <span class="cr-zoom">Click for annotated view</span>
           </div>
-          <div class="cr-bar">
-            <span class="cr-cap"></span>
-            <span class="cr-dots"></span>
-            <span class="cr-count"></span>
-          </div>
+          <div class="cr-bar"><span class="cr-cap"></span><span class="cr-dots"></span><span class="cr-count"></span></div>
         </div>
-        <div class="stack">
-          <span class="tag hot">Laravel 13</span><span class="tag">React 18</span><span class="tag">TypeScript</span>
-          <span class="tag">Vite</span><span class="tag">MySQL</span><span class="tag">Docker</span>
-          <span class="tag">Sanctum</span><span class="tag">Spatie</span><span class="tag">LPR Camera SDK</span>
-          <span class="tag">React Router</span>
-        </div>
-      </article>
+   </div>
+  </div>
 
-      <!-- QPARKING LOCAL -->
-      <article class="proj feature reveal">
-        <div class="top">
-          <div>
-            <h3>QParking Local Server — On-Prem Gate Controller</h3>
-            <div class="kind">Windows desktop app running the barrier at each site · Core / lead developer</div>
+  <div class="max-w-7xl mx-auto px-6 py-4">
+   <!-- 03 QBot POS: large dashboard (bespoke) -->
+   <article class="reveal">
+    <div class="flex flex-wrap items-end justify-between gap-6 mb-10">
+     <div class="max-w-xl"><p class="pnum">03 / 10</p><h3 class="mt-3 leading-tight text-2xl font-bold">QBot POS</h3><p class="mt-4 opacity-80 text-[15px]">Cross-platform POS app that keeps working offline and talks straight to a thermal printer. Packaged for Android.</p></div>
+     <div class="flex flex-wrap gap-2 mono"><span class="ptag">Ionic</span><span class="ptag">React</span><span class="ptag">TypeScript</span><span class="ptag">Capacitor</span></div>
+    </div>
+    <div class="shot p-4 sm:p-5" aria-hidden="true">
+     <div class="flex items-center justify-between pb-4 border-b hair text-xs" style="border-color:var(--border)">
+      <div class="flex items-center gap-3"><span class="font-bold">QBot POS</span><span class="text-slate-400">Kopi &amp; Co &middot; Counter 1</span></div>
+      <div class="flex items-center gap-2 mono text-[10px]"><span class="px-2 py-1 rounded bg-amber-400/15 text-amber-300">&#9679; Offline &mdash; 3 orders queued</span> <span class="px-2 py-1 rounded bg-emerald-400/15 text-emerald-300 hidden sm:inline">&#128424; Printer ready</span></div>
+     </div>
+     <div class="grid grid-cols-12 gap-5 pt-5">
+      <div class="col-span-12 md:col-span-8">
+       <div class="flex gap-2 mb-4 text-[11px]"><span class="px-3 py-1.5 rounded-md bg-white/[0.16] text-white">All</span><span class="px-3 py-1.5 rounded-md bg-white/[0.06]">Coffee</span><span class="px-3 py-1.5 rounded-md bg-white/[0.06]">Rice</span><span class="px-3 py-1.5 rounded-md bg-white/[0.06]">Pastry</span></div>
+       <div class="grid grid-cols-3 sm:grid-cols-4 gap-3 text-[11px]">
+        <div class="rounded-lg border p-3" style="border-color:var(--border)"><div class="h-12 rounded bg-white/[0.07] mb-2"></div><div class="font-semibold">Flat White</div><div class="text-slate-400">9.50</div></div>
+        <div class="rounded-lg border-2 p-3" style="border-color:#e5382a"><div class="h-12 rounded bg-[#ff2d20]/20 mb-2"></div><div class="font-semibold">Nasi Lemak</div><div class="text-slate-400">12.90</div></div>
+        <div class="rounded-lg border p-3" style="border-color:var(--border)"><div class="h-12 rounded bg-white/[0.07] mb-2"></div><div class="font-semibold">Kaya Toast</div><div class="text-slate-400">6.00</div></div>
+        <div class="rounded-lg border p-3" style="border-color:var(--border)"><div class="h-12 rounded bg-emerald-400/10 mb-2"></div><div class="font-semibold">Matcha Latte</div><div class="text-slate-400">11.00</div></div>
+        <div class="rounded-lg border p-3" style="border-color:var(--border)"><div class="h-12 rounded bg-white/[0.07] mb-2"></div><div class="font-semibold">Croissant</div><div class="text-slate-400">7.50</div></div>
+        <div class="rounded-lg border p-3" style="border-color:var(--border)"><div class="h-12 rounded bg-white/[0.07] mb-2"></div><div class="font-semibold">Teh Tarik</div><div class="text-slate-400">3.50</div></div>
+        <div class="rounded-lg border p-3 hidden sm:block" style="border-color:var(--border)"><div class="h-12 rounded bg-white/[0.07] mb-2"></div><div class="font-semibold">Mee Goreng</div><div class="text-slate-400">11.50</div></div>
+        <div class="rounded-lg border p-3 hidden sm:block" style="border-color:var(--border)"><div class="h-12 rounded bg-white/[0.07] mb-2"></div><div class="font-semibold">Iced Mocha</div><div class="text-slate-400">12.00</div></div>
+       </div>
+      </div>
+      <div class="col-span-12 md:col-span-4 rounded-lg bg-white/[0.04] p-4 flex flex-col text-xs">
+       <div class="flex justify-between font-bold mb-3"><span>Order #2231</span><span class="mono text-slate-400 font-normal">Dine-in</span></div>
+       <div class="space-y-2 flex-1"><div class="flex justify-between"><span>1&times; Nasi Lemak</span><span>12.90</span></div><div class="flex justify-between"><span>2&times; Teh Tarik</span><span>7.00</span></div><div class="flex justify-between"><span>1&times; Kaya Toast</span><span>6.00</span></div></div>
+       <div class="border-t mt-4 pt-3 space-y-1" style="border-color:var(--border)"><div class="flex justify-between text-slate-400"><span>SST 6%</span><span>1.55</span></div><div class="flex justify-between font-extrabold text-base"><span>Total</span><span>RM 27.45</span></div></div>
+       <div class="grid grid-cols-3 gap-2 mt-4 text-[10px] text-center"><span class="py-2 rounded border bg-white/[0.06]" style="border-color:var(--border)">Cash</span><span class="py-2 rounded border bg-white/[0.06]" style="border-color:var(--border)">Card</span><span class="py-2 rounded border bg-white/[0.06]" style="border-color:var(--border)">DuitNow</span></div>
+       <div class="mt-2 py-3 rounded-md text-center text-white font-bold" style="background:#e5382a">Charge RM 27.45</div>
+       <div class="mono text-[9px] text-slate-400 mt-3 text-center">ESC/POS &middot; 80mm &middot; drawer kick on cash</div>
+      </div>
+     </div>
+    </div>
+    <p class="mono mt-6 text-xs opacity-70">Ionic &middot; React &middot; TypeScript &middot; Capacitor &middot; Dexie &middot; Tailwind</p>
+    <div class="shots" data-proj="QBot POS">
+          <div class="shots-hd">Screenshots <span>&middot; annotated captures of the running terminal</span></div>
+          <div class="carousel">
+            <div class="frames">
+              <button class="frame on" type="button" data-src="upwork-covers/qbotpos/qbotpos-4-pos-terminal.png" data-cap="POS terminal · catalogue and cart">
+                <img src="upwork-covers/slides/qbotpos-4-pos-terminal.jpg" alt="QBot POS terminal with catalogue and a populated cart" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/qbotpos/qbotpos-6-orders.png" data-cap="Orders · held on the device">
+                <img src="upwork-covers/slides/qbotpos-6-orders.jpg" alt="QBot POS orders list with status tiles" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/qbotpos/qbotpos-3-passcode-login.png" data-cap="Operator sign-in · passcode">
+                <img src="upwork-covers/slides/qbotpos-3-passcode-login.jpg" alt="QBot POS passcode numpad sign-in screen" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/qbotpos/qbotpos-5-terminal-menu.png" data-cap="Terminal menu · cash session">
+                <img src="upwork-covers/slides/qbotpos-5-terminal-menu.jpg" alt="QBot POS side menu with cash session and orders" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/qbotpos/qbotpos-2-store-select.png" data-cap="Store selection · one company, several outlets">
+                <img src="upwork-covers/slides/qbotpos-2-store-select.jpg" alt="QBot POS store selection screen" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/qbotpos/qbotpos-1-device-setup.png" data-cap="Device setup · terminal binding">
+                <img src="upwork-covers/slides/qbotpos-1-device-setup.jpg" alt="QBot POS device setup confirming the company account" loading="lazy" decoding="async">
+              </button>
+            </div>
+            <button class="cr-nav cr-prev" type="button" aria-label="Previous screenshot">&lsaquo;</button>
+            <button class="cr-nav cr-next" type="button" aria-label="Next screenshot">&rsaquo;</button>
+            <span class="cr-zoom">Click for annotated view</span>
           </div>
-          <span class="role lead">Lead developer</span>
+          <div class="cr-bar"><span class="cr-cap"></span><span class="cr-dots"></span><span class="cr-count"></span></div>
         </div>
-        <p class="desc">The box that actually opens the gate. An Electron desktop app installed on the site PC,
-          sitting between the parking hardware — plate-recognition cameras, Touch&rsquo;n&rsquo;Go payment terminals,
-          driver LCD panels — and the QParking cloud. It has to keep charging and admitting cars when the internet
-          is down, so it owns its own database and prices every stay locally.</p>
-        <ul>
-          <li>Electron 32 + React 18 + TypeScript over a local SQLite store (better-sqlite3), with the backend
-            services running headless in the tray whether or not the window is open</li>
-          <li>Cameras POST plate reads to an HTTP webhook this app binds — one listener per camera port, because
-            firmware differs in what it will let you set — and it lifts the barrier by pulsing the camera's onboard
-            IO relay through the vendor SDK over FFI</li>
-          <li>Drives Touch&rsquo;n&rsquo;Go W4G terminals: <code>PayRequest</code> out, then the device calls back
-            with <code>PayResult</code> on a port this app listens on. Refused before sending if no callback
-            listener is bound &mdash; a tap with no way home is money that could never be recorded. Retired the
-            previous TCP/SHA-256 terminal driver and migrated live sites onto W4G</li>
-          <li>Offline-first by design: rate plans, season passes and the deny list are mirrored down from the
-            Laravel API, so the exit fee is computed on the gate PC. Sessions and payments queue locally and drain
-            upward against a revision watermark, so an edited stay reads as stale rather than as delivered</li>
-          <li>Two sync ticks on independent timers &mdash; the three mirrors a barrier decision depends on refresh
-            every 5 minutes, the office directories on an operator-tunable interval. A replace-all pull refuses to
-            act on an empty list unless the cloud corroborates it with a count, or one bad response would clear
-            every pass and every ban at the gate</li>
-          <li>Eleven headless harnesses run the compiled main process under Electron in CI &mdash; fee gaps,
-            gate guards, session and cloud-sync parity, relay latency, device health &mdash; plus a contract probe
-            that puts a real box in front of a real server, which is the only test that catches the two repos
-            drifting apart</li>
-        </ul>
-        <div class="shots" data-proj="QParking Local Server">
-          <div class="shots-hd">Screenshots <span>· annotated captures of the running gate controller</span></div>
+   </article>
+
+   <!-- 04 February Bloom: split editorial (bespoke, real screenshot swapped in) -->
+   <article class="mt-32 grid lg:grid-cols-12 gap-12 items-center reveal">
+    <div class="lg:col-span-7 relative">
+     <div class="shot p-4">
+      <div class="flex justify-between items-center pb-3 border-b text-xs" style="border-color:var(--border)"><span class="font-bold italic" style="font-family:Georgia,serif">February Bloom</span><span class="text-slate-400">Order sales report &middot; Real screenshot</span></div>
+      <img src="upwork-covers/slides/februarybloom-4-report-sales.jpg" alt="February Bloom order sales report" loading="lazy" decoding="async" class="w-full rounded-md mt-3" style="aspect-ratio:16/9;object-fit:cover;object-position:top center">
+     </div>
+     <div class="shot absolute -bottom-10 right-2 sm:-right-4 w-60 p-4 text-[11px] hidden sm:block" aria-hidden="true">
+      <div class="font-bold mb-2">Delivery</div>
+      <div class="flex justify-between border rounded-md p-2 mb-1.5" style="border-color:#e5382a"><span>Lalamove &middot; Motorcycle</span><span>RM 14</span></div>
+      <div class="flex justify-between border rounded-md p-2 mb-3" style="border-color:var(--border)"><span>Borzo &middot; Car</span><span>RM 22</span></div>
+      <div class="mono text-[9px] text-slate-400">TRACKING</div>
+      <div class="flex items-center gap-1 mt-1.5"><span class="h-1 flex-1 rounded bg-[#2f7d4f]"></span><span class="h-1 flex-1 rounded bg-[#2f7d4f]"></span><span class="h-1 flex-1 rounded bg-white/[0.10]"></span></div>
+      <div class="text-slate-400 mt-1">Rider picked up &middot; ETA 18 min</div>
+     </div>
+    </div>
+    <div class="lg:col-span-4 lg:col-start-9 pt-8 lg:pt-0">
+     <p class="pnum">04 / 10</p>
+     <h3 class="mt-3 leading-tight text-2xl font-bold">February Bloom</h3>
+     <p class="mt-5 opacity-80 text-[15px]">Laravel platform for florist order and delivery management, wiring the storefront to on-demand courier fleets. Built the Lalamove v3 and Borzo integrations end to end &mdash; HMAC-SHA256 signing, route-optimised quotations, bulk dispatch and signature-verified webhooks &mdash; plus a two-way Shopify sync.</p>
+     <div class="mt-7 grid grid-cols-2 gap-px border hair rounded-lg overflow-hidden mono" style="background:var(--border)">
+      <span class="px-3 py-3 text-xs" style="background:var(--card)">Lalamove v3</span><span class="px-3 py-3 text-xs" style="background:var(--card)">Borzo</span><span class="px-3 py-3 text-xs" style="background:var(--card)">Shopify sync</span><span class="px-3 py-3 text-xs" style="background:var(--card)">141 templates</span>
+     </div>
+    </div>
+   </article>
+   <div class="shots" data-proj="February Bloom">
+          <div class="shots-hd">Screenshots <span>&middot; order board, reports and permissions</span></div>
+          <div class="carousel">
+            <div class="frames">
+              <button class="frame on" type="button" data-src="upwork-covers/februarybloom/februarybloom-1-orders-board.png" data-cap="Orders · one delivery day">
+                <img src="upwork-covers/slides/februarybloom-1-orders-board.jpg" alt="February Bloom orders board for one delivery day" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/februarybloom/februarybloom-2-order-recipients.png" data-cap="Order · many recipients">
+                <img src="upwork-covers/slides/februarybloom-2-order-recipients.jpg" alt="February Bloom order edit screen with multiple recipients" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/februarybloom/februarybloom-3-permissions.png" data-cap="Permissions · role grid">
+                <img src="upwork-covers/slides/februarybloom-3-permissions.jpg" alt="February Bloom Spatie role permission grid" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/februarybloom/februarybloom-4-report-sales.png" data-cap="Reports · order sales">
+                <img src="upwork-covers/slides/februarybloom-4-report-sales.jpg" alt="February Bloom order sales report" loading="lazy" decoding="async">
+              </button>
+              <button class="frame" type="button" data-src="upwork-covers/februarybloom/februarybloom-5-members.png" data-cap="Members · Shopify-sourced rows">
+                <img src="upwork-covers/slides/februarybloom-5-members.jpg" alt="February Bloom members list showing Shopify-sourced rows" loading="lazy" decoding="async">
+              </button>
+            </div>
+            <button class="cr-nav cr-prev" type="button" aria-label="Previous screenshot">&lsaquo;</button>
+            <button class="cr-nav cr-next" type="button" aria-label="Next screenshot">&rsaquo;</button>
+            <span class="cr-zoom">Click for annotated view</span>
+          </div>
+          <div class="cr-bar"><span class="cr-cap"></span><span class="cr-dots"></span><span class="cr-count"></span></div>
+        </div>
+
+   <!-- 05 QParking Local: architecture (bespoke) -->
+   <article class="mt-36 reveal">
+    <div class="grid lg:grid-cols-12 gap-8 mb-10">
+     <div class="lg:col-span-5"><p class="pnum">05 / 10</p><h3 class="mt-3 leading-tight text-2xl font-bold">QParking Local Server &mdash; On-Prem Gate Controller</h3></div>
+     <p class="lg:col-span-6 lg:col-start-7 opacity-80 text-[15px]">The box that actually opens the gate. An Electron desktop app installed on the site PC, sitting between the parking hardware &mdash; plate-recognition cameras, Touch&rsquo;n&rsquo;Go payment terminals, driver LCD panels &mdash; and the QParking cloud. It has to keep charging and admitting cars when the internet is down, so it owns its own database and prices every stay locally.</p>
+    </div>
+    <div class="relative rounded-2xl border hair grid-bg p-8 sm:p-12" style="background-color:#111a30">
+     <span class="mono text-[10px] text-slate-400 absolute left-4 top-3">fig.05 &mdash; on-site topology &middot; no WAN required</span>
+     <div class="grid grid-cols-1 md:grid-cols-7 gap-4 items-center mt-4">
+      <div class="md:col-span-1 bg-white/[0.06] border rounded-lg p-4 text-center" style="border-color:var(--border)"><i data-lucide="cctv" class="mx-auto" style="width:22px;height:22px;color:var(--ink)"></i><p class="mt-2 text-sm font-semibold" style="color:var(--ink)">LPR camera</p><p class="mono text-[9px] text-slate-400 mt-1">RTSP &middot; LPR</p></div>
+      <div class="hidden md:flex justify-center mono text-[10px] text-slate-400" aria-hidden="true">&mdash; tcp &rarr;</div>
+      <div class="md:col-span-2 rounded-lg p-5 text-white" style="background:#0c1222"><i data-lucide="server" style="width:22px;height:22px;color:#e5382a"></i><p class="mt-2">Electron gate service</p><p class="mono text-[9px] text-slate-400 mt-2">Laravel &middot; MySQL &middot; queue workers &middot; sync-on-reconnect</p></div>
+      <div class="hidden md:flex justify-center mono text-[10px] text-slate-400" aria-hidden="true">&mdash; rs485 &rarr;</div>
+      <div class="md:col-span-1 bg-white/[0.06] border rounded-lg p-4 text-center" style="border-color:var(--border)"><i data-lucide="cpu" class="mx-auto" style="width:22px;height:22px;color:var(--ink)"></i><p class="mt-2 text-sm font-semibold" style="color:var(--ink)">IO relay</p><p class="mono text-[9px] text-slate-400 mt-1">I/O relay</p></div>
+      <div class="md:col-span-1 bg-white/[0.06] border-2 rounded-lg p-4 text-center" style="border-color:#e5382a"><i data-lucide="octagon-x" class="mx-auto" style="width:22px;height:22px;color:#e5382a"></i><p class="mt-2 text-sm font-semibold" style="color:var(--ink)">Barrier gate</p><p class="mono text-[9px] text-slate-400 mt-1">open / close</p></div>
+     </div>
+     <div class="mt-8 pt-5 border-t hair flex flex-wrap gap-x-8 gap-y-2 mono text-[10px] text-slate-400"><span>latency &middot; &lt;300ms plate&rarr;gate</span><span>uptime &middot; offline tolerant</span><span>sync &middot; cloud when WAN returns</span></div>
+    </div>
+    <p class="mono mt-6 text-xs opacity-70">Electron &middot; React 18 &middot; TypeScript &middot; Node.js &middot; SQLite &middot; Vite &middot; Tailwind &middot; LPR Camera SDK &middot; Touch&rsquo;n&rsquo;Go W4G &middot; electron-builder</p>
+    <div class="shots" data-proj="QParking Local Server">
+          <div class="shots-hd">Screenshots <span>&middot; annotated captures of the running gate controller</span></div>
           <div class="carousel">
             <div class="frames">
               <button class="frame on" type="button" data-src="upwork-covers/qparking-local/qparking-local-1-dashboard.png" data-cap="Gate dashboard · live occupancy and sync state">
@@ -700,36 +543,30 @@
             <button class="cr-nav cr-next" type="button" aria-label="Next screenshot">&rsaquo;</button>
             <span class="cr-zoom">Click for annotated view</span>
           </div>
-          <div class="cr-bar">
-            <span class="cr-cap"></span>
-            <span class="cr-dots"></span>
-            <span class="cr-count"></span>
-          </div>
+          <div class="cr-bar"><span class="cr-cap"></span><span class="cr-dots"></span><span class="cr-count"></span></div>
         </div>
-        <div class="stack">
-          <span class="tag hot">Electron</span><span class="tag">React 18</span><span class="tag">TypeScript</span>
-          <span class="tag">Node.js</span><span class="tag">SQLite</span><span class="tag">Vite</span>
-          <span class="tag">Tailwind</span><span class="tag">LPR Camera SDK</span>
-          <span class="tag">Touch&rsquo;n&rsquo;Go W4G</span><span class="tag">electron-builder</span>
-        </div>
-      </article>
+   </article>
 
-      <!-- QBOT -->
-      <article class="proj feature reveal">
-        <div class="top">
-          <div><h3>QBot</h3><div class="kind">Laravel management web app</div></div>
-          <span class="role lead">Lead developer</span>
+   <!-- 06-10: standard cards for the remaining real projects -->
+      <article class="reveal mt-16 first:mt-0 border-t hair pt-14" style="border-color:var(--border)">
+       <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+        <div>
+         <p class="pnum">06 / 10</p>
+         <h3 class="text-2xl font-bold mt-2">QBot</h3>
+         <p class="text-sm mt-1" style="color:var(--brand-2)">Laravel management web app</p>
         </div>
-        <p class="desc">Multi-tenant Laravel 11 management and ordering platform, with separate APIs for the back-office and the POS/Kiosk clients. I've been lead on it since the start.</p>
-        <ul>
-          <li>Sanctum token auth, Spatie permissions, and a modular API layout that keeps tenants apart</li>
-          <li>GKASH for payments, QuickBooks and Xero for accounting</li>
-          <li>Pusher for real-time events, Mailgun for transactional email, plus PDF and Excel report exports</li>
-          <li>All 267 Blade templates are mine. The back-office is Bootstrap 5 and jQuery with DataTables, Select2 and ApexCharts. The webstore theme is white-label, so each store gets its own branding, and it handles RTL</li>
-          <li>Wrote the CSS for the signup page and the Kitchen Display screen myself, no template. Own reset, keyframe animations, and media queries for the tablet and phone breakpoints</li>
-        </ul>
-        <div class="shots" data-proj="QBot">
-          <div class="shots-hd">Screenshots <span>· back-office, storefront and kitchen display</span></div>
+        <span class="prole lead">Lead developer</span>
+       </div>
+       <p class="max-w-2xl opacity-80 text-[15px] leading-relaxed">Multi-tenant Laravel 11 management and ordering platform, with separate APIs for the back-office and the POS/Kiosk clients. I've been lead on it since the start.</p>
+       <ul class="mt-5 grid sm:grid-cols-2 gap-x-8 gap-y-2 max-w-4xl">
+        <li class="text-sm opacity-80 pl-4 relative"><span class="absolute left-0" style="color:var(--brand-2)">&#8250;</span>Sanctum token auth, Spatie permissions, and a modular API layout that keeps tenants apart</li>
+        <li class="text-sm opacity-80 pl-4 relative"><span class="absolute left-0" style="color:var(--brand-2)">&#8250;</span>GKASH for payments, QuickBooks and Xero for accounting</li>
+        <li class="text-sm opacity-80 pl-4 relative"><span class="absolute left-0" style="color:var(--brand-2)">&#8250;</span>Pusher for real-time events, Mailgun for transactional email, plus PDF and Excel report exports</li>
+        <li class="text-sm opacity-80 pl-4 relative"><span class="absolute left-0" style="color:var(--brand-2)">&#8250;</span>All 267 Blade templates are mine. The back-office is Bootstrap 5 and jQuery with DataTables, Select2 and ApexCharts. The webstore theme is white-label, so each store gets its own branding, and it handles RTL</li>
+        <li class="text-sm opacity-80 pl-4 relative"><span class="absolute left-0" style="color:var(--brand-2)">&#8250;</span>Wrote the CSS for the signup page and the Kitchen Display screen myself, no template. Own reset, keyframe animations, and media queries for the tablet and phone breakpoints</li>
+       </ul>
+       <div class="shots" data-proj="QBot">
+          <div class="shots-hd">Screenshots <span>&middot; back-office, storefront and kitchen display</span></div>
           <div class="carousel">
             <div class="frames">
               <button class="frame on" type="button" data-src="upwork-covers/qbot/qbot-1-platform-accounts.png" data-cap="Platform console · accounts">
@@ -764,474 +601,446 @@
             <button class="cr-nav cr-next" type="button" aria-label="Next screenshot">&rsaquo;</button>
             <span class="cr-zoom">Click for annotated view</span>
           </div>
-          <div class="cr-bar">
-            <span class="cr-cap"></span>
-            <span class="cr-dots"></span>
-            <span class="cr-count"></span>
-          </div>
+          <div class="cr-bar"><span class="cr-cap"></span><span class="cr-dots"></span><span class="cr-count"></span></div>
         </div>
-        <div class="stack"><span class="tag hot">Laravel 11</span><span class="tag">PHP 8</span><span class="tag">Blade</span><span class="tag">HTML5 / CSS3</span><span class="tag">Bootstrap 5</span><span class="tag">jQuery</span><span class="tag">DataTables</span><span class="tag">Sanctum</span><span class="tag">Spatie</span><span class="tag">GKASH</span><span class="tag">QuickBooks</span><span class="tag">Xero</span><span class="tag">Pusher</span><span class="tag">MySQL</span></div>
+       <div class="flex flex-wrap gap-2 mt-6"><span class="ptag hot">Laravel 11</span><span class="ptag">PHP 8</span><span class="ptag">Blade</span><span class="ptag">HTML5 / CSS3</span><span class="ptag">Bootstrap 5</span><span class="ptag">jQuery</span><span class="ptag">DataTables</span><span class="ptag">Sanctum</span><span class="ptag">Spatie</span><span class="ptag">GKASH</span><span class="ptag">QuickBooks</span><span class="ptag">Xero</span><span class="ptag">Pusher</span><span class="ptag">MySQL</span></div>
       </article>
+      <article class="reveal mt-16 first:mt-0 border-t hair pt-14" style="border-color:var(--border)">
+       <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+        <div>
+         <p class="pnum">07 / 10</p>
+         <h3 class="text-2xl font-bold mt-2">SaltyCustoms</h3>
+         <p class="text-sm mt-1" style="color:var(--brand-2)">Custom-apparel e-commerce platform</p>
+        </div>
+        <span class="prole team">Team contributor</span>
+       </div>
+       <p class="max-w-2xl opacity-80 text-[15px] leading-relaxed">Laravel 8 e-commerce platform for custom-printed apparel. Two storefronts share one back-office across 245 Blade templates, with pricing per print method, size breakdowns and corporate ordering.</p>
+       <ul class="mt-5 grid sm:grid-cols-2 gap-x-8 gap-y-2 max-w-4xl">
+        <li class="text-sm opacity-80 pl-4 relative"><span class="absolute left-0" style="color:var(--brand-2)">&#8250;</span>Added the QuickBooks Online integration: OAuth setup, the sync functions, and migrations to link customer accounts and orders to their QuickBooks records</li>
+        <li class="text-sm opacity-80 pl-4 relative"><span class="absolute left-0" style="color:var(--brand-2)">&#8250;</span>Put GA4 and Meta Pixel tracking into the storefront. Blade loops build the <code>gtag</code> payloads for add-to-cart, remove-from-cart and purchase events out of the real cart data. Added the Google Reviews badge as well</li>
+        <li class="text-sm opacity-80 pl-4 relative"><span class="absolute left-0" style="color:var(--brand-2)">&#8250;</span>Touched 15 Blade templates across the Bootstrap 4 and jQuery storefront and the back-office: cart, checkout, product, order detail and member admin</li>
+       </ul>
 
-      <!-- QBOT POS -->
-      <article class="proj reveal">
-        <div class="top">
-          <div><h3>QBot POS</h3><div class="kind">Ionic + React mobile POS app</div></div>
-          <span class="role solo">Solo build</span>
-        </div>
-        <p class="desc">Cross-platform POS app that keeps working offline and talks straight to a thermal printer. Packaged for Android.</p>
-        <ul>
-          <li>Ionic 8 and React 19 for the UI, over a 13-table Dexie (IndexedDB) schema holding account, catalogue, carts, orders and POS sessions locally</li>
-          <li>Offline-first by default: every read tries the network and falls back to the local cache, and sign-in verifies a SHA-256 passcode hash on the device, so a terminal with no uplink still opens and sells</li>
-          <li>Ships with its own thermal print server — an Express service driving an ESC/POS printer that also kicks the cash drawer on cash and pay-at-counter orders</li>
-          <li>Barcode scanning reads the scanner as keystrokes, so a USB or Bluetooth gun works with no driver. Built native for Android through Capacitor</li>
-        </ul>
-        <div class="shots" data-proj="QBot POS">
-          <div class="shots-hd">Screenshots <span>· annotated captures of the running terminal</span></div>
-          <div class="carousel">
-            <div class="frames">
-              <button class="frame on" type="button" data-src="upwork-covers/qbotpos/qbotpos-4-pos-terminal.png" data-cap="POS terminal · catalogue and cart">
-                <img src="upwork-covers/slides/qbotpos-4-pos-terminal.jpg" alt="QBot POS terminal with catalogue and a populated cart" loading="lazy" decoding="async">
-              </button>
-              <button class="frame" type="button" data-src="upwork-covers/qbotpos/qbotpos-6-orders.png" data-cap="Orders · held on the device">
-                <img src="upwork-covers/slides/qbotpos-6-orders.jpg" alt="QBot POS orders list with status tiles" loading="lazy" decoding="async">
-              </button>
-              <button class="frame" type="button" data-src="upwork-covers/qbotpos/qbotpos-3-passcode-login.png" data-cap="Operator sign-in · passcode">
-                <img src="upwork-covers/slides/qbotpos-3-passcode-login.jpg" alt="QBot POS passcode numpad sign-in screen" loading="lazy" decoding="async">
-              </button>
-              <button class="frame" type="button" data-src="upwork-covers/qbotpos/qbotpos-5-terminal-menu.png" data-cap="Terminal menu · cash session">
-                <img src="upwork-covers/slides/qbotpos-5-terminal-menu.jpg" alt="QBot POS side menu with cash session and orders" loading="lazy" decoding="async">
-              </button>
-              <button class="frame" type="button" data-src="upwork-covers/qbotpos/qbotpos-2-store-select.png" data-cap="Store selection · one company, several outlets">
-                <img src="upwork-covers/slides/qbotpos-2-store-select.jpg" alt="QBot POS store selection screen" loading="lazy" decoding="async">
-              </button>
-              <button class="frame" type="button" data-src="upwork-covers/qbotpos/qbotpos-1-device-setup.png" data-cap="Device setup · terminal binding">
-                <img src="upwork-covers/slides/qbotpos-1-device-setup.jpg" alt="QBot POS device setup confirming the company account" loading="lazy" decoding="async">
-              </button>
-            </div>
-            <button class="cr-nav cr-prev" type="button" aria-label="Previous screenshot">&lsaquo;</button>
-            <button class="cr-nav cr-next" type="button" aria-label="Next screenshot">&rsaquo;</button>
-            <span class="cr-zoom">Click for annotated view</span>
-          </div>
-          <div class="cr-bar">
-            <span class="cr-cap"></span>
-            <span class="cr-dots"></span>
-            <span class="cr-count"></span>
-          </div>
-        </div>
-        <div class="stack"><span class="tag">Ionic</span><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Capacitor</span><span class="tag">Dexie</span><span class="tag">Tailwind</span></div>
+       <div class="flex flex-wrap gap-2 mt-6"><span class="ptag hot">Laravel 8</span><span class="ptag">PHP 7.4</span><span class="ptag">Blade</span><span class="ptag">HTML5 / CSS3</span><span class="ptag">Bootstrap 4</span><span class="ptag">jQuery</span><span class="ptag">GA4 / gtag</span><span class="ptag">Meta Pixel</span><span class="ptag">QuickBooks</span><span class="ptag">MySQL</span></div>
       </article>
+      <article class="reveal mt-16 first:mt-0 border-t hair pt-14" style="border-color:var(--border)">
+       <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+        <div>
+         <p class="pnum">08 / 10</p>
+         <h3 class="text-2xl font-bold mt-2">Printer &amp; Hardware Tooling</h3>
+         <p class="text-sm mt-1" style="color:var(--brand-2)">Node.js device-integration utilities</p>
+        </div>
+        <span class="prole solo">Solo build</span>
+       </div>
+       <p class="max-w-2xl opacity-80 text-[15px] leading-relaxed">Node.js tools that let a web app drive real retail hardware: thermal printers, cash drawers, label printers.</p>
+       <ul class="mt-5 grid sm:grid-cols-2 gap-x-8 gap-y-2 max-w-4xl">
+        <li class="text-sm opacity-80 pl-4 relative"><span class="absolute left-0" style="color:var(--brand-2)">&#8250;</span>Generates the ESC/POS and TSPL command bytes for receipts and labels</li>
+        <li class="text-sm opacity-80 pl-4 relative"><span class="absolute left-0" style="color:var(--brand-2)">&#8250;</span>Kicks the cash drawer open, and a websocket server keeps the browser talking to the device</li>
+       </ul>
 
-      <!-- FEBRUARY BLOOM -->
-      <article class="proj reveal">
-        <div class="top">
-          <div><h3>February Bloom</h3><div class="kind">Order & delivery management platform</div></div>
-          <span class="role team">Team contributor</span>
-        </div>
-        <p class="desc">Laravel platform for florist order and delivery management, wiring the storefront to on-demand courier fleets.</p>
-        <ul>
-          <li>Built the Lalamove v3 and Borzo courier integrations end to end. HMAC-SHA256 request signing written by hand against the raw APIs, multi-stop route-optimised quotations, bulk dispatch across a selection of orders, and signature-verified webhooks that move an order to Delivered when the courier completes it</li>
-          <li>Two-way Shopify sync. A nightly scheduled import maps Shopify products, variants, customers and addresses onto local records, and fulfilment is pushed back through the Admin GraphQL API once an order is marked delivered</li>
-          <li>Country and state helpers, phone number validation, role-based permissions</li>
-          <li>Moved the slow jobs onto queues</li>
-          <li>Worked in the Blade front-end too. 141 templates on a themeable Bootstrap 4 and jQuery setup, with reusable checkbox and switch partials, a CSS override layer over the base theme, and self-hosted <code>@font-face</code> typography</li>
-        </ul>
-        <div class="shots" data-proj="February Bloom">
-          <div class="shots-hd">Screenshots <span>· order board, reports and permissions</span></div>
-          <div class="carousel">
-            <div class="frames">
-              <button class="frame on" type="button" data-src="upwork-covers/februarybloom/februarybloom-1-orders-board.png" data-cap="Orders · one delivery day">
-                <img src="upwork-covers/slides/februarybloom-1-orders-board.jpg" alt="February Bloom orders board for one delivery day" loading="lazy" decoding="async">
-              </button>
-              <button class="frame" type="button" data-src="upwork-covers/februarybloom/februarybloom-2-order-recipients.png" data-cap="Order · many recipients">
-                <img src="upwork-covers/slides/februarybloom-2-order-recipients.jpg" alt="February Bloom order edit screen with multiple recipients" loading="lazy" decoding="async">
-              </button>
-              <button class="frame" type="button" data-src="upwork-covers/februarybloom/februarybloom-3-permissions.png" data-cap="Permissions · role grid">
-                <img src="upwork-covers/slides/februarybloom-3-permissions.jpg" alt="February Bloom Spatie role permission grid" loading="lazy" decoding="async">
-              </button>
-              <button class="frame" type="button" data-src="upwork-covers/februarybloom/februarybloom-4-report-sales.png" data-cap="Reports · order sales">
-                <img src="upwork-covers/slides/februarybloom-4-report-sales.jpg" alt="February Bloom order sales report" loading="lazy" decoding="async">
-              </button>
-              <button class="frame" type="button" data-src="upwork-covers/februarybloom/februarybloom-5-members.png" data-cap="Members · Shopify-sourced rows">
-                <img src="upwork-covers/slides/februarybloom-5-members.jpg" alt="February Bloom members list showing Shopify-sourced rows" loading="lazy" decoding="async">
-              </button>
-            </div>
-            <button class="cr-nav cr-prev" type="button" aria-label="Previous screenshot">&lsaquo;</button>
-            <button class="cr-nav cr-next" type="button" aria-label="Next screenshot">&rsaquo;</button>
-            <span class="cr-zoom">Click for annotated view</span>
-          </div>
-          <div class="cr-bar">
-            <span class="cr-cap"></span>
-            <span class="cr-dots"></span>
-            <span class="cr-count"></span>
-          </div>
-        </div>
-        <div class="stack"><span class="tag hot">Laravel</span><span class="tag">PHP</span><span class="tag">Blade</span><span class="tag">HTML5 / CSS3</span><span class="tag">Bootstrap 4</span><span class="tag">jQuery</span><span class="tag">Queues</span><span class="tag hot">Shopify</span><span class="tag hot">Lalamove</span><span class="tag hot">Borzo</span><span class="tag">Spatie</span><span class="tag">MySQL</span></div>
+       <div class="flex flex-wrap gap-2 mt-6"><span class="ptag">Node.js</span><span class="ptag">ESC/POS</span><span class="ptag">TSPL</span><span class="ptag">WebSocket</span></div>
       </article>
-
-      <!-- SALTYCUSTOMS -->
-      <article class="proj reveal">
-        <div class="top">
-          <div><h3>SaltyCustoms</h3><div class="kind">Custom-apparel e-commerce platform</div></div>
-          <span class="role team">Team contributor</span>
+      <article class="reveal mt-16 first:mt-0 border-t hair pt-14" style="border-color:var(--border)">
+       <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+        <div>
+         <p class="pnum">09 / 10</p>
+         <h3 class="text-2xl font-bold mt-2">QBotu API</h3>
+         <p class="text-sm mt-1" style="color:var(--brand-2)">Laravel API service</p>
         </div>
-        <p class="desc">Laravel 8 e-commerce platform for custom-printed apparel. Two storefronts share one back-office across 245 Blade templates, with pricing per print method, size breakdowns and corporate ordering.</p>
-        <ul>
-          <li>Added the QuickBooks Online integration: OAuth setup, the sync functions, and migrations to link customer accounts and orders to their QuickBooks records</li>
-          <li>Put GA4 and Meta Pixel tracking into the storefront. Blade loops build the <code>gtag</code> payloads for add-to-cart, remove-from-cart and purchase events out of the real cart data. Added the Google Reviews badge as well</li>
-          <li>Touched 15 Blade templates across the Bootstrap 4 and jQuery storefront and the back-office: cart, checkout, product, order detail and member admin</li>
-        </ul>
-        <div class="stack"><span class="tag hot">Laravel 8</span><span class="tag">PHP 7.4</span><span class="tag">Blade</span><span class="tag">HTML5 / CSS3</span><span class="tag">Bootstrap 4</span><span class="tag">jQuery</span><span class="tag">GA4 / gtag</span><span class="tag">Meta Pixel</span><span class="tag">QuickBooks</span><span class="tag">MySQL</span></div>
-      </article>
+        <span class="prole team">Co-author</span>
+       </div>
+       <p class="max-w-2xl opacity-80 text-[15px] leading-relaxed">Laravel API service behind the QBotu platform, built together with the rest of the Crave Asia team.</p>
+       <ul class="mt-5 grid sm:grid-cols-2 gap-x-8 gap-y-2 max-w-4xl">
+        <li class="text-sm opacity-80 pl-4 relative"><span class="absolute left-0" style="color:var(--brand-2)">&#8250;</span>REST endpoints, with the front-end assets built by Vite</li>
+        <li class="text-sm opacity-80 pl-4 relative"><span class="absolute left-0" style="color:var(--brand-2)">&#8250;</span>Shared data models that the other apps in the platform read from</li>
+       </ul>
 
-      <!-- HARDWARE TOOLS -->
-      <article class="proj reveal">
-        <div class="top">
-          <div><h3>Printer &amp; Hardware Tooling</h3><div class="kind">Node.js device-integration utilities</div></div>
-          <span class="role solo">Solo build</span>
+       <div class="flex flex-wrap gap-2 mt-6"><span class="ptag hot">Laravel</span><span class="ptag">PHP 8</span><span class="ptag">REST API</span><span class="ptag">Vite</span></div>
+      </article>
+      <article class="reveal mt-16 first:mt-0 border-t hair pt-14" style="border-color:var(--border)">
+       <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+        <div>
+         <p class="pnum">10 / 10</p>
+         <h3 class="text-2xl font-bold mt-2">Appolous BMS</h3>
+         <p class="text-sm mt-1" style="color:var(--brand-2)">Laravel business-management &amp; POS system</p>
         </div>
-        <p class="desc">Node.js tools that let a web app drive real retail hardware: thermal printers, cash drawers, label printers.</p>
-        <ul>
-          <li>Generates the ESC/POS and TSPL command bytes for receipts and labels</li>
-          <li>Kicks the cash drawer open, and a websocket server keeps the browser talking to the device</li>
-        </ul>
-        <div class="stack"><span class="tag">Node.js</span><span class="tag">ESC/POS</span><span class="tag">TSPL</span><span class="tag">WebSocket</span></div>
-      </article>
+        <span class="prole team">Contributor</span>
+       </div>
+       <p class="max-w-2xl opacity-80 text-[15px] leading-relaxed">Cloud business-management and POS system for small businesses: sales, inventory, clients, visit tracking. I worked on the Laravel backend, mostly performance and queue work.</p>
+       <ul class="mt-5 grid sm:grid-cols-2 gap-x-8 gap-y-2 max-w-4xl">
+        <li class="text-sm opacity-80 pl-4 relative"><span class="absolute left-0" style="color:var(--brand-2)">&#8250;</span>Laravel Octane on Swoole/RoadRunner with Redis caching, to hold up under concurrent load</li>
+        <li class="text-sm opacity-80 pl-4 relative"><span class="absolute left-0" style="color:var(--brand-2)">&#8250;</span>Email and SMS go through queues. Split the databases so reporting queries stop slowing down the operational side</li>
+        <li class="text-sm opacity-80 pl-4 relative"><span class="absolute left-0" style="color:var(--brand-2)">&#8250;</span>Stripe payments, Lazada marketplace sync, ESC/POS printing, barcode scanning</li>
+       </ul>
 
-      <!-- QBOTU API -->
-      <article class="proj reveal">
-        <div class="top">
-          <div><h3>QBotu API</h3><div class="kind">Laravel API service</div></div>
-          <span class="role team">Co-author</span>
-        </div>
-        <p class="desc">Laravel API service behind the QBotu platform, built together with the rest of the Crave Asia team.</p>
-        <ul>
-          <li>REST endpoints, with the front-end assets built by Vite</li>
-          <li>Shared data models that the other apps in the platform read from</li>
-        </ul>
-        <div class="stack"><span class="tag hot">Laravel</span><span class="tag">PHP 8</span><span class="tag">REST API</span><span class="tag">Vite</span></div>
+       <div class="flex flex-wrap gap-2 mt-6"><span class="ptag hot">Laravel 10</span><span class="ptag">Octane / Swoole</span><span class="ptag">Redis</span><span class="ptag">Stripe</span><span class="ptag">Lazada</span><span class="ptag">MySQL</span></div>
       </article>
-
-      <!-- APPOLOUS -->
-      <article class="proj reveal">
-        <div class="top">
-          <div><h3>Appolous BMS</h3><div class="kind">Laravel business-management &amp; POS system</div></div>
-          <span class="role team">Contributor</span>
-        </div>
-        <p class="desc">Cloud business-management and POS system for small businesses: sales, inventory, clients, visit tracking. I worked on the Laravel backend, mostly performance and queue work.</p>
-        <ul>
-          <li>Laravel Octane on Swoole/RoadRunner with Redis caching, to hold up under concurrent load</li>
-          <li>Email and SMS go through queues. Split the databases so reporting queries stop slowing down the operational side</li>
-          <li>Stripe payments, Lazada marketplace sync, ESC/POS printing, barcode scanning</li>
-        </ul>
-        <div class="stack"><span class="tag hot">Laravel 10</span><span class="tag">Octane / Swoole</span><span class="tag">Redis</span><span class="tag">Stripe</span><span class="tag">Lazada</span><span class="tag">MySQL</span></div>
-      </article>
-
-    </div>
   </div>
+ </div>
+</section>
+
+<!-- TECHNICAL DEPTH -->
+<section class="relative py-24 lg:py-32 overflow-hidden">
+ <div class="absolute inset-0 grid-dark pointer-events-none"></div>
+ <div class="relative max-w-7xl mx-auto px-6 reveal">
+  <div class="grid lg:grid-cols-12 gap-10">
+   <div class="lg:col-span-7"><p class="mono text-xs" style="color:var(--brand-2)">Under the hood</p><h2 class="mt-5 leading-[1.05] text-3xl sm:text-4xl font-extrabold">The hard parts, solved already</h2></div>
+   <p class="lg:col-span-4 lg:col-start-9 self-end opacity-80">Six things that usually stall a project &mdash; and are already live in the platforms above.</p>
+  </div>
+  <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 border-t border-l border-white/10">
+   <div class="p-8 border-r border-b border-white/10 hover:bg-white/5 transition"><span class="mono text-[10px] text-slate-400">01</span><i data-lucide="wifi-off" class="mt-5" style="width:22px;height:22px;color:#e5382a"></i><h3 class="mt-4 font-semibold">Offline-first, everywhere it matters</h3><p class="mono mt-1 text-xs opacity-60">POS terminals · parking gates · sync on reconnect</p></div>
+   <div class="p-8 border-r border-b border-white/10 hover:bg-white/5 transition"><span class="mono text-[10px] text-slate-400">02</span><i data-lucide="printer" class="mt-5" style="width:22px;height:22px;color:#e5382a"></i><h3 class="mt-4 font-semibold">Real hardware, not just APIs</h3><p class="mono mt-1 text-xs opacity-60">ESC/POS · TSPL · cash-drawer kick</p></div>
+   <div class="p-8 border-r border-b border-white/10 hover:bg-white/5 transition"><span class="mono text-[10px] text-slate-400">03</span><i data-lucide="credit-card" class="mt-5" style="width:22px;height:22px;color:#e5382a"></i><h3 class="mt-4 font-semibold">Payments &amp; compliance, wired in</h3><p class="mono mt-1 text-xs opacity-60">Stripe · GKASH · LHDN MyInvois</p></div>
+   <div class="p-8 border-r border-b border-white/10 hover:bg-white/5 transition"><span class="mono text-[10px] text-slate-400">04</span><i data-lucide="radio" class="mt-5" style="width:22px;height:22px;color:#e5382a"></i><h3 class="mt-4 font-semibold">Real-time, end to end</h3><p class="mono mt-1 text-xs opacity-60">Reverb · Pusher · live kitchen &amp; gate state</p></div>
+   <div class="p-8 border-r border-b border-white/10 hover:bg-white/5 transition"><span class="mono text-[10px] text-slate-400">05</span><i data-lucide="scan-barcode" class="mt-5" style="width:22px;height:22px;color:#e5382a"></i><h3 class="mt-4 font-semibold">Scanning that just works</h3><p class="mono mt-1 text-xs opacity-60">USB / BT scanners · html5-qrcode</p></div>
+   <div class="p-8 border-r border-b border-white/10 hover:bg-white/5 transition"><span class="mono text-[10px] text-slate-400">06</span><i data-lucide="scan-face" class="mt-5" style="width:22px;height:22px;color:#e5382a"></i><h3 class="mt-4 font-semibold">On-device computer vision</h3><p class="mono mt-1 text-xs opacity-60">MediaPipe face recognition · nothing leaves the device</p></div>
+  </div>
+ </div>
+</section>
+
+<!-- INTEGRATIONS -->
+<section id="integrations" class="py-24 lg:py-32">
+ <div class="max-w-7xl mx-auto px-6 reveal">
+  <p class="mono text-xs" style="color:var(--brand-2)">APIs &amp; services</p>
+  <h2 class="mt-5 max-w-3xl leading-[1.05] text-3xl sm:text-4xl font-extrabold">Third-party integrations</h2>
+  <p class="mt-4 max-w-2xl opacity-80">These are all running live in the platforms above. None of them are demos or proof of concepts.</p>
+  <div class="mt-14 grid md:grid-cols-3 gap-4 card-grid">
+   <div class="space-y-4">
+    <div class="border hair rounded-xl p-5 transition" style="background:rgba(255,255,255,.03)"><div class="flex items-center gap-2"><i data-lucide="credit-card" style="width:16px;height:16px;color:#e5382a"></i><h3 class="mono text-sm">Payments</h3></div><p class="mt-2 text-sm opacity-70">Stripe (PHP SDK), Stripe.js / React, GKASH (Malaysia), checkout &amp; webhooks</p></div>
+    <div class="border hair rounded-xl p-5 transition" style="background:rgba(255,255,255,.03)"><div class="flex items-center gap-2"><i data-lucide="calculator" style="width:16px;height:16px;color:#e5382a"></i><h3 class="mono text-sm">Accounting</h3></div><p class="mt-2 text-sm opacity-70">QuickBooks (v3 SDK), Xero (OAuth2), token refresh</p></div>
+    <div class="border hair rounded-xl p-5 transition" style="background:rgba(255,255,255,.03)"><div class="flex items-center gap-2"><i data-lucide="file-check" style="width:16px;height:16px;color:#e5382a"></i><h3 class="mono text-sm">E-Invoicing &amp; Tax</h3></div><p class="mt-2 text-sm opacity-70">LHDN MyInvois, e-invoice submission, MSIC tax codes</p></div>
+    <div class="border hair rounded-xl p-5 transition" style="background:rgba(255,255,255,.03)"><div class="flex items-center gap-2"><i data-lucide="shopping-bag" style="width:16px;height:16px;color:#e5382a"></i><h3 class="mono text-sm">E-commerce &amp; Marketplace</h3></div><p class="mt-2 text-sm opacity-70">Shopify, Lazada (PHP SDK), Admin GraphQL fulfilment</p></div>
+   </div>
+   <div class="relative flex items-center justify-center min-h-[260px] rounded-xl border hair grid-bg" style="background-color:#111a30">
+    <svg class="absolute inset-0 w-full h-full" viewbox="0 0 300 400" preserveaspectratio="none" aria-hidden="true"><g stroke="#2a3660" stroke-width="1" fill="none" class="flow-line"><path d="M0 60 L150 200"/><path d="M0 150 L150 200"/><path d="M0 250 L150 200"/><path d="M0 340 L150 200"/><path d="M300 60 L150 200"/><path d="M300 150 L150 200"/><path d="M300 250 L150 200"/><path d="M300 340 L150 200"/></g></svg>
+    <div class="relative rounded-2xl px-7 py-6 text-center shadow-xl" style="background:var(--card);border:1px solid var(--border)"><i data-lucide="layers" class="mx-auto" style="width:26px;height:26px;color:#e5382a"></i><p class="mt-2 font-semibold">11 categories</p><p class="mono mt-1 text-xs opacity-60">all live in production</p></div>
+   </div>
+   <div class="space-y-4">
+    <div class="border hair rounded-xl p-5 transition" style="background:rgba(255,255,255,.03)"><div class="flex items-center gap-2"><i data-lucide="truck" style="width:16px;height:16px;color:#e5382a"></i><h3 class="mono text-sm">Logistics &amp; Delivery</h3></div><p class="mt-2 text-sm opacity-70">Lalamove v3, Borzo, HMAC-SHA256 signing, delivery webhooks</p></div>
+    <div class="border hair rounded-xl p-5 transition" style="background:rgba(255,255,255,.03)"><div class="flex items-center gap-2"><i data-lucide="radio-tower" style="width:16px;height:16px;color:#e5382a"></i><h3 class="mono text-sm">Real-time &amp; Messaging</h3></div><p class="mt-2 text-sm opacity-70">Pusher, Laravel Reverb, MailerSend, Mailgun</p></div>
+    <div class="border hair rounded-xl p-5 transition" style="background:rgba(255,255,255,.03)"><div class="flex items-center gap-2"><i data-lucide="hard-drive" style="width:16px;height:16px;color:#e5382a"></i><h3 class="mono text-sm">Storage &amp; Files</h3></div><p class="mt-2 text-sm opacity-70">DigitalOcean Spaces, AWS S3 (Flysystem), MinIO, PDF / Excel export</p></div>
+    <div class="border hair rounded-xl p-5 transition" style="background:rgba(255,255,255,.03)"><div class="flex items-center gap-2"><i data-lucide="camera" style="width:16px;height:16px;color:#e5382a"></i><h3 class="mono text-sm">AI &amp; Vision</h3></div><p class="mt-2 text-sm opacity-70">MediaPipe face recognition, html5-qrcode scanning</p></div>
+   </div>
+  </div>
+  <div class="mt-4 grid md:grid-cols-3 gap-4">
+   <div class="border hair rounded-xl p-5 transition" style="background:rgba(255,255,255,.03)"><div class="flex items-center gap-2"><i data-lucide="trending-up" style="width:16px;height:16px;color:#e5382a"></i><h3 class="mono text-sm">Analytics &amp; Tracking</h3></div><p class="mt-2 text-sm opacity-70">GA4 / gtag events, Meta Pixel, Google Reviews badge</p></div>
+   <div class="border hair rounded-xl p-5 transition" style="background:rgba(255,255,255,.03)"><div class="flex items-center gap-2"><i data-lucide="shield-check" style="width:16px;height:16px;color:#e5382a"></i><h3 class="mono text-sm">Auth &amp; Security</h3></div><p class="mt-2 text-sm opacity-70">Sanctum, Firebase JWT, Google 2FA</p></div>
+   <div class="border hair rounded-xl p-5 transition" style="background:rgba(255,255,255,.03)"><div class="flex items-center gap-2"><i data-lucide="printer" style="width:16px;height:16px;color:#e5382a"></i><h3 class="mono text-sm">Hardware &amp; Devices</h3></div><p class="mt-2 text-sm opacity-70">ESC/POS printers, Sunmi SDK, cash drawer (TSPL), LPR camera SDK, TCP barrier gates</p></div>
+  </div>
+ </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="border-t hair py-24 lg:py-32">
+ <div class="max-w-7xl mx-auto px-6 reveal">
+  <p class="mono text-xs" style="color:var(--brand-2)">Toolbox</p>
+  <h2 class="mt-5 leading-[1.05] text-3xl sm:text-4xl font-extrabold">Skills &amp; technologies</h2>
+  <div class="mt-14 grid lg:grid-cols-12 gap-6">
+   <div class="lg:col-span-5 rounded-2xl p-8 lg:p-10 relative overflow-hidden" style="background:var(--card)">
+    <div class="absolute right-0 top-0 w-40 h-40 rounded-full blur-3xl opacity-30" style="background:#e5382a" aria-hidden="true"></div>
+    <p class="mono inline-block px-2.5 py-1 rounded text-xs" style="background:rgba(255,45,32,.15);color:var(--brand-2)">PRIMARY &middot; BACKEND</p>
+    <h3 class="mt-5 text-xl font-bold">Everything I've used on a project that shipped, not just tried out once.</h3>
+    <ul class="mt-8 grid grid-cols-2 gap-x-6 border-t border-white/10">
+     <li class="py-2.5 border-b border-white/10 text-sm font-semibold" style="color:#ffb3aa">Laravel 8–11</li>
+     <li class="py-2.5 border-b border-white/10 text-sm font-semibold" style="color:#ffb3aa">PHP 8.x</li>
+     <li class="py-2.5 border-b border-white/10 text-sm">REST APIs</li>
+     <li class="py-2.5 border-b border-white/10 text-sm">Sanctum Auth</li>
+     <li class="py-2.5 border-b border-white/10 text-sm">Spatie Permissions</li>
+     <li class="py-2.5 border-b border-white/10 text-sm">Queues &amp; Jobs</li>
+     <li class="py-2.5 border-b border-white/10 text-sm">Octane / Swoole</li>
+     <li class="py-2.5 border-b border-white/10 text-sm">Reverb / Pusher</li>
+     <li class="py-2.5 border-b border-white/10 text-sm">Eloquent ORM</li>
+    </ul>
+   </div>
+   <div class="lg:col-span-7 border-t hair">
+    <div class="grid sm:grid-cols-12 gap-2 py-6 border-b hair"><span class="mono text-[10px] opacity-50 sm:col-span-1 pt-1">02</span><h3 class="sm:col-span-4 font-semibold">Frontend</h3><div class="sm:col-span-7 flex flex-wrap gap-2"><span class="ptag hot">HTML5 / Semantic Markup</span><span class="ptag hot">CSS3 &middot; Flexbox &amp; Grid</span><span class="ptag">Responsive Design</span><span class="ptag">JavaScript ES6+</span><span class="ptag">Bootstrap 4 / 5</span><span class="ptag">jQuery</span><span class="ptag">Blade Templating</span><span class="ptag">React 18 / 19</span><span class="ptag">TypeScript</span><span class="ptag">Vite</span><span class="ptag">Tailwind CSS</span><span class="ptag">Ionic</span><span class="ptag">Framer Motion</span><span class="ptag">GSAP</span></div></div>
+    <div class="grid sm:grid-cols-12 gap-2 py-6 border-b hair"><span class="mono text-[10px] opacity-50 sm:col-span-1 pt-1">03</span><h3 class="sm:col-span-4 font-semibold">Data &amp; Infra</h3><div class="sm:col-span-7 flex flex-wrap gap-2"><span class="ptag">PostgreSQL</span><span class="ptag">MySQL</span><span class="ptag">Redis</span><span class="ptag">Docker / Compose</span><span class="ptag">Nginx</span><span class="ptag">DigitalOcean Spaces</span><span class="ptag">MinIO / S3</span><span class="ptag">Dexie (IndexedDB)</span></div></div>
+    <div class="grid sm:grid-cols-12 gap-2 py-6 border-b hair"><span class="mono text-[10px] opacity-50 sm:col-span-1 pt-1">04</span><h3 class="sm:col-span-4 font-semibold">Mobile &amp; Native</h3><div class="sm:col-span-7 flex flex-wrap gap-2"><span class="ptag">Capacitor</span><span class="ptag">Android builds</span><span class="ptag">POS / Kiosk / Tablet</span><span class="ptag">Sunmi devices</span><span class="ptag">Offline-first</span></div></div>
+    <div class="grid sm:grid-cols-12 gap-2 py-6 border-b hair"><span class="mono text-[10px] opacity-50 sm:col-span-1 pt-1">05</span><h3 class="sm:col-span-4 font-semibold">Integrations</h3><div class="sm:col-span-7 flex flex-wrap gap-2"><span class="ptag">Stripe Payments</span><span class="ptag">ESC/POS Printing</span><span class="ptag">Cash Drawer (TSPL)</span><span class="ptag">QR / Barcode</span><span class="ptag">MediaPipe Face Rec</span><span class="ptag">PDF / Excel export</span></div></div>
+    <div class="grid sm:grid-cols-12 gap-2 py-6 border-b hair"><span class="mono text-[10px] opacity-50 sm:col-span-1 pt-1">06</span><h3 class="sm:col-span-4 font-semibold">Quality &amp; Tooling</h3><div class="sm:col-span-7 flex flex-wrap gap-2"><span class="ptag">PHPUnit</span><span class="ptag">Playwright</span><span class="ptag">Vitest</span><span class="ptag">Cypress</span><span class="ptag">Git</span><span class="ptag">CI / GitHub Actions</span></div></div>
+   </div>
+  </div>
+ </div>
 </section>
 
 <!-- SERVICES -->
-<section id="services">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="kicker">Fixed-scope work</div>
-      <h2>Services on Fiverr</h2>
-      <p>Smaller Laravel jobs I take on as a single order. Same work as the projects above, scoped to one problem.</p>
-    </div>
-    <div class="proj-grid">
-
-      <!-- GIG: BUG FIXING -->
-      <article class="proj reveal">
-        <div class="top">
-          <div><h3>Laravel &amp; PHP Bug Fixing</h3><div class="kind">Errors, broken features, slow pages</div></div>
-          <span class="role gig">Fiverr gig</span>
-        </div>
-        <p class="desc">You send the error, the log, or a description of what stopped working. I reproduce it, find the cause and fix it.</p>
-        <ul>
-          <li>Exceptions and 500s: <code>QueryException</code>, undefined variables and relations, tables missing after a migration, routes that broke in a framework upgrade</li>
-          <li>Background work that stops without telling anyone: queued jobs, scheduled tasks, emails that never send, webhooks that return 200 and do nothing</li>
-          <li>Slow pages and timeouts: N+1 queries, missing indexes, queries that pull a whole table into memory</li>
-          <li>Where this comes from: nearly three years on client-reported issues across live Appolous BMS merchant sites, then the backend of the Crave Asia platforms</li>
-        </ul>
-        <div class="shots" data-proj="Laravel &amp; PHP Bug Fixing">
-          <div class="shots-hd">Gig images <span>· from the Fiverr listing</span></div>
+<section id="services" class="border-t hair py-24 lg:py-32">
+ <div class="max-w-7xl mx-auto px-6 reveal">
+  <div class="flex flex-wrap items-end justify-between gap-6">
+   <div><p class="mono text-xs" style="color:var(--brand-2)">Fixed-scope work</p><h2 class="mt-5 leading-[1.05] text-3xl sm:text-4xl font-extrabold">Services on Fiverr</h2></div>
+   <p class="mono px-3 py-1.5 rounded-full border hair text-xs opacity-70">Fiverr gigs</p>
+  </div>
+  <p class="mt-4 max-w-2xl opacity-80">Smaller Laravel jobs I take on as a single order. Same work as the projects above, scoped to one problem.</p>
+  <div class="mt-14 grid md:grid-cols-2 gap-px border-t border-l hair card-grid">
+   <article class="p-8 lg:p-12 border-r border-b hair group flex flex-col" style="background:rgba(255,255,255,.02)">
+    <p class="mono text-xs opacity-50">01</p>
+    <h3 class="mt-8 text-xl font-bold">Laravel &amp; PHP Bug Fixing</h3>
+    <p class="mt-3 max-w-sm opacity-70 text-sm">You send the error, the log, or a description of what stopped working. I reproduce it, find the cause and fix it.</p>
+    <div class="shots" data-proj="Laravel &amp; PHP Bug Fixing">
+          <div class="shots-hd">Gig images <span>&middot; from the Fiverr listing</span></div>
           <div class="carousel">
             <div class="frames">
-              <button class="frame on" type="button" data-src="upwork-covers/fiverr/bugfix-1.jpg" data-cap="Before and after · a query exception fixed">
+              <button class="frame on" type="button" data-src="upwork-covers/fiverr/bugfix-1.jpg" data-cap="Before and after &middot; a query exception fixed">
                 <img src="upwork-covers/fiverr/bugfix-1.jpg" alt="Fix Laravel Bugs gig image showing an application error beside the working dashboard" loading="lazy" decoding="async">
               </button>
-              <button class="frame" type="button" data-src="upwork-covers/fiverr/bugfix-2.jpg" data-cap="Undefined variable · guarded lookup">
+              <button class="frame" type="button" data-src="upwork-covers/fiverr/bugfix-2.jpg" data-cap="Undefined variable &middot; guarded lookup">
                 <img src="upwork-covers/fiverr/bugfix-2.jpg" alt="Fix Laravel Bugs gig image showing an undefined variable error and the fixed code" loading="lazy" decoding="async">
               </button>
-              <button class="frame" type="button" data-src="upwork-covers/fiverr/bugfix-3.jpg" data-cap="500 error · route, controller and schema">
+              <button class="frame" type="button" data-src="upwork-covers/fiverr/bugfix-3.jpg" data-cap="500 error &middot; route, controller and schema">
                 <img src="upwork-covers/fiverr/bugfix-3.jpg" alt="Fix Laravel Bugs gig image showing a 500 error beside the working page" loading="lazy" decoding="async">
               </button>
             </div>
-            <button class="cr-nav cr-prev" type="button" aria-label="Previous image">&lsaquo;</button>
-            <button class="cr-nav cr-next" type="button" aria-label="Next image">&rsaquo;</button>
+            <button class="cr-nav cr-prev" type="button" aria-label="Previous screenshot">&lsaquo;</button>
+            <button class="cr-nav cr-next" type="button" aria-label="Next screenshot">&rsaquo;</button>
             <span class="cr-zoom">Click to enlarge</span>
           </div>
-          <div class="cr-bar">
-            <span class="cr-cap"></span>
-            <span class="cr-dots"></span>
-            <span class="cr-count"></span>
-          </div>
+          <div class="cr-bar"><span class="cr-cap"></span><span class="cr-dots"></span><span class="cr-count"></span></div>
         </div>
-        <div class="stack"><span class="tag hot">Laravel 8–13</span><span class="tag hot">PHP 7.4 / 8.x</span><span class="tag">MySQL</span><span class="tag">PostgreSQL</span><span class="tag">Eloquent</span><span class="tag">Queues &amp; Jobs</span><span class="tag">Redis</span></div>
-        <div class="svc-cta"><a class="btn" href="https://www.fiverr.com/s/kXLDEEQ" target="_blank" rel="noopener">View gig on Fiverr ↗</a></div>
-      </article>
-
-      <!-- GIG: REST API -->
-      <article class="proj reveal">
-        <div class="top">
-          <div><h3>Laravel REST API &amp; Integrations</h3><div class="kind">New APIs, third-party connections</div></div>
-          <span class="role gig">Fiverr gig</span>
-        </div>
-        <p class="desc">A backend API for your web or mobile front-end, or a connection from your existing Laravel app to a payment, courier, accounting or email service.</p>
-        <ul>
-          <li>Endpoints a front-end can rely on: versioned routes, Sanctum token auth, form-request validation, API resources and one consistent JSON error shape</li>
-          <li>Integrations handled in both directions: signed outbound requests, verified inbound webhooks, and slow providers pushed onto the queue so they don't hold up the request</li>
-          <li>Already running in production: Stripe, GKASH, QuickBooks, Xero, LHDN MyInvois, Shopify, Lazada, Lalamove, Borzo, Pusher, MailerSend</li>
-          <li>Where this comes from: the QBotu API that four apps sit on, QBot's separate back-office and POS/Kiosk APIs, and the QParking Cloud API</li>
-        </ul>
-        <div class="shots" data-proj="Laravel REST API &amp; Integrations">
-          <div class="shots-hd">Gig images <span>· from the Fiverr listing</span></div>
+    <a href="https://www.fiverr.com/s/kXLDEEQ" target="_blank" rel="noopener noreferrer" class="inline-block mt-8 self-start border-b-2 pb-1 group-hover:translate-x-1 transition font-semibold" style="border-color:var(--brand-2);color:var(--brand-2)">View gig on Fiverr &#8599;</a>
+   </article>
+   <article class="p-8 lg:p-12 border-r border-b hair group flex flex-col" style="background:rgba(255,255,255,.02)">
+    <p class="mono text-xs opacity-50">02</p>
+    <h3 class="mt-8 text-xl font-bold">Laravel REST API &amp; Integrations</h3>
+    <p class="mt-3 max-w-sm opacity-70 text-sm">A backend API for your web or mobile front-end, or a connection from your existing Laravel app to a payment, courier, accounting or email service.</p>
+    <div class="shots" data-proj="Laravel REST API &amp; Integrations">
+          <div class="shots-hd">Gig images <span>&middot; from the Fiverr listing</span></div>
           <div class="carousel">
             <div class="frames">
-              <button class="frame on" type="button" data-src="upwork-covers/fiverr/restapi-1.jpg" data-cap="One backend · web, mobile, database, third parties">
+              <button class="frame on" type="button" data-src="upwork-covers/fiverr/restapi-1.jpg" data-cap="One backend &middot; web, mobile, database, third parties">
                 <img src="upwork-covers/fiverr/restapi-1.jpg" alt="Laravel REST API gig image showing a Laravel backend connected to web, mobile, database and third-party APIs" loading="lazy" decoding="async">
               </button>
-              <button class="frame" type="button" data-src="upwork-covers/fiverr/restapi-2.jpg" data-cap="Endpoints · JSON over REST">
+              <button class="frame" type="button" data-src="upwork-covers/fiverr/restapi-2.jpg" data-cap="Endpoints &middot; JSON over REST">
                 <img src="upwork-covers/fiverr/restapi-2.jpg" alt="Laravel REST API gig image showing example endpoints and a JSON response" loading="lazy" decoding="async">
               </button>
-              <button class="frame" type="button" data-src="upwork-covers/fiverr/restapi-3.jpg" data-cap="Third-party APIs · payments, SMS, email, maps, storage">
+              <button class="frame" type="button" data-src="upwork-covers/fiverr/restapi-3.jpg" data-cap="Third-party APIs &middot; payments, SMS, email, maps, storage">
                 <img src="upwork-covers/fiverr/restapi-3.jpg" alt="Laravel REST API gig image listing payment, SMS, email, maps and storage integrations" loading="lazy" decoding="async">
               </button>
             </div>
-            <button class="cr-nav cr-prev" type="button" aria-label="Previous image">&lsaquo;</button>
-            <button class="cr-nav cr-next" type="button" aria-label="Next image">&rsaquo;</button>
+            <button class="cr-nav cr-prev" type="button" aria-label="Previous screenshot">&lsaquo;</button>
+            <button class="cr-nav cr-next" type="button" aria-label="Next screenshot">&rsaquo;</button>
             <span class="cr-zoom">Click to enlarge</span>
           </div>
-          <div class="cr-bar">
-            <span class="cr-cap"></span>
-            <span class="cr-dots"></span>
-            <span class="cr-count"></span>
-          </div>
+          <div class="cr-bar"><span class="cr-cap"></span><span class="cr-dots"></span><span class="cr-count"></span></div>
         </div>
-        <div class="stack"><span class="tag hot">Laravel</span><span class="tag hot">REST API</span><span class="tag">Sanctum</span><span class="tag">Webhooks</span><span class="tag">OAuth2</span><span class="tag">HMAC signing</span><span class="tag">Queues</span><span class="tag">JSON</span></div>
-        <div class="svc-cta"><a class="btn" href="https://www.fiverr.com/s/1Eqe6lk" target="_blank" rel="noopener">View gig on Fiverr ↗</a></div>
-      </article>
-
-    </div>
+    <a href="https://www.fiverr.com/s/1Eqe6lk" target="_blank" rel="noopener noreferrer" class="inline-block mt-8 self-start border-b-2 pb-1 group-hover:translate-x-1 transition font-semibold" style="border-color:var(--brand-2);color:var(--brand-2)">View gig on Fiverr &#8599;</a>
+   </article>
   </div>
+ </div>
 </section>
 
 <!-- EXPERIENCE -->
-<section id="experience">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="kicker">Where I've worked</div>
-      <h2>Experience</h2>
-    </div>
-    <div class="tl">
-      <div class="item reveal">
-        <div class="when">Aug 2024 — Present</div>
-        <h3>Full-Stack Developer</h3>
-        <div class="co">Crave Asia</div>
-        <p>Lead developer on the QBotu and QBot commerce platforms. I own the Laravel backend: APIs, auth, queues,
-          broadcasting and reporting. I also build the React and Ionic front-ends, and the Docker setup that gets them
-          out to web and native Android. Along the way: payment gateways, thermal printing, and making the POS work
-          with no internet.</p>
-      </div>
-      <div class="item reveal">
-        <div class="when">Nov 2021 — Aug 2024</div>
-        <h3>Web Developer</h3>
-        <div class="co">Appolous</div>
-        <p>Laravel work on Appolous BMS, a cloud business-management and POS product. Backend performance, queued
-          email and SMS, and the third-party integrations — Stripe, Lazada, the Meta Conversions API — plus
-          client-reported issues across live merchant sites.</p>
-      </div>
-      <div class="item reveal">
-        <div class="when">Mar 2021 — Jun 2021</div>
-        <h3>Application Engineer</h3>
-        <div class="co">LCP Buildsoft Technology</div>
-        <p>Built and maintained application features, and turned user requirements into technical design
-          specifications.</p>
-      </div>
-      <div class="item reveal">
-        <div class="when">Nov 2020 — Jan 2021</div>
-        <h3>Web Developer (Intern)</h3>
-        <div class="co">Opensoft Technologies</div>
-        <p>Built and maintained web applications in Laravel, PHP, JavaScript and jQuery. Cross-browser debugging,
-          and prototyping new pages and features.</p>
-      </div>
-    </div>
-
-    <div class="sec-head reveal" style="margin-top:56px">
-      <div class="kicker">What I studied</div>
-      <h2>Education</h2>
-    </div>
-    <div class="tl">
-      <div class="item reveal">
-        <div class="when">Jan 2018 — Jul 2020</div>
-        <h3>Bachelor of Computing</h3>
-        <div class="co">SEGi College Kuala Lumpur</div>
-        <p>Upper Second Class Honours.</p>
-      </div>
-      <div class="item reveal">
-        <div class="when">Jan 2015 — Oct 2017</div>
-        <h3>Diploma in Computer Studies</h3>
-        <div class="co">SEGi College Kuala Lumpur</div>
-      </div>
-      <div class="item reveal">
-        <div class="when">2020</div>
-        <h3>Certificates — Big Data Technology &amp; Management · Data Analytics with Python</h3>
-        <div class="co">SEGi College Kuala Lumpur</div>
-      </div>
-    </div>
-  </div>
+<section id="experience" class="border-t hair py-24 lg:py-32">
+ <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-10 reveal">
+  <div class="lg:col-span-4"><p class="mono text-xs" style="color:var(--brand-2)">Where I've worked</p><h2 class="mt-5 leading-[1.05] text-3xl sm:text-4xl font-extrabold">Experience</h2></div>
+  <ol class="lg:col-span-8 relative border-l hair pl-8 sm:pl-12">
+   <li class="relative pb-12 last:pb-0"><span class="absolute -left-[39px] sm:-left-[55px] top-1.5 w-3.5 h-3.5 rounded-full border-2" style="border-color:#e5382a;background:var(--bg)" aria-hidden="true"></span>
+    <p class="mono text-xs" style="color:var(--accent-2)">Aug 2024 — Present</p>
+    <h3 class="mt-3 text-lg font-bold">Full-Stack Developer</h3>
+    <p class="mt-1 font-semibold" style="color:var(--brand-2)">Crave Asia</p>
+    <p class="mt-5 max-w-2xl opacity-80 text-[15px]">Lead developer on the QBotu and QBot commerce platforms. I own the Laravel backend &mdash; APIs, auth, queues, broadcasting and reporting. I also build the React and Ionic front-ends, and the Docker setup that gets them out to web and native Android. Along the way: payment gateways, thermal printing, and making the POS work with no internet.</p>
+    <div class="mt-6 flex flex-wrap gap-2 mono"><span class="px-2.5 py-1 rounded border hair text-xs opacity-70">Laravel</span> <span class="px-2.5 py-1 rounded border hair text-xs opacity-70">React</span> <span class="px-2.5 py-1 rounded border hair text-xs opacity-70">Ionic</span> <span class="px-2.5 py-1 rounded border hair text-xs opacity-70">Docker</span> <span class="px-2.5 py-1 rounded border hair text-xs opacity-70">Sanctum</span> <span class="px-2.5 py-1 rounded border hair text-xs opacity-70">Reverb</span></div>
+   </li>
+   <li class="relative pb-12 last:pb-0"><span class="absolute -left-[39px] sm:-left-[55px] top-1.5 w-3.5 h-3.5 rounded-full border-2" style="border-color:#e5382a;background:var(--bg)" aria-hidden="true"></span>
+    <p class="mono text-xs" style="color:var(--accent-2)">Nov 2021 — Aug 2024</p>
+    <h3 class="mt-3 text-lg font-bold">Web Developer</h3>
+    <p class="mt-1 font-semibold" style="color:var(--brand-2)">Appolous</p>
+    <p class="mt-5 max-w-2xl opacity-80 text-[15px]">Laravel work on Appolous BMS, a cloud business-management and POS product. Backend performance, queued email and SMS, and the third-party integrations &mdash; Stripe, Lazada, the Meta Conversions API &mdash; plus client-reported issues across live merchant sites.</p>
+    <div class="mt-6 flex flex-wrap gap-2 mono"><span class="px-2.5 py-1 rounded border hair text-xs opacity-70">Laravel</span> <span class="px-2.5 py-1 rounded border hair text-xs opacity-70">Octane</span> <span class="px-2.5 py-1 rounded border hair text-xs opacity-70">Redis</span> <span class="px-2.5 py-1 rounded border hair text-xs opacity-70">Stripe</span> <span class="px-2.5 py-1 rounded border hair text-xs opacity-70">Lazada</span> <span class="px-2.5 py-1 rounded border hair text-xs opacity-70">Queues</span></div>
+   </li>
+   <li class="relative pb-12 last:pb-0"><span class="absolute -left-[39px] sm:-left-[55px] top-1.5 w-3.5 h-3.5 rounded-full border-2" style="border-color:#e5382a;background:var(--bg)" aria-hidden="true"></span>
+    <p class="mono text-xs" style="color:var(--accent-2)">Mar 2021 — Jun 2021</p>
+    <h3 class="mt-3 text-lg font-bold">Application Engineer</h3>
+    <p class="mt-1 font-semibold" style="color:var(--brand-2)">LCP Buildsoft Technology</p>
+    <p class="mt-5 max-w-2xl opacity-80 text-[15px]">Built and maintained application features, and turned user requirements into technical design specifications.</p>
+    <div class="mt-6 flex flex-wrap gap-2 mono"><span class="px-2.5 py-1 rounded border hair text-xs opacity-70">PHP</span> <span class="px-2.5 py-1 rounded border hair text-xs opacity-70">MySQL</span> <span class="px-2.5 py-1 rounded border hair text-xs opacity-70">JavaScript</span> <span class="px-2.5 py-1 rounded border hair text-xs opacity-70">Debugging</span> <span class="px-2.5 py-1 rounded border hair text-xs opacity-70">Feature dev</span> <span class="px-2.5 py-1 rounded border hair text-xs opacity-70">Specs</span></div>
+   </li>
+   <li class="relative pb-12 last:pb-0"><span class="absolute -left-[39px] sm:-left-[55px] top-1.5 w-3.5 h-3.5 rounded-full border-2" style="border-color:#e5382a;background:var(--bg)" aria-hidden="true"></span>
+    <p class="mono text-xs" style="color:var(--accent-2)">Nov 2020 — Jan 2021</p>
+    <h3 class="mt-3 text-lg font-bold">Web Developer (Intern)</h3>
+    <p class="mt-1 font-semibold" style="color:var(--brand-2)">Opensoft Technologies</p>
+    <p class="mt-5 max-w-2xl opacity-80 text-[15px]">Built and maintained web applications in Laravel, PHP, JavaScript and jQuery. Cross-browser debugging, and prototyping new pages and features.</p>
+    <div class="mt-6 flex flex-wrap gap-2 mono"><span class="px-2.5 py-1 rounded border hair text-xs opacity-70">Laravel</span> <span class="px-2.5 py-1 rounded border hair text-xs opacity-70">PHP</span> <span class="px-2.5 py-1 rounded border hair text-xs opacity-70">JavaScript</span> <span class="px-2.5 py-1 rounded border hair text-xs opacity-70">jQuery</span> <span class="px-2.5 py-1 rounded border hair text-xs opacity-70">Cross-browser</span> <span class="px-2.5 py-1 rounded border hair text-xs opacity-70">Prototyping</span></div>
+   </li>
+  </ol>
+ </div>
+ <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-12 gap-10 reveal mt-20">
+  <div class="lg:col-span-4"><p class="mono text-xs" style="color:var(--brand-2)">What I studied</p><h2 class="mt-5 leading-[1.05] text-2xl sm:text-3xl font-extrabold">Education</h2></div>
+  <ol class="lg:col-span-8 relative border-l hair pl-8 sm:pl-12">
+   <li class="relative pb-8 last:pb-0"><span class="absolute -left-[35px] sm:-left-[51px] top-1.5 w-3 h-3 rounded-full border-2" style="border-color:var(--accent);background:var(--bg)" aria-hidden="true"></span>
+    <p class="mono text-xs" style="color:var(--accent-2)">Jan 2018 — Jul 2020</p>
+    <h3 class="mt-2 font-bold">Bachelor of Computing</h3>
+    <p class="mt-1 text-sm" style="color:var(--brand-2)">SEGi College Kuala Lumpur</p>
+    <p class="mt-1 text-sm opacity-70">Upper Second Class Honours.</p>
+   </li>
+   <li class="relative pb-8 last:pb-0"><span class="absolute -left-[35px] sm:-left-[51px] top-1.5 w-3 h-3 rounded-full border-2" style="border-color:var(--accent);background:var(--bg)" aria-hidden="true"></span>
+    <p class="mono text-xs" style="color:var(--accent-2)">Jan 2015 — Oct 2017</p>
+    <h3 class="mt-2 font-bold">Diploma in Computer Studies</h3>
+    <p class="mt-1 text-sm" style="color:var(--brand-2)">SEGi College Kuala Lumpur</p>
+    
+   </li>
+   <li class="relative pb-8 last:pb-0"><span class="absolute -left-[35px] sm:-left-[51px] top-1.5 w-3 h-3 rounded-full border-2" style="border-color:var(--accent);background:var(--bg)" aria-hidden="true"></span>
+    <p class="mono text-xs" style="color:var(--accent-2)">2020</p>
+    <h3 class="mt-2 font-bold">Certificates — Big Data Technology &amp; Management · Data Analytics with Python</h3>
+    <p class="mt-1 text-sm" style="color:var(--brand-2)">SEGi College Kuala Lumpur</p>
+    
+   </li>
+  </ol>
+ </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact">
-  <div class="wrap">
-    <div class="contact reveal">
-      <h2>Get in touch</h2>
-      <p>I'm looking at <strong>backend</strong> and <strong>full-stack</strong> roles, Laravel teams especially.
-        If you've got something that fits, send me a note.</p>
-      <div class="row">
-        <a class="btn" href="mailto:shasween94@gmail.com">📧 shasween94@gmail.com</a>
-        <a class="btn ghost" href="https://github.com/shasween14" target="_blank" rel="noopener">💻 github.com/shasween14</a>
-      </div>
-    </div>
-  </div>
+<section id="contact" class="relative overflow-hidden py-28 lg:py-40">
+ <div class="absolute inset-0 grid-dark pointer-events-none"></div>
+ <div class="relative max-w-7xl mx-auto px-6 reveal">
+  <p class="mono text-xs" style="color:var(--brand-2)">Open to work</p>
+  <h2 class="mt-6 max-w-4xl leading-[0.98] text-4xl sm:text-5xl font-extrabold">Let's talk about your next Laravel build.</h2>
+  <p class="mt-8 max-w-xl opacity-80">I'm looking at <strong>backend</strong> and <strong>full-stack</strong> roles, Laravel teams especially. If you've got something that fits, send me a note.</p>
+  <a href="mailto:shasween94@gmail.com" class="inline-block mt-10 px-8 py-5 rounded-xl hover:-translate-y-1 transition shadow-lg font-semibold" style="background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff">Send me a note</a>
+  <dl class="mt-20 grid sm:grid-cols-3 border-t border-white/10">
+   <div class="pt-6 pr-6"><dt class="mono text-xs opacity-60">Email</dt><dd class="mt-2"><a href="mailto:shasween94@gmail.com" class="hover:underline" style="color:var(--accent-2)">shasween94@gmail.com</a></dd></div>
+   <div class="pt-6 sm:px-6 sm:border-l border-white/10"><dt class="mono text-xs opacity-60">GitHub</dt><dd class="mt-2"><a href="https://github.com/shasween14" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color:var(--accent-2)">github.com/shasween14</a></dd></div>
+   <div class="pt-6 sm:pl-6 sm:border-l border-white/10"><dt class="mono text-xs opacity-60">Location</dt><dd class="mt-2 opacity-80">Malaysia &middot; GMT+8</dd></div>
+  </dl>
+ </div>
 </section>
-
-<footer>
-  <div class="wrap">© <span id="yr"></span> Shaswin Kumar · Full-Stack &amp; Laravel Developer · Built as a single HTML file.</div>
+</main>
+<footer class="border-t border-white/10">
+ <div class="max-w-7xl mx-auto px-6 py-6 flex flex-wrap justify-between gap-3 text-sm opacity-60">
+  <p>&copy; <span id="yr"></span> Shaswin Kumar &middot; Full-Stack &amp; Laravel Developer</p>
+  <p class="mono">Built as a single HTML file &middot; Tailwind &middot; jQuery</p>
+ </div>
 </footer>
 
 <!-- LIGHTBOX -->
 <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Screenshot viewer">
-  <div class="lb-bar">
-    <div class="cap"><span id="lbCap"></span> <em id="lbCount"></em></div>
-    <div class="tools">
-      <a class="lb-btn alt" id="lbFull" href="#" target="_blank" rel="noopener">Open full size ↗</a>
-      <button class="lb-btn" type="button" id="lbClose">Close ✕</button>
-    </div>
+ <div class="lb-bar">
+  <div class="cap"><span id="lbCap"></span> <em id="lbCount"></em></div>
+  <div class="tools">
+   <a class="lb-btn" id="lbFull" href="#" target="_blank" rel="noopener">Open full size &#8599;</a>
+   <button class="lb-btn" type="button" id="lbClose">Close &#10005;</button>
   </div>
-  <div class="lb-stage">
-    <button class="lb-nav" type="button" id="lbPrev" aria-label="Previous screenshot">‹</button>
-    <img id="lbImg" src="" alt="">
-    <button class="lb-nav" type="button" id="lbNext" aria-label="Next screenshot">›</button>
-  </div>
+ </div>
+ <div class="lb-stage">
+  <button class="lb-nav" type="button" id="lbPrev" aria-label="Previous screenshot">&lsaquo;</button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-nav" type="button" id="lbNext" aria-label="Next screenshot">&rsaquo;</button>
+ </div>
 </div>
 
 <script>
-  document.getElementById('yr').textContent = new Date().getFullYear();
-  // scroll reveal
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
-  },{threshold:.12});
-  document.querySelectorAll('.reveal').forEach((el,i)=>{ el.style.transitionDelay=(i%4*60)+'ms'; io.observe(el); });
+$(function () {
+  lucide.createIcons();
+  $('#yr').text(new Date().getFullYear());
 
-  // screenshot carousels
-  let openLightbox;
-  document.querySelectorAll('.shots').forEach(shots=>{
-    const wrap=shots.querySelector('.frames'),
-          frames=[...shots.querySelectorAll('.frame')],
-          cap=shots.querySelector('.cr-cap'),
-          dots=shots.querySelector('.cr-dots'),
-          count=shots.querySelector('.cr-count');
-    let i=0;
+  // Decorative live clock in the parking dashboard
+  var $clock = $('#live-clock');
+  function tick() { $clock.text('LIVE · ' + new Date().toLocaleTimeString('en-GB')); }
+  tick(); setInterval(tick, 1000);
 
-    frames.forEach((f,n)=>{
-      const d=document.createElement('button');
-      d.type='button'; d.className='cr-dot'+(n?'':' on');
-      d.setAttribute('aria-label','Screenshot '+(n+1)+': '+f.dataset.cap);
-      d.addEventListener('click',()=>go(n));
-      dots.appendChild(d);
+  // Scroll reveal
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { $(e.target).addClass('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  $('.reveal').each(function (i, el) { $(el).css('transition-delay', (i % 4 * 60) + 'ms'); io.observe(el); });
+
+  // Screenshot carousels
+  var openLightbox;
+  $('.shots').each(function () {
+    var $shots = $(this),
+        $wrap = $shots.find('.frames'),
+        $frames = $shots.find('.frame'),
+        $cap = $shots.find('.cr-cap'),
+        $dots = $shots.find('.cr-dots'),
+        $count = $shots.find('.cr-count'),
+        i = 0;
+
+    $frames.each(function (n, f) {
+      var $d = $('<button type="button" class="cr-dot"></button>');
+      if (n === 0) $d.addClass('on');
+      $d.attr('aria-label', 'Screenshot ' + (n + 1) + ': ' + $(f).data('cap'));
+      $d.on('click', function () { go(n); });
+      $dots.append($d);
     });
 
-    function paint(){
-      frames.forEach((f,n)=>f.classList.toggle('on',n===i));
-      [...dots.children].forEach((d,n)=>d.classList.toggle('on',n===i));
-      cap.textContent=frames[i].dataset.cap;
-      count.textContent=(i+1)+' / '+frames.length;
+    function paint() {
+      $frames.each(function (n, f) { $(f).toggleClass('on', n === i); });
+      $dots.children().each(function (n, d) { $(d).toggleClass('on', n === i); });
+      $cap.text($frames.eq(i).data('cap'));
+      $count.text((i + 1) + ' / ' + $frames.length);
     }
-    function go(n){
-      const t=(n+frames.length)%frames.length;
-      if(t===i) return;
-      wrap.classList.add('fading');
-      setTimeout(()=>{
-        i=t; paint(); wrap.classList.remove('fading');
-        // warm the neighbour so the next step doesn't flash
-        new Image().src=frames[(i+1)%frames.length].querySelector('img').src;
-      },140);
+    function go(n) {
+      var t = (n + $frames.length) % $frames.length;
+      if (t === i) return;
+      $wrap.addClass('fading');
+      setTimeout(function () {
+        i = t; paint(); $wrap.removeClass('fading');
+        new Image().src = $frames.eq((i + 1) % $frames.length).find('img').attr('src');
+      }, 140);
     }
 
-    shots.querySelector('.cr-prev').addEventListener('click',()=>go(i-1));
-    shots.querySelector('.cr-next').addEventListener('click',()=>go(i+1));
-    frames.forEach(f=>f.addEventListener('click',()=>openLightbox(frames,frames.indexOf(f),shots.dataset.proj)));
+    $shots.find('.cr-prev').on('click', function () { go(i - 1); });
+    $shots.find('.cr-next').on('click', function () { go(i + 1); });
+    $frames.each(function (idx, f) {
+      $(f).on('click', function () { openLightbox($frames, idx, $shots.data('proj')); });
+    });
 
-    // swipe
-    let x0=null;
-    wrap.addEventListener('touchstart',e=>{ x0=e.touches[0].clientX; },{passive:true});
-    wrap.addEventListener('touchend',e=>{
-      if(x0===null) return;
-      const dx=e.changedTouches[0].clientX-x0; x0=null;
-      if(Math.abs(dx)>45) go(dx<0?i+1:i-1);
-    },{passive:true});
+    var x0 = null;
+    $wrap.on('touchstart', function (e) { x0 = e.originalEvent.touches[0].clientX; });
+    $wrap.on('touchend', function (e) {
+      if (x0 === null) return;
+      var dx = e.originalEvent.changedTouches[0].clientX - x0; x0 = null;
+      if (Math.abs(dx) > 45) go(dx < 0 ? i + 1 : i - 1);
+    });
 
     paint();
   });
 
-  // screenshot lightbox
-  (function(){
-    const lb=document.getElementById('lb'), img=document.getElementById('lbImg'),
-          cap=document.getElementById('lbCap'), count=document.getElementById('lbCount'),
-          full=document.getElementById('lbFull'), prev=document.getElementById('lbPrev'),
-          next=document.getElementById('lbNext');
-    let group=[], proj='', i=0, opener=null;
+  // Screenshot lightbox
+  (function () {
+    var $lb = $('#lb'), $img = $('#lbImg'), $cap = $('#lbCap'), $count = $('#lbCount'),
+        $full = $('#lbFull'), $prev = $('#lbPrev'), $next = $('#lbNext');
+    var $group = $(), proj = '', i = 0, $opener = null;
 
-    function show(n){
-      i=n;
-      const b=group[i];
-      img.src=b.dataset.src;
-      img.alt=b.querySelector('img').alt;
-      cap.textContent=proj+' — '+b.dataset.cap;
-      count.textContent='('+(i+1)+' of '+group.length+')';
-      full.href=b.dataset.src;
-      prev.disabled=i===0;
-      next.disabled=i===group.length-1;
+    function show(n) {
+      i = n;
+      var $b = $group.eq(i);
+      $img.attr('src', $b.data('src'));
+      $img.attr('alt', $b.find('img').attr('alt'));
+      $cap.text(proj + ' \u2014 ' + $b.data('cap'));
+      $count.text('(' + (i + 1) + ' of ' + $group.length + ')');
+      $full.attr('href', $b.data('src'));
+      $prev.prop('disabled', i === 0);
+      $next.prop('disabled', i === $group.length - 1);
     }
-    function close(){
-      lb.hidden=true;
-      img.src='';
-      document.body.style.overflow='';
-      if(opener) opener.focus();
+    function close() {
+      $lb.attr('hidden', true);
+      $img.attr('src', '');
+      $('body').css('overflow', '');
+      if ($opener) $opener.trigger('focus');
     }
 
-    openLightbox=function(frames,n,name){
-      group=frames; proj=name; opener=frames[n];
+    openLightbox = function ($frames, n, name) {
+      $group = $frames; proj = name; $opener = $frames.eq(n);
       show(n);
-      lb.hidden=false;
-      document.body.style.overflow='hidden';
-      document.getElementById('lbClose').focus();
+      $lb.removeAttr('hidden');
+      $('body').css('overflow', 'hidden');
+      $('#lbClose').trigger('focus');
     };
 
-    prev.addEventListener('click',()=>{ if(i>0) show(i-1); });
-    next.addEventListener('click',()=>{ if(i<group.length-1) show(i+1); });
-    document.getElementById('lbClose').addEventListener('click',close);
-    lb.addEventListener('click',e=>{ if(e.target===lb||e.target.classList.contains('lb-stage')) close(); });
-    document.addEventListener('keydown',e=>{
-      if(lb.hidden) return;
-      if(e.key==='Escape') close();
-      else if(e.key==='ArrowLeft'&&i>0) show(i-1);
-      else if(e.key==='ArrowRight'&&i<group.length-1) show(i+1);
+    $prev.on('click', function () { if (i > 0) show(i - 1); });
+    $next.on('click', function () { if (i < $group.length - 1) show(i + 1); });
+    $('#lbClose').on('click', close);
+    $lb.on('click', function (e) { if (e.target === $lb[0] || $(e.target).hasClass('lb-stage')) close(); });
+    $(document).on('keydown', function (e) {
+      if ($lb.attr('hidden') !== undefined) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowLeft' && i > 0) show(i - 1);
+      else if (e.key === 'ArrowRight' && i < $group.length - 1) show(i + 1);
     });
   })();
+});
 </script>
 </body>
 </html>
