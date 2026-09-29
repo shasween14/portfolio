@@ -1,1 +1,24 @@
-/cert
+# Personal scans and certificates
+/cert/
+
+# Gig thumbnails as downloaded (the filenames are the generation prompts).
+# Web copies: upwork-covers/fiverr/ (index.html), upwork-covers/services-4x3/ (Upwork)
+/service1/
+/service2/
+
+# Dependencies and env files, if a tool ever gets its own install
+node_modules/
+.env
+.env.*
+
+# Local Claude Code settings
+.claude/settings.local.json
+
+# OS and editor files
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/
+*.log
+*.tmp

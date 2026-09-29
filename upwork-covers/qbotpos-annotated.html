@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Annotated Screenshots — QBot POS</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;background:#1a1d24;padding:24px}
+
+  .page-head{max-width:1280px;margin:0 auto 24px;color:#c8ccd4;font-size:.92rem;line-height:1.6}
+  .page-head h1{font-size:1.25rem;color:#fff;margin-bottom:8px}
+  .page-head code{background:#252932;padding:1px 6px;border-radius:4px;font-size:.9em}
+
+  .item{max-width:1280px;margin:0 auto 30px}
+  .item .fname{color:#7d8494;font-size:.8rem;margin-bottom:6px;font-family:ui-monospace,Consolas,monospace}
+
+  .sheet{width:1280px;background:#fff;position:relative}
+  .shot{position:relative;width:1280px;height:800px;line-height:0}
+  .shot img{width:1280px;height:800px;display:block}
+
+  .pin{position:absolute;width:26px;height:26px;border-radius:50%;
+       background:#c2260f;color:#fff;font-size:14px;font-weight:700;
+       display:flex;align-items:center;justify-content:center;
+       box-shadow:0 0 0 2.5px #fff, 0 1px 3px rgba(0,0,0,.4);
+       transform:translate(-50%,-50%)}
+
+  .legend{background:#12151c;border-top:3px solid #c2260f;padding:16px 22px 18px;height:278px}
+  .legend .hd{display:flex;justify-content:space-between;align-items:baseline;gap:20px;
+              padding-bottom:12px;margin-bottom:12px;border-bottom:1px solid #262b36}
+  .legend .hd .t{color:#fff;font-size:17px;font-weight:700}
+  .legend .hd .t span{color:#8d95a6;font-weight:400;font-size:14px}
+  .legend .hd .who{color:#8d95a6;font-size:13px;white-space:nowrap}
+  .notes{display:grid;grid-template-columns:1fr 1fr;gap:7px 30px}
+  .note{display:grid;grid-template-columns:19px 1fr;gap:9px;align-items:start}
+  .note i{width:19px;height:19px;border-radius:50%;background:#c2260f;color:#fff;
+          font-size:11.5px;font-weight:700;font-style:normal;
+          display:flex;align-items:center;justify-content:center;margin-top:1px}
+  .note p{color:#b9c0cd;font-size:13.5px;line-height:1.45}
+  .note p b{color:#fff;font-weight:600}
+  .note p code{font-family:ui-monospace,Consolas,monospace;font-size:.9em;color:#e2e6ee}
+  .foot{color:#6c7382;font-size:12px;margin-top:12px;padding-top:10px;border-top:1px solid #1c212b}
+</style>
+</head>
+<body>
+
+<div class="page-head">
+  <h1>Annotated screenshots — QBot POS (Ionic + React terminal)</h1>
+  Native 1280&times;800 captures of the running app — a tablet POS resolution — driven against a local
+  <code>pos-api</code> serving a sanitized copy of the database. Numbered markers sit on flat background
+  beside what they point at, with a plain legend underneath. Rendered to <code>upwork-covers/qbotpos/</code>.
+</div>
+
+<div id="items"></div>
+
+<script>
+/* =========================================================================
+   Captures come from the real app (Vite dev server) talking to the QBot
+   Laravel pos-api on a sanitized clone in which every tenant, outlet, staff
+   member and customer is a generated identity. Store and product imagery is
+   a neutral placeholder — no client artwork is served. Pin coordinates are
+   in the same 1280x800 pixel space and were checked against the source
+   pixels: no pin sits on top of the element it points at.
+   ========================================================================= */
+
+const STACK = 'Ionic 8 &middot; React 19 &middot; TypeScript &middot; Dexie / IndexedDB &middot; Capacitor &middot; Tailwind';
+
+const SHEETS = [
+  {
+    id: 'device-setup', file: 'qbotpos-src/2-setup-confirm.png',
+    title: 'Device setup &middot; terminal binding',
+    sub: 'which company this till belongs to, decided once',
+    pins: [
+      {n:1, x:520, y:193},
+      {n:2, x:462, y:377},
+      {n:3, x:930, y:455},
+      {n:4, x:930, y:527},
+      {n:5, x:360, y:269}
+    ],
+    notes: [
+      'Two steps, not one: the terminal is identified by <b>company email</b> before any operator signs in. Binding the device and authenticating a person are separate problems, so they are separate screens.',
+      'The lookup answers from <code>account/setup</code> and the confirmed account is written to IndexedDB as a single row &mdash; the next cold start skips this screen entirely and goes to the store picker.',
+      'The confirm step exists because this one choice decides which tenant\'s catalogue, staff and payment types the device pulls from then on. It is cheap to confirm and expensive to get wrong.',
+      '<b>Yes, Set Up This Terminal</b> is the only write on this screen. Declining clears the lookup and not the stored account, so a till can be re-pointed at another company without a reinstall.',
+      'No password is asked for here. Identifying the tenant is not the same as proving who is standing at the counter, and the passcode screen handles the second job.'
+    ]
+  },
+  {
+    id: 'store-select', file: 'qbotpos-src/3-stores.png',
+    title: 'Store selection',
+    sub: 'one company, several outlets',
+    pins: [
+      {n:1, x:258, y:34},
+      {n:2, x:920, y:98},
+      {n:3, x:920, y:297},
+      {n:4, x:920, y:455},
+      {n:5, x:370, y:663}
+    ],
+    notes: [
+      'The bound company rides in the header for the rest of the flow, and the store list is scoped to it &mdash; a device can only ever see the outlets of the account it was set up against.',
+      'The picker is its own step rather than a setting buried in preferences, because a tablet genuinely moves between counters.',
+      'The count and the rows are read from the <b>local cache</b>; the network refresh writes into the same IndexedDB table rather than into the view, so the screen renders the same whether or not the request lands.',
+      'Open / Closed is the outlet\'s own active flag. A closed store still lists: staff need to see that it exists and is shut, not wonder why it vanished.',
+      'Choosing a store fixes the catalogue, the tax rate and the order-number prefix for the session, and the route becomes <code>/pos/{store_id}</code>.'
+    ]
+  },
+  {
+    id: 'passcode-login', file: 'qbotpos-src/4-login-passcode.png',
+    title: 'Operator sign-in',
+    sub: 'a shared till, a six-digit passcode',
+    pins: [
+      {n:1, x:380, y:88},
+      {n:2, x:900, y:269},
+      {n:3, x:380, y:347},
+      {n:4, x:900, y:483},
+      {n:5, x:380, y:683}
+    ],
+    notes: [
+      'Sign-in is a passcode on a numpad, not an email and password. The device is shared and a queue at the counter does not wait for someone to type an address.',
+      'The company is already bound, so this screen only has to establish <b>which employee</b> is on shift within that account.',
+      'Six dots, filled as the numpad is pressed. Nothing is submitted until the last digit lands, so there is no per-keystroke request.',
+      'Online the passcode is checked by the API. <b>Offline it is verified against a SHA-256 hash held on the device</b>, which is what lets a till with no uplink still open and sell.',
+      '<b>Change Company</b> is the one way back out to setup &mdash; deliberately the least prominent control on the screen.'
+    ]
+  },
+  {
+    id: 'pos-terminal', file: 'qbotpos-src/6-pos-cart.png',
+    title: 'POS terminal',
+    sub: 'catalogue, cart and the totals the customer is quoted',
+    pins: [
+      {n:1, x:680, y:32},
+      {n:2, x:546, y:150},
+      {n:3, x:198, y:465},
+      {n:4, x:737, y:150},
+      {n:5, x:940, y:629}
+    ],
+    notes: [
+      'The header carries the bound outlet, the clock and the operator on shift &mdash; the three things someone checks before taking money at a counter that several people share.',
+      'Search filters the cached catalogue on the device. There is no round trip per keystroke, because the whole catalogue for this outlet already lives in IndexedDB.',
+      'Stock is shown per line. A sold-out item is greyed with an <b>Out of Stock</b> badge instead of being hidden, so staff can tell "we are out" from "we do not sell it here".',
+      'Barcode scanners are read as <b>keystrokes at the page level</b>, so a USB or Bluetooth gun adds to the cart with no driver and without anything being focused first.',
+      'The summary is computed on the device: subtotal less discount, plus the payment type\'s consumer fee, plus <b>the outlet\'s own tax rate</b> (3% here). Tax travels with the store, so two outlets of one company can charge differently on the same product.'
+    ]
+  },
+  {
+    id: 'terminal-menu', file: 'qbotpos-src/7-menu.png',
+    title: 'Terminal menu',
+    sub: 'the whole surface of the till',
+    pins: [
+      {n:1, x:200, y:99},
+      {n:2, x:200, y:144},
+      {n:3, x:200, y:234},
+      {n:4, x:200, y:279},
+      {n:5, x:200, y:773}
+    ],
+    notes: [
+      '<b>Open Cash</b> starts a POS session with a counted opening float. That figure is what the shift later reconciles against, so it is captured before the first sale rather than reconstructed afterwards.',
+      'Orders opens <b>over</b> the till rather than navigating away, so a part-built cart survives someone looking up an earlier sale.',
+      'Payment types are the tenant\'s own configured products rather than a fixed list, which is why they are a screen and not a constant.',
+      'Settings holds the printer endpoint. The thermal printer is driven by a small Express service on the same network, and cash and pay-at-counter orders kick the drawer as part of printing the receipt.',
+      'Logout ends the operator session but leaves the company binding and the cached catalogue alone &mdash; the next person signs in onto an already-stocked till.'
+    ]
+  },
+  {
+    id: 'orders', file: 'qbotpos-src/8-orders.png',
+    title: 'Orders',
+    sub: 'the till\'s own history, held on the device',
+    pins: [
+      {n:1, x:238, y:165},
+      {n:2, x:1042, y:165},
+      {n:3, x:400, y:265},
+      {n:4, x:1240, y:435},
+      {n:5, x:930, y:435}
+    ],
+    notes: [
+      'The tiles summarise the <b>whole local order set</b>, not the page on screen &mdash; 697 orders behind a list showing eight.',
+      'Revenue counts completed orders only. A cancelled or failed order still exists in the list but must not reach the takings figure.',
+      'Paging is client-side over IndexedDB (<code>page 1 of 47</code>), so scrolling back through months of history costs nothing and works with the network down.',
+      'Status is the order\'s real state: Complete, Paid, Pending, Cancelled and Failed are distinct. A failed gateway attempt stays on the list rather than quietly disappearing.',
+      'Payment type is the configured product rather than a category, so counter cash and a Gkash card read differently on the same row.'
+    ]
+  }
+];
+
+const root = document.getElementById('items');
+
+SHEETS.forEach(function(s, idx){
+  const fname = 'qbotpos-' + (idx + 1) + '-' + s.id;
+  const el = document.createElement('div');
+  el.className = 'item';
+  el.innerHTML =
+    '<div class="fname">' + fname + '.png &middot; 1280&times;1078</div>' +
+    '<div class="sheet" id="' + s.id + '">' +
+      '<div class="shot">' +
+        '<img src="' + s.file + '" alt="" />' +
+        s.pins.map(function(p){
+          return '<div class="pin" style="left:' + p.x + 'px;top:' + p.y + 'px">' + p.n + '</div>';
+        }).join('') +
+      '</div>' +
+      '<div class="legend">' +
+        '<div class="hd">' +
+          '<div class="t">' + s.title + ' <span>&mdash; ' + s.sub + '</span></div>' +
+          '<div class="who">' + STACK + '</div>' +
+        '</div>' +
+        '<div class="notes">' +
+          s.notes.map(function(t, i){
+            return '<div class="note"><i>' + (i + 1) + '</i><p>' + t + '</p></div>';
+          }).join('') +
+        '</div>' +
+        '<div class="foot">Screenshot of the running application. Company, outlet, staff and customer identities are generated values; store and product imagery is a neutral placeholder.</div>' +
+      '</div>' +
+    '</div>';
+  root.appendChild(el);
+});
+</script>
+
+</body>
+</html>

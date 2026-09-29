@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Contra profile cover</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#1a1d24;padding:24px;font-family:'Plus Jakarta Sans',sans-serif}
+  .fname{color:#7d8494;font-size:.8rem;margin-bottom:8px;font-family:ui-monospace,Consolas,monospace}
+
+  .sheet{
+    width:1920px;height:1080px;position:relative;overflow:hidden;
+    background:
+      radial-gradient(1000px 640px at 78% 14%, rgba(34,211,238,.13), transparent 60%),
+      radial-gradient(1100px 700px at 14% 6%, rgba(255,45,32,.15), transparent 62%),
+      linear-gradient(160deg, #0b1020 0%, #101734 52%, #0a0e1c 100%);
+  }
+
+  /* dotted plate texture — quieter than a full grid, keeps the panel readable */
+  .dots{
+    position:absolute; inset:0; opacity:.55;
+    background-image:radial-gradient(rgba(255,255,255,.075) 1.4px, transparent 1.4px);
+    background-size:34px 34px;
+    mask-image:radial-gradient(1500px 1000px at 55% 30%, #000 35%, transparent 80%);
+  }
+  /* single hairline rule that ties the two halves together */
+  .rule{position:absolute; left:104px; right:104px; top:206px; height:1px;
+    background:linear-gradient(90deg, rgba(255,45,32,.55), rgba(91,140,255,.35) 45%, transparent 85%);}
+
+  /* ---- top bar ---- */
+  .top{position:absolute; left:104px; right:104px; top:118px;
+    display:flex; align-items:center; justify-content:space-between;}
+  .brand{font-size:30px; font-weight:800; color:#e7ecf5; letter-spacing:.2px}
+  .brand span{color:#ff2d20}
+  .where{
+    font-family:'JetBrains Mono',monospace; font-size:20px; color:#8e9ab9; letter-spacing:.4px;
+    display:flex; align-items:center; gap:14px;
+  }
+  .where i{font-style:normal;color:#39445f}
+
+  /* ---- left column ---- */
+  .left{position:absolute; left:104px; top:286px; width:880px}
+
+  .status{
+    display:inline-flex; align-items:center; gap:12px;
+    font-family:'JetBrains Mono',monospace; font-size:18px; letter-spacing:2.4px; text-transform:uppercase;
+    color:#7de3b0; font-weight:500;
+    background:rgba(52,211,153,.08); border:1px solid rgba(52,211,153,.28);
+    padding:11px 20px; border-radius:999px; margin-bottom:34px;
+  }
+  .status .dot{width:9px;height:9px;border-radius:50%;background:#34d399;box-shadow:0 0 0 5px rgba(52,211,153,.15)}
+
+  h1{font-size:84px; font-weight:800; letter-spacing:-2px; line-height:1.03; color:#f4f6fb}
+  h1 .grad{
+    background:linear-gradient(115deg,#ff2d20,#f9603a 48%,#5b8cff);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  p.lead{margin-top:30px; font-size:27px; line-height:1.5; color:#a7b2cd; font-weight:500; max-width:820px}
+  p.lead b{color:#e7ecf5; font-weight:700}
+
+  /* stat strip — sits above the avatar safe zone on the left */
+  .stats{margin-top:46px; display:flex; gap:56px}
+  .stat .n{font-size:42px; font-weight:800; color:#fff; letter-spacing:-.5px; line-height:1}
+  .stat .l{margin-top:9px; font-size:18px; color:#8e9ab9; font-weight:500; letter-spacing:.3px}
+  .stat .n em{font-style:normal; color:#f9603a}
+
+  /* ---- right column: panel + hardware line flow together ---- */
+  .right{position:absolute; right:104px; top:286px; width:780px}
+
+  /* the panel is a real route list + build output, not a marketing card */
+  .panel{
+    background:linear-gradient(180deg, rgba(20,28,51,.94), rgba(15,21,43,.94));
+    border:1px solid #27345c; border-radius:18px; overflow:hidden;
+    box-shadow:0 30px 70px rgba(0,0,0,.45);
+  }
+  .panel-hd{
+    display:flex; align-items:center; gap:12px;
+    padding:16px 24px; border-bottom:1px solid #223057; background:rgba(255,255,255,.025);
+  }
+  .panel-hd .tl{display:flex; gap:8px; margin-right:6px}
+  .panel-hd .tl i{width:12px;height:12px;border-radius:50%;background:#2e3a60;display:block}
+  .panel-hd .tl i:first-child{background:#ff5f57}
+  .panel-hd .tl i:nth-child(2){background:#f9bd2e}
+  .panel-hd .tl i:nth-child(3){background:#28c840}
+  .panel-hd .ttl{font-family:'JetBrains Mono',monospace; font-size:17px; color:#8e9ab9}
+  .panel-hd .ttl b{color:#d7dfef; font-weight:500}
+
+  /* section header: icon + command + stack label */
+  .sec{display:flex; align-items:center; gap:12px; padding:14px 24px 4px}
+  .sec .ico{width:22px; height:22px; flex:none; display:block}
+  .sec .cmd{font-family:'JetBrains Mono',monospace; font-size:17px; color:#8e9ab9}
+  .sec .cmd b{color:#e3e9f6; font-weight:700}
+  .sec .lbl{
+    margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:1.6px;
+    text-transform:uppercase; color:#5d6a8c; font-weight:500;
+  }
+  .sec.be .lbl{color:#c9705f}
+  .sec.fe .lbl{color:#5fb6c9}
+  .divider{height:1px; background:#223057; margin:8px 0 2px}
+
+  .rows{padding:6px 0 8px}
+  .row{display:flex; align-items:center; gap:16px; padding:10px 24px}
+  .verb{
+    font-family:'JetBrains Mono',monospace; font-size:15px; font-weight:700; letter-spacing:.5px;
+    width:60px; text-align:center; padding:5px 0; border-radius:6px; flex:none;
+  }
+  .verb.post{color:#7de3b0; background:rgba(52,211,153,.12); border:1px solid rgba(52,211,153,.3)}
+  .verb.job{color:#ffb3aa; background:rgba(255,45,32,.12); border:1px solid rgba(255,45,32,.34)}
+  .verb.tsx{color:#9db4ff; background:rgba(91,140,255,.14); border:1px solid rgba(91,140,255,.36)}
+  .verb.apk{color:#c9a7ff; background:rgba(167,139,250,.14); border:1px solid rgba(167,139,250,.36)}
+  .path{font-family:'JetBrains Mono',monospace; font-size:18px; color:#cdd6ea; flex:1; white-space:nowrap}
+  .path s{text-decoration:none; color:#5d6a8c}
+  .note{font-size:16px; color:#7f8cab; white-space:nowrap; font-weight:500}
+
+  .panel-ft{
+    padding:16px 24px 18px; border-top:1px solid #223057; background:rgba(255,255,255,.02);
+    display:flex; flex-wrap:wrap; gap:8px;
+  }
+  .tag{
+    font-family:'JetBrains Mono',monospace; font-size:15px; font-weight:500;
+    padding:6px 11px; border-radius:8px; color:#bcc6de;
+    background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.11);
+  }
+  .tag.hot{border-color:rgba(255,45,32,.45); color:#ffb3aa; background:rgba(255,45,32,.09)}
+  .tag.cool{border-color:rgba(91,140,255,.45); color:#b4c6ff; background:rgba(91,140,255,.10)}
+
+  /* hardware line under the panel — the thing that makes the profile specific */
+  .hw{margin-top:30px; text-align:right; font-size:20px; color:#8e9ab9; font-weight:500; line-height:1.55}
+  .hw b{color:#cdd6ea; font-weight:700}
+</style>
+</head>
+<body>
+
+<div class="fname">contra-profile-cover-1920x1080.png</div>
+<div class="sheet" data-name="contra-profile-cover-1920x1080.png">
+  <div class="dots"></div>
+  <div class="rule"></div>
+
+  <div class="top">
+    <div class="brand">Shaswin<span>.</span>dev</div>
+    <div class="where">Malaysia <i>/</i> GMT+8 <i>/</i> Remote &amp; contract</div>
+  </div>
+
+  <div class="left">
+    <div class="status"><span class="dot"></span> Available for freelance work</div>
+    <h1>Laravel &amp; React<br><span class="grad">full-stack</span> developer</h1>
+    <p class="lead">I build <b>SaaS platforms, e-commerce &amp; POS systems, mobile apps and admin dashboards</b> — with the payments, accounting, e-invoicing, delivery and hardware integrations they need. All of it running in real businesses, not demos.</p>
+    <div class="stats">
+      <div class="stat"><div class="n">5+ <em>yrs</em></div><div class="l">Web development</div></div>
+      <div class="stat"><div class="n">9+</div><div class="l">Production projects</div></div>
+      <div class="stat"><div class="n">Laravel</div><div class="l">Primary specialty</div></div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="panel">
+      <div class="panel-hd">
+        <span class="tl"><i></i><i></i><i></i></span>
+        <span class="ttl">what I actually ship — <b>backend + frontend</b></span>
+      </div>
+
+      <!-- backend: artisan prompt glyph in Laravel red -->
+      <div class="sec be">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="#ff5b3d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 6l6 6-6 6"/><path d="M13 18h6"/>
+        </svg>
+        <span class="cmd">php artisan <b>route:list</b></span>
+        <span class="lbl">Laravel · PHP · API</span>
+      </div>
+      <div class="rows">
+        <div class="row">
+          <span class="verb post">POST</span>
+          <span class="path">/api/orders/<s>{order}</s>/checkout</span>
+          <span class="note">Stripe · GKASH</span>
+        </div>
+        <div class="row">
+          <span class="verb post">POST</span>
+          <span class="path">/api/delivery/dispatch</span>
+          <span class="note">Lalamove · HMAC-SHA256</span>
+        </div>
+        <div class="row">
+          <span class="verb post">POST</span>
+          <span class="path">/api/invoices/<s>{invoice}</s>/submit</span>
+          <span class="note">LHDN MyInvois</span>
+        </div>
+        <div class="row">
+          <span class="verb job">JOB</span>
+          <span class="path">SyncAccountingLedger</span>
+          <span class="note">QuickBooks · Xero</span>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- frontend: React atom -->
+      <div class="sec fe">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="#61dafb" stroke-width="1.5" aria-hidden="true">
+          <circle cx="12" cy="12" r="2" fill="#61dafb" stroke="none"/>
+          <ellipse cx="12" cy="12" rx="10.5" ry="4.2"/>
+          <ellipse cx="12" cy="12" rx="10.5" ry="4.2" transform="rotate(60 12 12)"/>
+          <ellipse cx="12" cy="12" rx="10.5" ry="4.2" transform="rotate(120 12 12)"/>
+        </svg>
+        <span class="cmd">npm run <b>build</b></span>
+        <span class="lbl">React · TypeScript · Ionic</span>
+      </div>
+      <div class="rows">
+        <div class="row">
+          <span class="verb tsx">TSX</span>
+          <span class="path">src/pos/<s>Terminal</s>.tsx</span>
+          <span class="note">offline-first · IndexedDB</span>
+        </div>
+        <div class="row">
+          <span class="verb tsx">TSX</span>
+          <span class="path">src/kiosk/<s>FaceCheckIn</s>.tsx</span>
+          <span class="note">MediaPipe · on-device</span>
+        </div>
+        <div class="row">
+          <span class="verb apk">APK</span>
+          <span class="path">android/app-release.apk</span>
+          <span class="note">Capacitor · Sunmi</span>
+        </div>
+      </div>
+
+      <div class="panel-ft">
+        <span class="tag hot">Laravel</span>
+        <span class="tag hot">PHP</span>
+        <span class="tag cool">React</span>
+        <span class="tag cool">TypeScript</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">Redis</span>
+        <span class="tag">Docker</span>
+      </div>
+    </div>
+
+    <div class="hw">
+      Multi-tenant APIs, queued jobs and websockets — down to the hardware:<br>
+      <b>ESC/POS printers, cash drawers, QR scanners, LPR cameras and barrier gates.</b>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

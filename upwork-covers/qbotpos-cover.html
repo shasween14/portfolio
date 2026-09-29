@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Upwork cover — QBot POS</title>
+<style>
+  /* Same cover styling as fiverr-covers.html, which produced the existing
+     portfolio-*.png set — kept verbatim so this sits beside them unchanged. */
+  :root{
+    --bg:#0b1020; --card:#141c33; --border:#243156;
+    --text:#e7ecf5; --muted:#9aa6c4;
+    --brand:#ff2d20; --brand-2:#f9603a; --accent:#5b8cff; --accent-2:#22d3ee; --ok:#34d399;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;background:#070a16;color:var(--text);padding:30px}
+
+  .page-head{max-width:1024px;margin:0 auto 26px;color:var(--muted);font-size:.92rem;line-height:1.6}
+  .page-head h1{font-size:1.4rem;color:#fff;margin-bottom:8px}
+  .page-head code{background:#141c33;padding:1px 6px;border-radius:4px;font-size:.9em}
+
+  .cover-wrap{max-width:1024px;margin:0 auto 40px}
+  .cover-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+  .cover-bar .lbl{color:var(--muted);font-size:.85rem}
+
+  /* EXACT 1024x768 export target */
+  .cover{
+    width:1024px;height:768px;position:relative;overflow:hidden;
+    background:
+      radial-gradient(900px 460px at 82% -8%,rgba(91,140,255,.18),transparent 60%),
+      radial-gradient(760px 420px at -8% 8%,rgba(255,45,32,.16),transparent 55%),
+      var(--bg);
+    border:1px solid var(--border);border-radius:18px;
+    padding:64px 70px;display:flex;flex-direction:column;
+  }
+  .kicker{color:var(--brand-2);font-weight:800;font-size:1rem;letter-spacing:3px;text-transform:uppercase}
+  .cover h2{font-size:3.2rem;line-height:1.06;font-weight:800;letter-spacing:-1.5px;margin-top:18px;max-width:880px}
+  .cover h2 .grad{color:var(--brand-2)}
+  .sub{color:var(--muted);font-size:1.25rem;margin-top:22px;max-width:760px;line-height:1.5}
+  .feats{margin-top:30px;display:flex;flex-direction:column;gap:12px}
+  .feats div{font-size:1.12rem;color:#cfd6e8;padding-left:30px;position:relative}
+  .feats div::before{content:"▹";position:absolute;left:0;color:var(--brand-2);font-size:1.2rem}
+  .spacer{flex:1}
+  .stack{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px}
+  .tag{font-size:1rem;background:var(--card);border:1px solid var(--border);color:#cdd5ea;padding:8px 15px;border-radius:10px}
+  .tag.hot{border-color:rgba(255,45,32,.5);color:#ffb3aa;background:rgba(255,45,32,.10)}
+  .foot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:22px}
+  .foot .who{font-weight:800;font-size:1.25rem}
+  .foot .who .dot{color:var(--brand)}
+  .foot .role{color:var(--muted);font-size:1rem}
+</style>
+</head>
+<body>
+
+<div class="page-head">
+  <h1>Upwork portfolio cover — QBot POS</h1>
+  Text-only, 1024&times;768, in the same template as the existing
+  <code>portfolio-offline-pos-app.png</code>. Only the three feature lines and the stack pills differ:
+  they now match what the portfolio entry says (React 19, the 13-table store, the cash drawer, the
+  barcode input), and the retired &ldquo;Cypress tested&rdquo; line is gone.
+  Rendered to <code>upwork-covers/portfolio-qbotpos-cover.png</code>.
+</div>
+
+<div class="cover-wrap">
+  <div class="cover-bar"><div class="lbl">portfolio-qbotpos-cover.png &middot; 1024&times;768</div></div>
+  <div class="cover" id="cover">
+    <div class="kicker">Mobile POS App</div>
+    <h2>Offline-first <span class="grad">point-of-sale</span> mobile app</h2>
+    <div class="sub">A checkout app that keeps working with no internet and prints receipts straight to a
+      thermal printer.</div>
+    <div class="feats">
+      <div>Ionic 8 + React 19 &middot; 13-table IndexedDB store on the device</div>
+      <div>Bundled thermal print server &middot; ESC/POS receipts and cash drawer</div>
+      <div>Barcode guns read as keystrokes &middot; native Android via Capacitor</div>
+    </div>
+    <div class="spacer"></div>
+    <div class="stack">
+      <span class="tag">Ionic 8</span>
+      <span class="tag hot">React 19</span>
+      <span class="tag">TypeScript</span>
+      <span class="tag">Capacitor</span>
+      <span class="tag">Dexie</span>
+      <span class="tag">Node.js</span>
+    </div>
+    <div class="foot">
+      <div class="who">Shaswin<span class="dot">.</span>dev</div>
+      <div class="role">Solo Build &middot; Laravel &amp; Full-Stack</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

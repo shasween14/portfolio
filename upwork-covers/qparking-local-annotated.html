@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Annotated Screenshots — QParking Local Server</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;background:#1a1d24;padding:24px}
+
+  .page-head{max-width:1280px;margin:0 auto 24px;color:#c8ccd4;font-size:.92rem;line-height:1.6}
+  .page-head h1{font-size:1.25rem;color:#fff;margin-bottom:8px}
+  .page-head code{background:#252932;padding:1px 6px;border-radius:4px;font-size:.9em}
+
+  .item{max-width:1280px;margin:0 auto 30px}
+  .item .fname{color:#7d8494;font-size:.8rem;margin-bottom:6px;font-family:ui-monospace,Consolas,monospace}
+
+  .sheet{width:1280px;background:#fff;position:relative}
+  /* The capture is 1800x1125 (a 1440x900 window at 1.25x). Shown at its own
+     aspect (1280x800) and clipped to 734, which drops the dev build's debug
+     drawer along the bottom edge — nothing above it is touched. */
+  .shot{position:relative;width:1280px;height:734px;line-height:0;overflow:hidden}
+  .shot img{width:1280px;height:800px;display:block}
+
+  .pin{position:absolute;width:26px;height:26px;border-radius:50%;
+       background:#c2260f;color:#fff;font-size:14px;font-weight:700;
+       display:flex;align-items:center;justify-content:center;
+       box-shadow:0 0 0 2.5px #fff, 0 1px 3px rgba(0,0,0,.4);
+       transform:translate(-50%,-50%)}
+
+  .legend{background:#12151c;border-top:3px solid #c2260f;padding:16px 22px 18px;height:330px}
+  .legend .hd{display:flex;justify-content:space-between;align-items:baseline;gap:20px;
+              padding-bottom:12px;margin-bottom:12px;border-bottom:1px solid #262b36}
+  .legend .hd .t{color:#fff;font-size:17px;font-weight:700}
+  .legend .hd .t span{color:#8d95a6;font-weight:400;font-size:14px}
+  .legend .hd .who{color:#8d95a6;font-size:13px;white-space:nowrap}
+  .notes{display:grid;grid-template-columns:1fr 1fr;gap:7px 30px}
+  .note{display:grid;grid-template-columns:19px 1fr;gap:9px;align-items:start}
+  .note i{width:19px;height:19px;border-radius:50%;background:#c2260f;color:#fff;
+          font-size:11.5px;font-weight:700;font-style:normal;
+          display:flex;align-items:center;justify-content:center;margin-top:1px}
+  .note p{color:#b9c0cd;font-size:13.5px;line-height:1.45}
+  .note p b{color:#fff;font-weight:600}
+  .note p code{font-family:ui-monospace,Consolas,monospace;font-size:.9em;color:#e2e6ee}
+  .foot{color:#6c7382;font-size:12px;margin-top:12px;padding-top:10px;border-top:1px solid #1c212b}
+</style>
+</head>
+<body>
+
+<div class="page-head">
+  <h1>Annotated screenshots — QParking Local Server (Electron gate controller)</h1>
+  Captures of the running desktop app on a bench: its own Electron main process, its own SQLite database and
+  its own gate state machine, driven through the same <code>window.bridge</code> calls the UI uses and the real
+  <code>/lpr/event</code> webhook. The qparking SaaS and the Touch&rsquo;n&rsquo;Go W4G payment device are
+  stubbed, because neither is on this machine &mdash; see <code>tools/qparking-local/README.md</code>.
+  Rendered to <code>upwork-covers/qparking-local/</code>.
+</div>
+
+<div id="items"></div>
+
+<script>
+/* =========================================================================
+   Every site, customer, plate and pass shown here is invented for the bench
+   — no client data is present in any frame. The cameras and LCD panels read
+   OFFLINE because there is no hardware on this network, and the barrier-pulse
+   failures in the audit trail are the box correctly reporting that it could
+   not reach a camera. The captures on the Parking Activity page are generated
+   test frames, not photographs.
+   Pin coordinates are in the sheet's 1280x734 pixel space.
+   ========================================================================= */
+
+const STACK = 'Electron 32 &middot; React 18 &middot; TypeScript &middot; better-sqlite3 &middot; Node HTTP &middot; Tailwind';
+
+const SHEETS = [
+  {
+    id: 'dashboard', file: 'qparking-local-src/1-dashboard.png',
+    title: 'Gate dashboard',
+    sub: 'what the site PC shows the operator',
+    pins: [
+      {n:1, x:818, y:167},
+      {n:2, x:455, y:245},
+      {n:3, x:704, y:245},
+      {n:4, x:1209, y:245},
+      {n:5, x:736, y:498}
+    ],
+    notes: [
+      'Cloud sync is stated, not assumed: <b>pending</b>, <b>failed</b>, last success and last attempt. Every session and payment is queued locally first and drained to the SaaS, so the count going up is the only honest way to show the WAN is down.',
+      '<b>Cars inside</b> is derived from open sessions in the local SQLite file, not from the cloud. The barrier has to answer in the second a car arrives, so nothing on this screen waits on a network round trip.',
+      'Takings are computed from the local payment ledger for the day, so the number still moves while the site is offline and reconciles upward when the queue drains.',
+      'Device health is polled per camera, terminal and LCD panel. <b>9 offline</b> here is truthful: this bench has no hardware on the LAN, and the box says so rather than showing a green light it cannot justify.',
+      'Recent exits and recent payments are two different tables deliberately &mdash; a stay that ended and a charge that settled are not the same event, and separating them is what makes an unpaid exit visible.'
+    ]
+  },
+  {
+    id: 'parking-activity', file: 'qparking-local-src/2-parking-activity.png',
+    title: 'Parking activity',
+    sub: 'every stay this box has recorded',
+    pins: [
+      {n:1, x:839, y:92},
+      {n:2, x:398, y:196},
+      {n:3, x:441, y:249},
+      {n:4, x:932, y:661},
+      {n:5, x:1209, y:441}
+    ],
+    notes: [
+      '<b>Push to cloud</b> is the manual drain. The automatic one runs on a timer; the button exists because an operator who has just fixed the internet should not have to wait for the next tick.',
+      'Cars still inside and stays already closed are one list with one filter, because the operator&rsquo;s question is about a plate, not about a table.',
+      'The capture thumbnails are what the camera POSTed to <code>/lpr/event</code> &mdash; the image arrives base64 on the webhook, is written to disk under the app&rsquo;s data directory and is what the operator looks at when a plate reads wrong.',
+      'Duration, fee and how the stay was settled sit on the row. <b>Free</b> is recorded with a reason &mdash; a season pass, the grace window, or a rate plan that prices at zero &mdash; because revenue assurance needs to tell a legitimate free exit from a misconfigured tariff.',
+      'A per-row cloud watermark. The box counts its own revisions and compares them against what the SaaS has acknowledged, so an edited session shows as stale rather than as sent.'
+    ]
+  },
+  {
+    id: 'cameras', file: 'qparking-local-src/3-cameras.png',
+    title: 'LPR cameras',
+    sub: 'the plate intake, one listener per port',
+    pins: [
+      {n:1, x:860, y:176},
+      {n:2, x:640, y:304},
+      {n:3, x:580, y:278},
+      {n:4, x:711, y:631},
+      {n:5, x:1090, y:492}
+    ],
+    notes: [
+      'The webhook is <b>per camera</b>, not per server: firmware differs in what port it will let you set, so the box binds a listener for every distinct port in use and shows exactly which ones are held.',
+      'Each camera carries its LAN address, the lane it covers and its own webhook secret. A push from an unregistered camera still lands &mdash; it is logged as an unknown camera naming the IP, which is how an installer finds it.',
+      '<b>Offline</b> is a live probe, not a stored flag. There are no cameras on this bench, so every row says so.',
+      '<b>Only pass allow</b> is an access mode on the camera. A plate with no valid pass is refused at that gate: no session, no barrier, and an audit row naming who was turned away.',
+      'Opening the barrier by hand is on the camera row rather than in a menu, because the person doing it is standing at the gate with a queue behind them.'
+    ]
+  },
+  {
+    id: 'lanes', file: 'qparking-local-src/4-lanes.png',
+    title: 'Lanes',
+    sub: 'camera + tariff + payment device, wired per gate',
+    pins: [
+      {n:1, x:820, y:86},
+      {n:2, x:427, y:225},
+      {n:3, x:675, y:253},
+      {n:4, x:650, y:342},
+      {n:5, x:640, y:580}
+    ],
+    notes: [
+      'Equipment can be pushed to, or pulled from, the SaaS. Devices are matched on a durable external id rather than the local row number, so a reinstall does not create a second copy of every camera.',
+      'Direction is <b>derived</b>, not typed in: a lane reads as entry, exit or both from the cameras assigned to it. A camera faces one way by physics, and a shared barrier is modelled as two cameras.',
+      'A lane is the join: which camera watches it, which rate plan prices it, which driver panel it drives. The gate logic reads the lane, so a site is re-configured without touching code.',
+      'Only exit lanes carry a payment device. An entry lane has nothing to charge for, and the form does not offer a field that cannot mean anything.',
+      'The pass-only lane is the same object with a stricter camera &mdash; no separate concept, no second code path to keep in step.'
+    ]
+  },
+  {
+    id: 'rates', file: 'qparking-local-src/5-rates.png',
+    title: 'Rate plans',
+    sub: 'priced at the gate, even with the WAN down',
+    pins: [
+      {n:1, x:600, y:258},
+      {n:2, x:1250, y:457},
+      {n:3, x:430, y:550},
+      {n:4, x:1123, y:636},
+      {n:5, x:930, y:703}
+    ],
+    notes: [
+      'Tariffs are authored in the SaaS and <b>mirrored</b> here. The exit fee is computed on the gate PC from this cache, so a car can still be charged correctly while the site has no internet.',
+      'One plan is the site default. A lane without an explicit plan falls back to it rather than to free parking, which is the failure mode that quietly costs an operator money.',
+      'Rules are evaluated per moment of the stay, not once at exit: a car that arrives at 21:00 and leaves at 07:00 is priced by the daytime rule, then the overnight one. <b>Active now</b> marks which rule owns the current minute.',
+      'Priority decides which rule wins where two overlap, and it is shown rather than implied &mdash; an operator who adds an event tariff needs to see what it outranks.',
+      'The mirror is read-only by design. One editable copy of a price, in the SaaS, is the only way two systems cannot disagree about what a car owes.'
+    ]
+  },
+  {
+    id: 'transactions', file: 'qparking-local-src/6-transactions.png',
+    title: 'Payment ledger',
+    sub: 'every W4G attempt, settled or not',
+    pins: [
+      {n:1, x:800, y:110},
+      {n:2, x:280, y:466},
+      {n:3, x:866, y:466},
+      {n:4, x:978, y:466},
+      {n:5, x:730, y:466}
+    ],
+    notes: [
+      'The device flow is two legs, and both are recorded: this box POSTs <b>PayRequest</b> to the terminal, the driver taps, and the terminal calls back with <b>PayResult</b> on a port this app is listening on.',
+      'Every attempt gets a local order id before the request leaves, so a reply that arrives after a timeout still has a row to land on instead of becoming an orphan.',
+      'Card numbers are stored as the device returns them &mdash; masked. The box never sees or keeps a full PAN.',
+      'The approval code is kept against the stay. It is what settles a dispute weeks later when a driver says they paid and the site says the barrier never lifted.',
+      'Which physical device rang up the charge is snapshotted on the row, so renaming or removing a terminal later does not rewrite history.'
+    ]
+  },
+  {
+    id: 'activity-log', file: 'qparking-local-src/7-activity-logs.png',
+    title: 'Audit trail',
+    sub: 'gate decisions, including the ones that failed',
+    pins: [
+      {n:1, x:960, y:93},
+      {n:2, x:1120, y:149},
+      {n:3, x:1184, y:326},
+      {n:4, x:1184, y:373},
+      {n:5, x:1184, y:232}
+    ],
+    notes: [
+      'Local rows are pushed up and the cloud set is pulled back down, so one trail holds both what happened at the gate and what an administrator did in the portal. The push runs before the pull, or an unacknowledged local row would be wiped by the mirror it is not yet part of.',
+      'Rows are filtered by category, severity, source and push state. &ldquo;Has this reached head office yet?&rdquo; is an operational question, so it is a filter and not a support ticket.',
+      'A pass-only refusal is recorded with the plate and the lane. The driver at the barrier gets a reason and the operator gets the same reason, rather than a gate that simply did not move.',
+      'A banned plate is refused at the gate with the ban reason attached. The deny list is mirrored down every five minutes, so a ban applied in the portal reaches the barrier without anyone visiting the site.',
+      'A barrier that does not open is <b>critical</b>, and it is logged as loudly as a refusal. These rows are real: there is no camera on this bench to pulse, and the box reports that rather than recording the entry as though the car got in.'
+    ]
+  }
+];
+
+const root = document.getElementById('items');
+
+SHEETS.forEach(function(s, idx){
+  const fname = 'qparking-local-' + (idx + 1) + '-' + s.id;
+  const el = document.createElement('div');
+  el.className = 'item';
+  el.innerHTML =
+    '<div class="fname">' + fname + '.png &middot; 1280&times;1064</div>' +
+    '<div class="sheet" id="' + s.id + '">' +
+      '<div class="shot">' +
+        '<img src="' + s.file + '" alt="" />' +
+        s.pins.map(function(p){
+          return '<div class="pin" style="left:' + p.x + 'px;top:' + p.y + 'px">' + p.n + '</div>';
+        }).join('') +
+      '</div>' +
+      '<div class="legend">' +
+        '<div class="hd">' +
+          '<div class="t">' + s.title + ' <span>&mdash; ' + s.sub + '</span></div>' +
+          '<div class="who">' + STACK + '</div>' +
+        '</div>' +
+        '<div class="notes">' +
+          s.notes.map(function(t, i){
+            return '<div class="note"><i>' + (i + 1) + '</i><p>' + t + '</p></div>';
+          }).join('') +
+        '</div>' +
+        '<div class="foot">Screenshot of the running desktop app on a bench rig. Site, customers, plates, passes and bays are generated values; the qparking SaaS and the W4G payment terminal are local stubs speaking the real contracts; no camera or panel hardware is present, which is why device rows read offline.</div>' +
+      '</div>' +
+    '</div>';
+  root.appendChild(el);
+});
+</script>
+
+</body>
+</html>
