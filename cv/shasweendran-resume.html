@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Shasweendran Jayakumar — Resume</title>
+<style>
+  @page { size: A4; margin: 0; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --blue:#3176e0;
+    --ink:#303030;
+    --muted:#6f7480;
+    --line:#d9dde4;
+  }
+  html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{
+    font-family:"Segoe UI","Helvetica Neue",Arial,sans-serif;
+    font-size:8.5pt; line-height:1.4; color:var(--ink); background:#fff;
+  }
+  .sheet{display:flex;min-height:297mm;width:210mm}
+
+  /* ---------- sidebar ---------- */
+  .side{width:23%;background:var(--blue);color:#fff;padding:13mm 6mm}
+  .side h2{
+    font-size:8.6pt;font-weight:700;letter-spacing:.2px;
+    border-bottom:1px solid rgba(255,255,255,.55);
+    padding-bottom:3px;margin-bottom:7px;
+  }
+  .side .block{margin-bottom:11px}
+  .side .label{font-size:8.2pt;font-weight:700;margin-top:7px}
+  .side .val{font-size:8pt;color:rgba(255,255,255,.92);line-height:1.45}
+  .side .val a{color:inherit;text-decoration:none;word-break:break-all}
+  .side ul{list-style:none}
+  .side li{font-size:8pt;line-height:1.65;color:rgba(255,255,255,.92)}
+  .lang{font-size:8pt;margin-top:6px}
+  .lang b{display:block;font-weight:700;color:#fff}
+  .lang span{color:rgba(255,255,255,.8)}
+
+  /* ---------- main ---------- */
+  .main{flex:1;padding:13mm 11mm 10mm 9mm}
+  .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10mm}
+  .name{font-size:19pt;font-weight:700;color:var(--ink);line-height:1.1;letter-spacing:-.3px}
+  .role{font-size:9.4pt;font-weight:600;color:var(--blue);margin-top:2px}
+  .summary{font-size:8.4pt;margin-top:6px;color:#3d434e}
+  .summary b{color:var(--ink)}
+  .photo{width:26mm;height:auto;border-radius:2px;flex-shrink:0}
+
+  h3{
+    font-size:9.6pt;font-weight:700;color:var(--ink);
+    margin:8px 0 5px;padding-bottom:2px;border-bottom:1px solid var(--line);
+    break-after:avoid;page-break-after:avoid;
+  }
+
+  .row{display:grid;grid-template-columns:30mm 1fr;gap:0 5mm;margin-bottom:5px;break-inside:avoid}
+  .meta{font-size:7.6pt;color:var(--muted);line-height:1.4;padding-top:1px}
+  .meta i{display:block;font-style:italic}
+  .rtitle{font-size:9pt;font-weight:700;color:var(--blue)}
+  .rorg{font-size:8.4pt;font-weight:700;color:var(--ink);margin-bottom:2px}
+  .rorg .sub{font-weight:400;color:#3d434e}
+  .rnote{font-size:8.2pt;color:#3d434e}
+  .purl{font-size:9pt;font-weight:700;color:var(--blue);margin-top:2px}
+  ul.pts{list-style:none;margin-top:1px}
+  ul.pts li{font-size:8.2pt;padding-left:8px;position:relative;margin-bottom:1px;color:#3d434e}
+  ul.pts li:before{content:"";position:absolute;left:0;top:.52em;width:3px;height:3px;background:var(--blue);border-radius:50%}
+  ul.pts li b{color:var(--ink);font-weight:600}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <aside class="side">
+    <div class="block">
+      <h2>Contact</h2>
+      <div class="label">Email</div>
+      <div class="val"><a href="mailto:shaswinkumar@gmail.com">shaswinkumar@gmail.com</a></div>
+      <div class="label">Phone</div>
+      <div class="val">014 345 1855</div>
+      <div class="label">GitHub</div>
+      <div class="val">github.com/shasween14</div>
+      <div class="label">Nationality</div>
+      <div class="val">Malaysian</div>
+    </div>
+
+    <div class="block">
+      <h2>Skills</h2>
+      <ul>
+        <li>Laravel 8&ndash;13</li>
+        <li>PHP 8.x</li>
+        <li>REST API design</li>
+        <li>React &amp; TypeScript</li>
+        <li>Ionic &amp; Capacitor</li>
+        <li>MySQL / PostgreSQL</li>
+        <li>Redis &amp; queues</li>
+        <li>Docker &amp; Compose</li>
+        <li>Blade, Bootstrap, Tailwind</li>
+        <li>JavaScript, jQuery</li>
+        <li>WebSockets (Reverb, Pusher)</li>
+        <li>Payment &amp; accounting APIs</li>
+        <li>Git &amp; GitHub Actions</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h2>Languages</h2>
+      <div class="lang"><b>English</b><span>Native</span></div>
+      <div class="lang"><b>Malay</b><span>Native</span></div>
+      <div class="lang"><b>Tamil</b><span>Advanced</span></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="top">
+      <div>
+        <div class="name">Shasweendran Jayakumar</div>
+        <div class="role">Full-Stack Developer &middot; Laravel / PHP &middot; React &amp; TypeScript</div>
+        <div class="summary">
+          Backend-first full-stack developer with <b>5+ years</b> building commerce platforms, point-of-sale
+          systems and multi-tenant SaaS that run in real shops, restaurants and car parks. Strongest in
+          <b>Laravel and PHP</b> &mdash; REST APIs, authentication and role permissions, queued jobs and
+          reporting &mdash; and comfortable taking work end to end, from database schema to a deployed
+          Docker stack.
+        </div>
+      </div>
+      <img class="photo" src="photo.png" alt="Shasweendran Jayakumar" />
+    </div>
+
+    <h3>Experience</h3>
+
+    <div class="row">
+      <div class="meta">Kuala Lumpur, Malaysia<i>Aug 2024 &ndash; Present</i></div>
+      <div>
+        <div class="rtitle">Full-Stack Developer</div>
+        <div class="rorg">Crave Asia</div>
+        <ul class="pts">
+          <li>Lead developer on the <b>QBotu</b> and <b>QBot</b> commerce platforms, owning the Laravel backend: REST APIs, Sanctum authentication, Spatie role permissions, queued jobs and reporting.</li>
+          <li>Built React and Ionic front-ends for POS, kiosk and tablet, packaged to native Android with Capacitor.</li>
+          <li>Delivered payment gateway integrations, ESC/POS thermal printing, and offline-capable POS that keeps trading without a network.</li>
+          <li>Set up the Docker Compose stacks and deploy scripts the platforms ship on.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="meta">Subang Jaya, Malaysia<i>Nov 2021 &ndash; Aug 2024</i></div>
+      <div>
+        <div class="rtitle">Web Developer</div>
+        <div class="rorg">Appolous</div>
+        <ul class="pts">
+          <li>Laravel development on <b>Appolous BMS</b>, a cloud business-management and POS product covering sales, inventory, clients and visit tracking.</li>
+          <li>Backend performance work with <b>Laravel Octane on Swoole</b> and Redis caching; moved email and SMS onto queues and split databases so reporting stopped slowing the operational side.</li>
+          <li>Built third-party integrations including Stripe payments, Lazada marketplace sync and the <b>Meta Conversions API</b>, and fixed backend issues across live merchant sites.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="meta">Klang, Malaysia<i>Mar 2021 &ndash; Jun 2021</i></div>
+      <div>
+        <div class="rtitle">Application Engineer</div>
+        <div class="rorg">LCP Buildsoft Technology</div>
+        <ul class="pts">
+          <li>Developed and maintained application features, and analysed code to correct errors and optimise output.</li>
+          <li>Translated user needs and system functionality into technical design specifications.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="meta">Shah Alam, Malaysia<i>Nov 2020 &ndash; Jan 2021</i></div>
+      <div>
+        <div class="rtitle">Web Developer (Intern)</div>
+        <div class="rorg">Opensoft Technologies</div>
+        <ul class="pts">
+          <li>Built and maintained web applications in Laravel, PHP, JavaScript and jQuery.</li>
+          <li>Tested and debugged for cross-browser compatibility, and prototyped new pages and features.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Selected Projects</h3>
+
+    <div class="rnote">Commerce platforms, POS systems and multi-tenant SaaS &mdash; with screenshots and technical detail:</div>
+    <div class="purl">https://shasween14.github.io/portfolio/</div>
+
+    <h3>Education</h3>
+
+    <div class="row">
+      <div class="meta">Kuala Lumpur<i>Jan 2018 &ndash; Jul 2020</i></div>
+      <div>
+        <div class="rtitle">Bachelor of Computing</div>
+        <div class="rorg">SEGi College Kuala Lumpur <span class="sub">&middot; Upper Second Class Honours</span></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="meta">Kuala Lumpur<i>Jan 2020</i></div>
+      <div>
+        <div class="rtitle">Certificate in Big Data Technology and Management</div>
+        <div class="rorg">SEGi College Kuala Lumpur</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="meta">Kuala Lumpur<i>Jan 2020</i></div>
+      <div>
+        <div class="rtitle">Certificate in Data Analytics with Python Programming</div>
+        <div class="rorg">SEGi College Kuala Lumpur</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="meta">Kuala Lumpur<i>Jan 2015 &ndash; Oct 2017</i></div>
+      <div>
+        <div class="rtitle">Diploma in Computer Studies</div>
+        <div class="rorg">SEGi College Kuala Lumpur <span class="sub">&middot; CGPA 2.65 / 4.0</span></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="meta">Kuala Lumpur<i>Apr 2012 &ndash; Mar 2013</i></div>
+      <div>
+        <div class="rtitle">Certificate in Information Technology</div>
+        <div class="rorg">SEGi College Kuala Lumpur <span class="sub">&middot; CGPA 2.87 / 4.0</span></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="meta">Klang<i>Jan 2007 &ndash; Dec 2011</i></div>
+      <div>
+        <div class="rtitle">Sijil Pelajaran Malaysia (SPM)</div>
+        <div class="rorg">SMK Batu Unjur</div>
+      </div>
+    </div>
+
+  </main>
+
+</div>
+</body>
+</html>
