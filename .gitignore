@@ -1,5 +1,6 @@
 # Personal scans and certificates
 /cert/
+/cv/
 
 # Gig thumbnails as downloaded (the filenames are the generation prompts).
 # Web copies: upwork-covers/fiverr/ (index.html), upwork-covers/services-4x3/ (Upwork)

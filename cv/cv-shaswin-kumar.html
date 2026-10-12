@@ -205,10 +205,11 @@
     <ul>
       <li>Built the <b>Lalamove v3</b> and <b>Borzo</b> courier integrations end to end: hand-rolled HMAC-SHA256 request signing, multi-stop route-optimised quotations, bulk dispatch across selected orders, and signature-verified webhooks that advance orders to Delivered on courier completion.</li>
       <li>Two-way <b>Shopify</b> sync: scheduled nightly order import mapping products, variants, customers and addresses onto local records, plus fulfilment push-back through the Admin GraphQL API.</li>
+      <li>In-store <b>print pipeline</b>: dompdf renders consignment notes, gift-message cards and photo prints (A4/A5/A6, 4&times;6) into a print queue; a <b>Node.js agent</b> on the shop PC registers its local printers with the app, polls the queue, prints each job at the right paper size and orientation, then clears it.</li>
       <li>Role-based permissions, country/state helpers and phone-number validation; migrated slow synchronous jobs onto queues.</li>
       <li>Worked across <b>141 Blade templates</b> on a themeable Bootstrap 4 setup with reusable form partials and a CSS override layer.</li>
     </ul>
-    <div class="stack">Laravel &middot; Blade &middot; Bootstrap 4 &middot; jQuery &middot; Queues &middot; Shopify &middot; Lalamove &middot; Borzo &middot; Spatie &middot; MySQL</div>
+    <div class="stack">Laravel &middot; Blade &middot; Bootstrap 4 &middot; jQuery &middot; Queues &middot; Shopify &middot; Lalamove &middot; Borzo &middot; Spatie &middot; Node.js &middot; dompdf &middot; MySQL</div>
   </div>
 
   <div class="proj">
